@@ -27,7 +27,7 @@
         </label>
         <SfDropDownList ID="prenme" TItem="const_prenme" @bind-Value="personAdd.preid" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_prenme1">
             <DropDownListEvents TItem="const_prenme" TValue="string"></DropDownListEvents>
-            <DropDownListFieldSettings Text="prenme" Value="preid"></DropDownListFieldSettings>
+            <DropDownListFieldSettings Text="sexnme" Value="sexid"></DropDownListFieldSettings>
         </SfDropDownList>
     </div>
     <div class="form-group">
@@ -56,6 +56,15 @@
         <SfRadioButton Label="Male" Name="Gender" Value="1" @bind-Checked="@personAdd.sex"></SfRadioButton>
         <SfRadioButton Label="Female" Name="Gender" Value="2 " @bind-Checked="@personAdd.sex"></SfRadioButton>
     </div>
+    <div class="form-group">
+        <label for="sex">
+            คำนำหน้าชื่อ*"
+        </label>
+        @*<SfDropDownList ID="sex" TItem="const_sex" @bind-Value="personAdd.sex" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_prenme1">
+            <DropDownListEvents TItem="const_sex" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="prenme" Value="preid"></DropDownListFieldSettings>
+        </SfDropDownList>*@
+    </div>
 </EditForm>
 <EditForm Model="@recordSurveyProfile" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
@@ -82,7 +91,6 @@
         <InputText id="occid" class="form-control" placeholder="อาชีพ" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
         <InputText id="add_occid" class="form-control" placeholder="อาชีพเสริม (ถ้ามี)" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
         <InputText id="sal" class="form-control" placeholder="รายได้ต่อเดือน (บาท)" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
-        <br>
         <InputText id="roladr" class="form-control" placeholder="บ้านเลขที่" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
         <InputText id="rolvllsoi" class="form-control" placeholder="ถนน ตรอก ซอย" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
         <div class="row" style='border-style: dotted;border-width: 1px'>
