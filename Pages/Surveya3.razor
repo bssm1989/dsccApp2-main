@@ -1,0 +1,268 @@
+﻿@page "/surveya3"
+@page "/surveya3/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+
+
+@*<?php
+ session_start();
+ //phpinfo();
+ if(!$_SESSION["HC"]){
+ ?>*@
+
+ @*<?php
+ exit();
+ }
+ ?>*@
+
+ <br>
+ <div class="row" style='border-style: dotted;border-width: 1px'>
+ <div class="col-lg-12  mb-3">
+ <label for="firstName"><b>ตอนที่ 1 ข้อมูลสมาชิกในครัวเรือน (ทุนมนุษย์) (3/5)  (หน้าที่ 4/20)</b></label>
+ <label for="firstName">จำนวนเงินสวัสดิการให้ระบุจำนวนเงิน และความถี่ เช่น  กรณีผู้สูงอายุ 600 บาท ทุกเดือน   หรือ กรณีเงินเยียวยาจากโควิด 15,000 บาท  ครั้งเดียว</label>
+ </div>
+ </div>
+ <br>
+ <div class="row" style='border-style: dotted;border-width: 1px'>
+ <div class="col-lg-12">
+ <label><b><font size='6' color='red'>HC : @HC</font></b></label>
+ </div>
+ </div>
+ @*<?php
+ $mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+ $HC=$_SESSION["HC"];
+ $query="select HHM,PP from survey_profile where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+ $result=$mysqli->query($query);
+ $row=$result->fetch_object();
+ $count=$row->HHM+$row->PP;
+ 
+ $query1="select a1,a2,a9,a10,a11,a12,a13 from survey_a1 where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no' order by convert(a1,integer)";
+ $result1=$mysqli->query($query1);
+ $i=1;
+ while($row1=$result1->fetch_object()){
+ ?>*@
+
+ @{
+		//var hc_year_no=configSurvey.HC_noId(HC);
+		var i = 0;
+	}
+<EditForm Model="@modelSurA2sByHc" OnValidSubmit="@HandleValidSubmit" >
+
+	@foreach(var item in modelSurA2sByHc )
+	{
+		if (i < modelSurA2sByHc.Count)
+		{
+			
+		i++;
+		}
+		else
+		{
+			i = 1;
+		}
+		
+		var index=i;
+ <input type='hidden' name='a1[@index]' value='@*<?php echo$row1->a1?>*@'>
+ <br>
+ <div class="row" style='border-style: dotted;border-width: 1px'>
+ <div class="col-lg-12  mb-3">
+ <label for="firstName"><b>@index. @item.survey_A1.a1</b></label>
+ 
+ <div class="col-lg-12  mb-3">
+ <label for="firstName">9.1 พูดภาษาไทย (A9)</label>
+ <input type='button' value='reset'
+ onclick="
+ document.getElementById('a91[@index]').checked=false;
+ document.getElementById('a92[@index]').checked=false;
+ ">
+
+ <MatRadioGroup @bind-Value="@item.survey_A1.a9_1" TValue="string">
+
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("0")" Label=" 0) ไม่ได้"TValue="string"></MatRadioButton>
+ </div>
+ 
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("1")" Label=" 1) ได้ "TValue="string"></MatRadioButton>
+ </div>
+ </MatRadioGroup>
+ </div>
+ <div class="col-lg-12  mb-3">
+ <label for="firstName">9.2 อ่านภาษาไทย (A9)</label>
+ <input type='button' value='reset'
+ onclick="
+ document.getElementById('a91[@index]').checked=false;
+ document.getElementById('a92[@index]').checked=false;
+ ">
+
+ <MatRadioGroup @bind-Value="@item.survey_A1.a9_2" TValue="string">
+
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("0")" Label=" 0) ไม่ได้"TValue="string"></MatRadioButton>
+ </div>
+ 
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("1")" Label=" 1) ได้ "TValue="string"></MatRadioButton>
+ </div>
+ </MatRadioGroup>
+ </div>
+ <MatRadioGroup @bind-Value="@item.survey_A1.a10" TValue="string">
+ <div class="col-lg-12  mb-3">
+ <label for="firstName">10. เขียนภาษาไทย (A10)</label>
+ <input type='button' value='reset'
+ onclick="
+ document.getElementById('a101[@index]').checked=false;
+ document.getElementById('a102[@index]').checked=false;
+ ">
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("0")" Label=" 0) ไม่ได้"TValue="string"></MatRadioButton>
+ </div>
+ 
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("1")" Label=" 1) ได้ "TValue="string"></MatRadioButton>
+ </div>
+ </div>
+  </MatRadioGroup>
+ <MatRadioGroup @bind-Value="@item.survey_A1.a11" TValue="string">
+ <div class="col-lg-12  mb-3">
+ <label for="firstName">11. การศึกษาสูงสุด (A11)</label>
+ <input type='button' value='reset'
+ onclick="
+ document.getElementById('a110[@index]').checked=false;
+ document.getElementById('a111[@index]').checked=false;
+ document.getElementById('a112[@index]').checked=false;
+ document.getElementById('a113[@index]').checked=false;
+ document.getElementById('a114[@index]').checked=false;
+ document.getElementById('a115[@index]').checked=false;
+ document.getElementById('a116[@index]').checked=false;
+ document.getElementById('a117[@index]').checked=false;
+ document.getElementById('a118[@index]').checked=false;
+ ">
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("0")" Label=" 0) ไม่ได้เรียน  "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("1")" Label=" 1) ต่ำกว่าประถม"TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("2")" Label=" 2) ประถมศึกษา  "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("3")" Label=" 3) มัธยมศึกษาตอนต้น"TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("4")" Label=" 4) มัธยมศึกษาตอนปลายหรือเทียบเท่า "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("5")" Label=" 5) ปวช./ประกาศนียบัตร "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("6")" Label=" 6) ปวส./อนุปริญญา "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("7")" Label=" 7) ป.ตรี หรือเทียบเท่า "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("8")" Label=" 8) สูงกว่าปริญญาตรี  "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("9")" Label=" 9) เรียนสายศาสนา ระบุ  "TValue="string"></MatRadioButton>
+ </div>
+ </div>
+   </MatRadioGroup>
+   <input type='text' class="form-control" placeholder="--ระบุศาสนา--"  @bind-value="@item.survey_A1.a11_1"/>
+ <MatRadioGroup @bind-Value="@item.survey_A1.a12" TValue="string">
+ <div class="col-lg-12  mb-3">
+ <label for="firstName">12. กำลังศึกษาระดับ (A12)</label>
+ <input type='button' value='reset'
+ onclick="
+ document.getElementById('a120[@index]').checked=false;
+ document.getElementById('a121[@index]').checked=false;
+ document.getElementById('a122[@index]').checked=false;
+ document.getElementById('a123[@index]').checked=false;
+ document.getElementById('a124[@index]').checked=false;
+ document.getElementById('a125[@index]').checked=false;
+ document.getElementById('a126[@index]').checked=false;
+ document.getElementById('a127[@index]').checked=false;
+ document.getElementById('a128[@index]').checked=false;
+ document.getElementById('a129[@index]').checked=false;
+ ">
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("0")" Label=" 0) ไม่ได้เรียน  "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("1")" Label=" 1) ต่ำกว่าประถม"TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("2")" Label=" 2) ประถมศึกษา  "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("3")" Label=" 3) มัธยมศึกษาตอนต้น"TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("4")" Label=" 4) มัธยมศึกษาตอนปลายหรือเทียบเท่า "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("5")" Label=" 5) ปวช./ประกาศนียบัตร "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("6")" Label=" 6) ปวส./อนุปริญญา "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("7")" Label=" 7) ป.ตรี หรือเทียบเท่า "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("8")" Label=" 8) สูงกว่าปริญญาตรี  "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("9")" Label=" 9) เรียนสายศาสนา (อัลกรุอ่าน/กีตาบ)  "TValue="string"></MatRadioButton>
+   <input type='text' class="form-control" placeholder="--ระบุศาสนา--"  @bind-value="@item.survey_A1.a12_1"/>
+
+ </div>
+ </div>
+   </MatRadioGroup>
+ <MatRadioGroup @bind-Value="@item.survey_A1.a13" TValue="string">
+ <div class="col-lg-12  mb-3">
+ <label for="firstName">13. สถานภาพการศึกษา (A13)</label>
+ <input type='button' value='reset'
+ onclick="
+ document.getElementById('a131[@index]').checked=false;
+ document.getElementById('a132[@index]').checked=false;
+ document.getElementById('a133[@index]').checked=false;
+ document.getElementById('a134[@index]').checked=false;
+ ">
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("0")" Label=" 0) ไม่ได้เรียน (เรียนจบแล้วไม่เรียนต่อ) "TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("1")" Label=" 1) ไปเรียนสม่ำเสมอ"TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("2")" Label=" 2) หยุดเรียนเป็นระยะ ๆ"TValue="string"></MatRadioButton>
+ </div>
+ <div class="custom-control custom-radio">
+<MatRadioButton Value="@("3")" Label=" 3) ออกกลางคัน (Dropout) "TValue="string"></MatRadioButton>
+ </div>
+ </div>
+ </MatRadioGroup>
+ </div>
+ </div>
+ @*<?php
+ $i++;
+ }
+ $mysqli->close();
+ include('button.php');
+ ?>*@
+ }
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveya4/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>

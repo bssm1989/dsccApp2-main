@@ -1,0 +1,276 @@
+﻿@page "/Surveyb2"																																																
+@page "/Surveyb2/{HC}"	
+
+@inject Models.EmployeeContext DBContext																																																								
+@using FirstBlazorApp.Models																																																								
+@using System.ComponentModel.DataAnnotations																																																								
+@inject NavigationManager NavigationManager																																																								
+@inject IJSRuntime JSRuntime																																																								
+
+@*<?php
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@*<script>
+location='https://livingonnewpace.com/survey/index.php?curr=survey_profile';
+</script>*@
+@*<?php
+	exit();
+}
+
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$HC=$_SESSION["HC"];
+$query="select b8_0,b8_1,b8_1_1,b8_1_2,b8_1_3,b8_1_4,b8_1_1_1,b8_1_1_2,b8_1_1_3,b8_1_1_4,b8_1_1_5,b8_1_1_6,b8_2,b8_2_1,b8_2_2,b8_2_3,b8_2_4,
+b8_3,b8_3_1,b8_3_2,b8_3_3,b8_3_4,b8_4,b8_5,b8_5_1,b8_5_2,b8_5_3,b8_5_4,b8_5_5,b8_5_6,
+b8_6,b8_6_1,b8_6_2,b8_6_3,b8_6_4
+from survey_b2 where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+?>*@
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12 mb-3">
+			<b>ตอนที่ 2 ข้อมูลด้านกายภาพและสาธารณูปโภคสาธารณูปการ (ทุนกายภาพ) (2/4) (หน้าที่ 8/20)</b>
+	</div>
+</div>
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12">
+		<label><b><font size='6' color='red'>HC : @HC</font></b></label>
+	</div>
+</div>
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>8. ครัวเรือนของท่านมีพื้นที่ทำกินทางการเกษตรหรือไม่ (ตอบได้มากกว่า 1 ข้อ) (เป็นการถามเพื่อกำหนดแนวทางส่งเสริมและพัฒนาศักยภาพ) (B8)</label>
+		<div class="custom-control " style='border-style: dotted;border-width: 1px'>
+			<MatCheckbox  @bind-Value="@formData.b8_0" >8.1 ไม่มีที่ทำกินทางการเกษตร/ไม่ได้ทำการเกษตร (ข้ามไปตอบข้อ 11)</MatCheckbox>			<label class="custom-control-label" for="b8_0">8.1 ไม่มีที่ทำกินทางการเกษตร/ไม่ได้ทำการเกษตร (ข้ามไปตอบข้อ 11)</label>
+		</div>
+
+		<div class="custom-control " style='border-style: dotted;border-width: 1px'>
+			<MatCheckbox  @bind-Value="@formData.b8_1" >8.2 มีพื้นที่ทำกินเป็นของตนเอง โดยมีเอกสารสิทธิ์แสดงความเป็นเจ้าของ</MatCheckbox>			<label class="custom-control-label" for="b8_1">8.2 มีพื้นที่ทำกินเป็นของตนเอง โดยมีเอกสารสิทธิ์แสดงความเป็นเจ้าของ</label>
+
+			<div class="col-lg-12  mb-3">
+				<label>พื้นที่</label><br>
+				<label>แปลง</label>
+				<input type='text' name='b8_1_1'  @bind-value="@formData.survey_B2.b8_1_1" class="form-control" placeholder="แปลง">
+				<label>ไร่</label>
+				<input type='text' name='b8_1_2'  @bind-value="@formData.survey_B2.b8_1_2" class="form-control" placeholder="ไร่">
+				<label>งาน</label>
+				<input type='text' name='b8_1_3'  @bind-value="@formData.survey_B2.b8_1_3" class="form-control" placeholder="งาน">
+				<label>ตารางวา</label>
+				<input type='text' name='b8_1_4'  @bind-value="@formData.survey_B2.b8_1_4" class="form-control" placeholder="ตารางวา">
+
+				<br><label>แปลงที่ 1</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b8_1_1_1_a').checked=false;
+						document.getElementById('b8_1_1_1_b').checked=false;
+						document.getElementById('b8_1_1_1_c').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_1" TValue="string">					<label class="custom-control-label" for="b8_1_1_1_a">ไม่ติดจำนอง หรือค้ำประกัน </label>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("1")" TValue="string"   >ไม่ติดจำนอง หรือค้ำประกัน</MatRadioButton>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("2")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_1" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_1_b">ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร </label>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("3")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_1" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_1_c">ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ </label>
+				</div>
+				</MatRadioGroup>
+				<br><label>แปลงที่ 2</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b8_1_1_2_a').checked=false;
+						document.getElementById('b8_1_1_2_b').checked=false;
+						document.getElementById('b8_1_1_2_c').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_2" TValue="string">					<label class="custom-control-label" for="b8_1_1_2_a">ไม่ติดจำนอง หรือค้ำประกัน </label>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("1")" TValue="string"   >ไม่ติดจำนอง หรือค้ำประกัน</MatRadioButton>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("2")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_2" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_2_b">ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร </label>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("3")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_2" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_2_c">ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ </label>
+				</div>
+				</MatRadioGroup>
+				<br><label>แปลงที่ 3</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b8_1_1_3_a').checked=false;
+						document.getElementById('b8_1_1_3_b').checked=false;
+						document.getElementById('b8_1_1_3_c').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_3" TValue="string">					<label class="custom-control-label" for="b8_1_1_3_a">ไม่ติดจำนอง หรือค้ำประกัน </label>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("1")" TValue="string"   >ไม่ติดจำนอง หรือค้ำประกัน</MatRadioButton>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("2")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_3" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_3_b">ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร </label>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("3")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_3" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_3_c">ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ </label>
+				</div>
+				</MatRadioGroup>
+				<br><label>แปลงที่ 4</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b8_1_1_4_a').checked=false;
+						document.getElementById('b8_1_1_4_b').checked=false;
+						document.getElementById('b8_1_1_4_c').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_4" TValue="string">					<label class="custom-control-label" for="b8_1_1_4_a">ไม่ติดจำนอง หรือค้ำประกัน</label>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("1")" TValue="string"   >ไม่ติดจำนอง หรือค้ำประกัน</MatRadioButton>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("2")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_4" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_4_b">ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร</label>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("3")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_4" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_4_c">ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ </label>
+				</div>
+				</MatRadioGroup>
+				<br><label>แปลงที่ 5</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b8_1_1_5_a').checked=false;
+						document.getElementById('b8_1_1_5_b').checked=false;
+						document.getElementById('b8_1_1_5_c').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_5" TValue="string">					<label class="custom-control-label" for="b8_1_1_5_a">ไม่ติดจำนอง หรือค้ำประกัน </label>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("1")" TValue="string"   >ไม่ติดจำนอง หรือค้ำประกัน</MatRadioButton>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("2")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_5" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_5_b">ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร </label>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("3")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_5" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_5_c">ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ </label>
+				</div>
+				</MatRadioGroup>>
+				<br><label>แปลงที่ 6</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b8_1_1_6_a').checked=false;
+						document.getElementById('b8_1_1_6_b').checked=false;
+						document.getElementById('b8_1_1_6_c').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_6" TValue="string">					<label class="custom-control-label" for="b8_1_1_6_a">ไม่ติดจำนอง หรือค้ำประกัน </label>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("1")" TValue="string"   >ไม่ติดจำนอง หรือค้ำประกัน</MatRadioButton>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("2")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_6" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_6_b">ติดจำนอง หรือค้ำประกันกับสถาบันการเงิน ธนาคาร </label>
+				</div>
+				<div class="custom-control custom-radio">
+					<MatRadioButton Value="@("3")" TValue="string"   >ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.survey_B2.b8_1_1_6" TValue="string">*@					<label class="custom-control-label" for="b8_1_1_6_c">ติดจำนอง หรือค้ำประกันกับเจ้าหนี้นอกระบบ </label>
+				</div>
+				</MatRadioGroup>>
+		</div>
+				</div>
+
+		<div class="custom-control " style='border-style: dotted;border-width: 1px'>
+			<MatCheckbox  @bind-Value="@formData.b8_2" >8.3 มีพื้นที่ทำกินที่มีเอกสารแสดงสิทธิ์แสดงการครอบครอง</MatCheckbox>			<label class="custom-control-label" for="b8_22">8.3 มีพื้นที่ทำกินที่มีเอกสารแสดงสิทธิ์แสดงการครอบครอง </label>
+			<div class="col-lg-12  mb-3">
+				<label>พื้นที่</label><br>
+				<label>แปลง</label>
+				<input type='text' name='b8_2_1'  @bind-value="@formData.survey_B2.b8_2_1" class="form-control" placeholder="แปลง">
+				<label>ไร่</label>
+				<input type='text' name='b8_2_2'  @bind-value="@formData.survey_B2.b8_2_2" class="form-control" placeholder="ไร่">
+				<label>งาน</label>
+				<input type='text' name='b8_2_3'  @bind-value="@formData.survey_B2.b8_2_3" class="form-control" placeholder="งาน">
+				<label>ตารางวา</label>
+				<input type='text' name='b8_2_4'  @bind-value="@formData.survey_B2.b8_2_4" class="form-control" placeholder="ตารางวา">
+			</div>
+		</div>
+
+		<div class="custom-control " style='border-style: dotted;border-width: 1px'>
+			<MatCheckbox  @bind-Value="@formData.b8_3" >8.4 มีพื้นที่ทำกินอยู่ในเขตป่า (ป่าสงวนฯ/อุทยานฯ หรืออื่น ๆ )</MatCheckbox>			<label class="custom-control-label" for="b8_32">8.4 มีพื้นที่ทำกินอยู่ในเขตป่า (ป่าสงวนฯ/อุทยานฯ หรืออื่น ๆ ) </label>
+			<div class="col-lg-12  mb-3">
+				<label>พื้นที่</label><br>
+				<label>แปลง</label>
+				<input type='text' name='b8_3_1'  @bind-value="@formData.survey_B2.b8_3_1" class="form-control" placeholder="แปลง">
+				<label>ไร่</label>
+				<input type='text' name='b8_3_2'  @bind-value="@formData.survey_B2.b8_3_2" class="form-control" placeholder="ไร่">
+				<label>งาน</label>
+				<input type='text' name='b8_3_3'  @bind-value="@formData.survey_B2.b8_3_3" class="form-control" placeholder="งาน">
+				<label>ตารางวา</label>
+				<input type='text' name='b8_3_4'  @bind-value="@formData.survey_B2.b8_3_4" class="form-control" placeholder="ตารางวา">
+			</div>
+		</div>
+
+		<div class="custom-control " style='border-style: dotted;border-width: 1px'>
+			<MatCheckbox  @bind-Value="@formData.b8_4" >8.5ไม่มีพื้นที่ทำกินเป็นของตนเองแต่อาศัยพื้นที่ของบุคคลอื่นทำ โดยไม่มีค่าเช่า</MatCheckbox>			<label class="custom-control-label" for="b8_4">8.5ไม่มีพื้นที่ทำกินเป็นของตนเองแต่อาศัยพื้นที่ของบุคคลอื่นทำ โดยไม่มีค่าเช่า</label>
+		</div>
+
+		<div class="custom-control " style='border-style: dotted;border-width: 1px'>
+			<MatCheckbox  @bind-Value="@formData.b8_5" >8.6 เช่าที่ทำกิน</MatCheckbox>			<label class="custom-control-label" for="b8_5">8.6 เช่าที่ทำกิน </label>
+			<div class="col-lg-12  mb-3">
+				<label>พื้นที่</label><br>
+				<label>แปลง</label>
+				<input type='text' name='b8_5_1'  @bind-value="@formData.survey_B2.b8_5_1" class="form-control" placeholder="แปลง">
+				<label>ไร่</label>
+				<input type='text' name='b8_5_2'  @bind-value="@formData.survey_B2.b8_5_2" class="form-control" placeholder="ไร่">
+				<label>งาน</label>
+				<input type='text' name='b8_5_3'  @bind-value="@formData.survey_B2.b8_5_3" class="form-control" placeholder="งาน">
+				<label>ตารางวา</label>
+				<input type='text' name='b8_5_4'  @bind-value="@formData.survey_B2.b8_5_4" class="form-control" placeholder="ตารางวา">
+
+				<label>ค่าเช่า(บาท/เดือน)</label>
+				<input type='text' name='b8_5_5'  @bind-value="@formData.survey_B2.b8_5_5" class="form-control" placeholder="ตารางวา"> 
+				<label>ค่าเช่า(แบ่งผลผลิต)</label>
+				<input type='text' name='b8_5_6'  @bind-value="@formData.survey_B2.b8_5_6" class="form-control" placeholder="ค่าเช่า(แบ่งผลผลิต)">
+			</div>
+		</div>
+
+		<div class="custom-control " style='border-style: dotted;border-width: 1px'>
+			<MatCheckbox  @bind-Value="@formData.b8_6" >8.7 มีพื้นที่ทำกินเป็นของตนเอง แต่ไม่มีเอกสารสิทธิ์แสดงความเป็นเจ้าของ</MatCheckbox>			<label class="custom-control-label" for="b8_62">8.7 มีพื้นที่ทำกินเป็นของตนเอง แต่ไม่มีเอกสารสิทธิ์แสดงความเป็นเจ้าของ </label>
+			<div class="col-lg-12  mb-3">
+				<label>พื้นที่</label><br>
+				<label>แปลง</label>
+				<input type='text' name='b8_6_1'  @bind-value="@formData.survey_B2.b8_6_1" class="form-control" placeholder="แปลง">
+				<label>ไร่</label>
+				<input type='text' name='b8_6_2'  @bind-value="@formData.survey_B2.b8_6_2" class="form-control" placeholder="ไร่">
+				<label>งาน</label>
+				<input type='text' name='b8_6_3'  @bind-value="@formData.survey_B2.b8_6_3" class="form-control" placeholder="งาน">
+				<label>ตารางวา</label>
+				<input type='text' name='b8_6_4'  @bind-value="@formData.survey_B2.b8_6_4" class="form-control" placeholder="ตารางวา">
+			</div>
+		</div>
+
+	</div>
+</div>
+@*<?php
+	$mysqli->close();
+	include('button.php');
+?>*@
+ 
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+			@{var txtLink="surveyb3/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>
+<b>getUpdate:@getUpdate</b><br>
+<b>getAdd:@getAdd</b>

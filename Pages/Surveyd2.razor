@@ -1,0 +1,493 @@
+﻿@page "/surveyd2"
+
+@page "/surveyd2/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@*<?php
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@*<script>
+location='https://livingonnewpace.com/survey/index.php?curr=survey_profile';
+</script>*@
+@*<?php
+	exit();
+}
+
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$HC=$_SESSION["HC"];
+$query="select d4,d4_1,d4_1_1,d4_1_2,d4_2,d4_2_1,d4_2_2,d4_3,d4_3_1,d4_3_2,d4_4,d4_4_1,d4_4_2,d4_5,d4_5_1,d4_5_2,d4_6,d4_6_1,d4_6_2,d4_7,d4_7_1,d4_7_2,d4_8,d4_8_1,d4_8_2,d4_9,d4_9_1,d4_9_2,d4_10,d4_10_1,d4_10_2,d4_11,d4_11_1,d4_11_2 from survey_d2 where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+?>*@
+@*<form name='surway' method='POST' action='surveyd2_add.php'>*@
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+<table>
+	<tr>
+		<td align='center'>แบบสอบถาม<br>
+โครงการพัฒนาระบบสนับสนุนการทำงานเชิงพื้นที่เพื่อการแก้ไขปัญหาความยากจนแบบเบ็ดเสร็จและแม่นยำหน่วยบริหารและจัดการทุนด้านการพัฒนาระดับพื้นที่ (บพท.)
+		</td>
+	</tr>
+	<tr>
+		<td><b>ตอนที่ 4 ทรัพยากรธรรมชาติ และภัยพิบัติต่างๆ  (ทุนทรัพยากรธรรมชาติ) (2/3) (หน้าที่ 15/20)</b></td>
+	</tr>
+	<tr>
+		<td><b><font size='6' color='red'>HC : @HC</font></b></td>
+	</tr>
+	<tr>
+		<td>
+			4. ครัวเรือนของท่านมีบ้านพักอาศัยอยู่ในพื้นที่ภัยพิบัติหรือไม่ ในระยะเวลา 5 ปี (พ.ศ. 2559-2563) (D4) 
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d40').checked=false;
+						document.getElementById('d41').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   >0) ไม่อยู่</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   >1) อยู่</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <input type='hidden' value='1' name='d4_1' > 1) <font color='blue'>อุทกภัย (D4.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d4_1_10').checked=false;
+						document.getElementById('d4_1_11').checked=false;
+						document.getElementById('d4_1_12').checked=false;
+						document.getElementById('d4_1_13').checked=false;
+						document.getElementById('d4_1_14').checked=false;
+						document.getElementById('d4_1_20').checked=false;
+						document.getElementById('d4_1_21').checked=false;
+						document.getElementById('d4_1_22').checked=false;
+						document.getElementById('d4_1_23').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ประสบภัยพิบัติ (D4.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_1_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่เคยประสบภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_1_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_1_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) 2-3 ครั้งในรอบ 5 ปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_1_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ทุกปี (ปีละครั้ง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_1_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("4")" TValue="string"   >4) มากกว่าปีละ 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_1_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>การรับมือกับภัยพิบัติ (D4.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_1_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ได้รับความช่วยเหลือ/ช่วยเหลือตัวเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_1_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) ได้รับการช่วยเหลือและชดเชยเยียวยาจากภาครัฐ/เอกชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_1_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_1_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติและสามารถฟื้นตัวเข้าสู่ภาวะปกติได้เร็ว</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_1_2" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <input type='hidden' value='2' name='d4_2'> 2) <font color='blue'>ดินโคลนถล่ม (D4.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d4_2_10').checked=false;
+						document.getElementById('d4_2_11').checked=false;
+						document.getElementById('d4_2_12').checked=false;
+						document.getElementById('d4_2_13').checked=false;
+						document.getElementById('d4_2_14').checked=false;
+						document.getElementById('d4_2_20').checked=false;
+						document.getElementById('d4_2_21').checked=false;
+						document.getElementById('d4_2_22').checked=false;
+						document.getElementById('d4_2_23').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ประสบภัยพิบัติ (D4.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_2_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่เคยประสบภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_2_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_2_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) 2-3 ครั้งในรอบ 5 ปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_2_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ทุกปี (ปีละครั้ง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_2_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("4")" TValue="string"   >4) มากกว่าปีละ 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_2_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>การรับมือกับภัยพิบัติ (D4.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_2_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ได้รับความช่วยเหลือ/ช่วยเหลือตัวเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_2_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) ได้รับการช่วยเหลือและชดเชยเยียวยาจากภาครัฐ/เอกชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_2_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_2_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติและสามารถฟื้นตัวเข้าสู่ภาวะปกติได้เร็ว</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_2_2" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <input type='hidden' value='3' name='d4_3'> 3) <font color='blue'>วาตภัย (D4.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d4_3_10').checked=false;
+						document.getElementById('d4_3_11').checked=false;
+						document.getElementById('d4_3_12').checked=false;
+						document.getElementById('d4_3_13').checked=false;
+						document.getElementById('d4_3_14').checked=false;
+						document.getElementById('d4_3_20').checked=false;
+						document.getElementById('d4_3_21').checked=false;
+						document.getElementById('d4_3_22').checked=false;
+						document.getElementById('d4_3_23').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ประสบภัยพิบัติ (D4.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_3_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่เคยประสบภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_3_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1)  1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_3_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) 2-3 ครั้งในรอบ 5 ปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_3_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ทุกปี (ปีละครั้ง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_3_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("4")" TValue="string"   >4) มากกว่าปีละ 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_3_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>การรับมือกับภัยพิบัติ (D4.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_3_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ได้รับความช่วยเหลือ/ช่วยเหลือตัวเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_3_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) ได้รับการช่วยเหลือและชดเชยเยียวยาจากภาครัฐ/เอกชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_3_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_3_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติและสามารถฟื้นตัวเข้าสู่ภาวะปกติได้เร็ว</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_3_2" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <input type='hidden' value='4' name='d4_4'> 4) <font color='blue'>อัคคีภัย (D4.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d4_4_10').checked=false;
+						document.getElementById('d4_4_11').checked=false;
+						document.getElementById('d4_4_12').checked=false;
+						document.getElementById('d4_4_13').checked=false;
+						document.getElementById('d4_4_14').checked=false;
+						document.getElementById('d4_4_20').checked=false;
+						document.getElementById('d4_4_21').checked=false;
+						document.getElementById('d4_4_22').checked=false;
+						document.getElementById('d4_4_23').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ประสบภัยพิบัติ (D4.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_4_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่เคยประสบภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_4_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1)  1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_4_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) 2-3 ครั้งในรอบ 5 ปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_4_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ทุกปี (ปีละครั้ง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_4_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("4")" TValue="string"   >4) มากกว่าปีละ 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_4_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>การรับมือกับภัยพิบัติ (D4.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_4_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ได้รับความช่วยเหลือ/ช่วยเหลือตัวเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_4_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) ได้รับการช่วยเหลือและชดเชยเยียวยาจากภาครัฐ/เอกชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_4_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_4_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติและสามารถฟื้นตัวเข้าสู่ภาวะปกติได้เร็ว</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_4_2" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <input type='hidden' value='5' name='d4_5'> 5) <font color='blue'>ภัยจากสารเคมีและวัตถุอันตราย (D4.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d4_5_10').checked=false;
+						document.getElementById('d4_5_11').checked=false;
+						document.getElementById('d4_5_12').checked=false;
+						document.getElementById('d4_5_13').checked=false;
+						document.getElementById('d4_5_14').checked=false;
+						document.getElementById('d4_5_20').checked=false;
+						document.getElementById('d4_5_21').checked=false;
+						document.getElementById('d4_5_22').checked=false;
+						document.getElementById('d4_5_23').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ประสบภัยพิบัติ (D4.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_5_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่เคยประสบภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_5_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1)  1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_5_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) 2-3 ครั้งในรอบ 5 ปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_5_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ทุกปี (ปีละครั้ง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_5_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("4")" TValue="string"   >4) มากกว่าปีละ 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_5_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>การรับมือกับภัยพิบัติ (D4.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_5_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ได้รับความช่วยเหลือ/ช่วยเหลือตัวเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_5_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) ได้รับการช่วยเหลือและชดเชยเยียวยาจากภาครัฐ/เอกชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_5_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_5_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติและสามารถฟื้นตัวเข้าสู่ภาวะปกติได้เร็ว</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_5_2" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <input type='hidden' value='6' name='d4_6'> 6) <font color='blue'>ภัยแล้ง (D4.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d4_6_10').checked=false;
+						document.getElementById('d4_6_11').checked=false;
+						document.getElementById('d4_6_12').checked=false;
+						document.getElementById('d4_6_13').checked=false;
+						document.getElementById('d4_6_14').checked=false;
+						document.getElementById('d4_6_20').checked=false;
+						document.getElementById('d4_6_21').checked=false;
+						document.getElementById('d4_6_22').checked=false;
+						document.getElementById('d4_6_23').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ประสบภัยพิบัติ (D4.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_6_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่เคยประสบภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_6_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1)  1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_6_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) 2-3 ครั้งในรอบ 5 ปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_6_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ทุกปี (ปีละครั้ง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_6_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("4")" TValue="string"   >4) มากกว่าปีละ 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_6_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>การรับมือกับภัยพิบัติ (D4.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_6_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ได้รับความช่วยเหลือ/ช่วยเหลือตัวเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_6_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) ได้รับการช่วยเหลือและชดเชยเยียวยาจากภาครัฐ/เอกชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_6_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_6_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติและสามารถฟื้นตัวเข้าสู่ภาวะปกติได้เร็ว</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_6_2" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <input type='hidden' value='7' name='d4_7'> 7) <font color='blue'>ไฟจากไฟป่าและหมอกควัน (D4.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d4_7_10').checked=false;
+						document.getElementById('d4_7_11').checked=false;
+						document.getElementById('d4_7_12').checked=false;
+						document.getElementById('d4_7_13').checked=false;
+						document.getElementById('d4_7_14').checked=false;
+						document.getElementById('d4_7_20').checked=false;
+						document.getElementById('d4_7_21').checked=false;
+						document.getElementById('d4_7_22').checked=false;
+						document.getElementById('d4_7_23').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ประสบภัยพิบัติ (D4.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_7_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่เคยประสบภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_7_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1)  1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_7_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) 2-3 ครั้งในรอบ 5 ปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_7_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ทุกปี (ปีละครั้ง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_7_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("4")" TValue="string"   >4) มากกว่าปีละ 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_7_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>การรับมือกับภัยพิบัติ (D4.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_7_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ได้รับความช่วยเหลือ/ช่วยเหลือตัวเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_7_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) ได้รับการช่วยเหลือและชดเชยเยียวยาจากภาครัฐ/เอกชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_7_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_7_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติและสามารถฟื้นตัวเข้าสู่ภาวะปกติได้เร็ว</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_7_2" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <input type='hidden' value='8' name='d4_8'> 8) <font color='blue'>ภัยโรคระบาดในมนุษย์ (D4.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d4_8_10').checked=false;
+						document.getElementById('d4_8_11').checked=false;
+						document.getElementById('d4_8_12').checked=false;
+						document.getElementById('d4_8_13').checked=false;
+						document.getElementById('d4_8_14').checked=false;
+						document.getElementById('d4_8_20').checked=false;
+						document.getElementById('d4_8_21').checked=false;
+						document.getElementById('d4_8_22').checked=false;
+						document.getElementById('d4_8_23').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ประสบภัยพิบัติ (D4.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_8_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่เคยประสบภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_8_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1)  1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_8_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) 2-3 ครั้งในรอบ 5 ปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_8_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ทุกปี (ปีละครั้ง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_8_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("4")" TValue="string"   >4) มากกว่าปีละ 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_8_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>การรับมือกับภัยพิบัติ (D4.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_8_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ได้รับความช่วยเหลือ/ช่วยเหลือตัวเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_8_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) ได้รับการช่วยเหลือและชดเชยเยียวยาจากภาครัฐ/เอกชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_8_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_8_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติและสามารถฟื้นตัวเข้าสู่ภาวะปกติได้เร็ว</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_8_2" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <input type='hidden' value='9' name='d4_9'> 9 ) <font color='blue'>ภัยจากแมลง สัตว์ ศัตรูพืชระบาด (D4.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d4_9_10').checked=false;
+						document.getElementById('d4_9_11').checked=false;
+						document.getElementById('d4_9_12').checked=false;
+						document.getElementById('d4_9_13').checked=false;
+						document.getElementById('d4_9_14').checked=false;
+						document.getElementById('d4_9_20').checked=false;
+						document.getElementById('d4_9_21').checked=false;
+						document.getElementById('d4_9_22').checked=false;
+						document.getElementById('d4_9_23').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ประสบภัยพิบัติ (D4.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_9_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่เคยประสบภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_9_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1)  1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_9_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) 2-3 ครั้งในรอบ 5 ปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_9_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ทุกปี (ปีละครั้ง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_9_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("4")" TValue="string"   >4) มากกว่าปีละ 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_9_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>การรับมือกับภัยพิบัติ (D4.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_9_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ได้รับความช่วยเหลือ/ช่วยเหลือตัวเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_9_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) ได้รับการช่วยเหลือและชดเชยเยียวยาจากภาครัฐ/เอกชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_9_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_9_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติและสามารถฟื้นตัวเข้าสู่ภาวะปกติได้เร็ว</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_9_2" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <input type='hidden' value='10' name='d4_10'> 10 ) <font color='blue'>ภัยโรคระบาดสัตว์ และสัตว์น้ำ (D4.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d4_10_10').checked=false;
+						document.getElementById('d4_10_11').checked=false;
+						document.getElementById('d4_10_12').checked=false;
+						document.getElementById('d4_10_13').checked=false;
+						document.getElementById('d4_10_14').checked=false;
+						document.getElementById('d4_10_20').checked=false;
+						document.getElementById('d4_10_21').checked=false;
+						document.getElementById('d4_10_22').checked=false;
+						document.getElementById('d4_10_23').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ประสบภัยพิบัติ (D4.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_10_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่เคยประสบภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_10_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1)  1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_10_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) 2-3 ครั้งในรอบ 5 ปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_10_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ทุกปี (ปีละครั้ง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_10_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("4")" TValue="string"   >4) มากกว่าปีละ 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_10_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>การรับมือกับภัยพิบัติ (D4.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_10_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ได้รับความช่วยเหลือ/ช่วยเหลือตัวเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_10_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) ได้รับการช่วยเหลือและชดเชยเยียวยาจากภาครัฐ/เอกชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_10_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_10_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติและสามารถฟื้นตัวเข้าสู่ภาวะปกติได้เร็ว</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_10_2" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <input type='hidden' value='11' name='d4_11'> 11) <font color='blue'>ภัยจากสถานการณ์ความไม่สงบ (ภัยจากมนุษย์) (D4.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('d4_11_10').checked=false;
+						document.getElementById('d4_11_11').checked=false;
+						document.getElementById('d4_11_12').checked=false;
+						document.getElementById('d4_11_13').checked=false;
+						document.getElementById('d4_11_14').checked=false;
+						document.getElementById('d4_11_20').checked=false;
+						document.getElementById('d4_11_21').checked=false;
+						document.getElementById('d4_11_22').checked=false;
+						document.getElementById('d4_11_23').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ประสบภัยพิบัติ (D4.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_11_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่เคยประสบภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_11_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1)  1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_11_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) 2-3 ครั้งในรอบ 5 ปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_11_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ทุกปี (ปีละครั้ง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_11_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("4")" TValue="string"   >4) มากกว่าปีละ 1 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_11_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>การรับมือกับภัยพิบัติ (D4.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_11_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ได้รับความช่วยเหลือ/ช่วยเหลือตัวเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_11_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >1) ได้รับการช่วยเหลือและชดเชยเยียวยาจากภาครัฐ/เอกชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_11_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >2) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_11_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >3) ชุมชนมีระบบบริหารจัดการรองรับภัยพิบัติและสามารถฟื้นตัวเข้าสู่ภาวะปกติได้เร็ว</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.d4_11_2" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+		</td>
+	</tr>
+	@*<tr>*@
+@*<?php
+	$mysqli->close();
+include('button2.php');
+?>*@
+</table>
+@*</form>*@
+ 
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveyd3/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>@**@

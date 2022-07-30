@@ -1,0 +1,193 @@
+﻿@page "/surveye3"
+
+@page "/surveye3/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@*<?php
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@*<script>
+location='https://livingonnewpace.com/survey/index.php?curr=survey_profile';
+</script>*@
+@*<?php
+	exit();
+}
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$HC=$_SESSION["HC"];
+$query="select e3,e4,e5,e6,e7_1,e7_2,e7_3,e7_4,e7_5,e7_6,e7_7,e7_8,e7_9,e7_10,e7_11,e7_11_1,e8,e8_1_1,e8_1_2,e8_1_3,e8_1_4,e8_1_4_1,e8_2_1,e8_2_2,e8_2_3,e8_2_4,e8_2_5,e8_2_6,e8_2_7,e8_2_8,e8_2_9,e8_2_10,e8_2_11,e8_2_11_1,e9_1,e9_2,e9_3,e9_4,e10_1,e10_2,e10_3,e10_4 from survey_e3 where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+?>*@
+@*<form name='surway' method='POST' action='surveye3_add.php'>*@
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+<table>
+	<tr>
+		<td align='center'>แบบสอบถาม<br>
+โครงการพัฒนาระบบสนับสนุนการทำงานเชิงพื้นที่เพื่อการแก้ไขปัญหาความยากจนแบบเบ็ดเสร็จและแม่นยำหน่วยบริหารและจัดการทุนด้านการพัฒนาระดับพื้นที่ (บพท.)
+		</td>
+	</tr>
+	<tr>
+		<td><b>ตอนที่ 5 การเกื้อกูลและระบบรองรับทางสังคม (ทุนทางสังคม) (3/3) (หน้าที่ 19/20)</b></td>
+	</tr>
+	<tr>
+		<td><b><font size='6' color='red'>HC : @HC</font></b></td>
+	</tr>
+	<tr>
+		<td>
+			3. การช่วยเหลือกันเมื่อคนในชุมชนประสบความเดือดร้อน (E3)
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('e30').checked=false;
+						document.getElementById('e31').checked=false;
+						document.getElementById('e32').checked=false;
+						document.getElementById('e33').checked=false;
+						document.getElementById('e34').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e3" TValue="string">
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("0")" TValue="string"   >1) ไม่มี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e3" TValue="string">*@
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("1")" TValue="string"   >2) ช่วยเหลือกันตามธรรมเนียมประเพณี (ไม่ต้องเกณฑ์/บังคับ)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e3" TValue="string">*@
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("2")" TValue="string"   >3) มีการกำหนดกติกาในการช่วยเหลือกันเมื่อประสบความเดือดร้อน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e3" TValue="string">*@
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("3")" TValue="string"   >4) มีการตั้งกลุ่มหรือกลไกเพื่อดำเนินการช่วยเหลือกันเมื่อประสบความเดือดร้อน (เช่น กองทุนสวัสดิการในระดับชุมชน)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e3" TValue="string">*@
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("4")" TValue="string"   >5) การปรึกษาหารือ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e3" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			4. การกำหนดกฎระเบียบ หรือกติกาในการอยู่ร่วมกันของชุมชน (E4)
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('e40').checked=false;
+						document.getElementById('e41').checked=false;
+						document.getElementById('e42').checked=false;
+						document.getElementById('e43').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e4" TValue="string">
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("0")" TValue="string"   >1) ไม่มีการกำหนดกฎระเบียบ หรือกติกาในการอยู่ร่วมกัน (ข้ามไปตอบข้อ 6)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e4" TValue="string">*@
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("1")" TValue="string"   >2) เริ่มมีแนวทางหรือกฎระเบียบชุมชนที่เกิดจากการมีส่วนร่วมของชุมชน ในรูปแบบต่าง ๆ เช่น กติกา ธรรมนูญชุมชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e4" TValue="string">*@
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("2")" TValue="string"   >3) แนวทางหรือกฎระเบียบการอยู่ร่วมกันที่เหมาะสมกับบริบทชุมชนแต่ยังไม่มีการนำไปใช้อย่างจริงจัง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e4" TValue="string">*@
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("3")" TValue="string"   >4) มีแนวทางหรือกฎระเบียบการอยู่ร่วมกันที่เหมาะสมกับบริบทชุมชนและนำไปปฏิบัติในการอยู่ร่วมกัน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e4" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			5. การปฏิบัติตามกฎระเบียบ กติกา ข้อตกลงการอยู่ร่วมกันของชุมชน (E5)
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('e51').checked=false;
+						document.getElementById('e52').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e5" TValue="string">
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("1")" TValue="string"   >1) คนในหมู่บ้าน/ชุมชน ส่วนน้อยปฏิบัติตามกฎระเบียบ กติกา ข้อตกลงของชุมชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e5" TValue="string">*@
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("2")" TValue="string"   >2) คนในหมู่บ้าน/ชุมชน ส่วนใหญ่ปฏิบัติตามกฎระเบียบ กติกา ข้อตกลงของชุมชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e5" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			6. การจัดการปัญหาความขัดแย้งของชุมชน (E6)
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('e60').checked=false;
+						document.getElementById('e61').checked=false;
+						document.getElementById('e62').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e6" TValue="string">
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("0")" TValue="string"   >1) ชุมชนไม่สามารถไกล่เกลี่ยปัญหากันเองได้ ต้องมีเจ้าหน้าที่ฝ่ายปกครองของรัฐ เข้ามาไกล่เกลี่ย เช่น ตำรวจ เจ้าพนักงานปกครอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e6" TValue="string">*@
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("1")" TValue="string"   >2) ชุมชนสามารถไกล่เกลี่ยปัญหากันเองได้ในบางเรื่อง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e6" TValue="string">*@
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("2")" TValue="string"   >3) ชุมชนสามารถไกล่เกลี่ยปัญหากันเองได้ โดยมีคนกลางที่ชุมชนให้การยอมรับ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e6" TValue="string">*@
+</MatRadioGroup>
+			<hr>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			7. ชุมชนของท่านมีผู้ที่มีความรู้ในการแก้ไขปัญหา และพัฒนาชุมชนด้านใดบ้าง (E7)
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e7_1" >1) เกษตรกรรม</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e7_2" >2) การประมง</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e7_3" >3) ปศุสัตว์</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e7_4" >4) นวัตกรรมด้านการผลิตและการตลาด</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e7_5" >5) ช่าง (ช่างก่อสร้าง ช่างไฟฟ้า ช่างประปา ช่างซ่อม ช่างเสริมสวย)</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e7_6" >6) สมุนไพร หัตถเวช</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e7_7" >7) อาหาร ขนม แปรรูป ถนอมอาหาร</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e7_8" >8) ศิลปะ งานฝีมือ หัตถกรรม</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e7_9" >9) พิธีกรรมทางศาสนา</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e7_10" >10) เทคโนโลยีสารสนเทศ</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e7_11" >11) อื่น ๆ (ระบุ)</MatCheckbox><input type='textbox' name='e7_11_1'  @bind-value="@formData.surveyTemp.e7_11_1">
+			<hr>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			8. ครัวเรือนของท่านเคยได้ใช้ความรู้จากผู้ที่มีความรู้ ตามข้อ 7 ในการแก้ไขปัญหาหรือไม่ (E8)
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('e80').checked=false;
+						document.getElementById('e81').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e8" TValue="string">
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("0")" TValue="string"   >1) ไม่เคย (ระบุสาเหตุ)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e8" TValue="string">*@
+			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_1_1" >1) ไม่รู้</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_1_2" >2) เข้าไม่ถึง</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_1_3" >3) ไม่มีเงิน</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_1_4" >4) อื่น ๆ  (ระบุ)</MatCheckbox><input type='textbox' name='e8_1_4_1'  @bind-value="@formData.surveyTemp.e8_1_4_1">
+
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatRadioButton Value="@("1")" TValue="string"   >2) เคย (ระบุ)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e8" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_2_1" >1) เกษตรกรรม</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_2_2" >2) การประมง</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_2_3" >3) ปศุสัตว์</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_2_4" >4) นวัตกรรมด้านการผลิตและการตลาด</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_2_5" >5) ช่าง (ช่างก่อสร้าง ช่างไฟฟ้า ช่างประปา ช่างซ่อม ช่างเสริมสวย)</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_2_6" >6) สมุนไพร หัตถเวช</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_2_7" >7) อาหาร ขนม แปรรูป ถนอมอาหาร</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_2_8" >8) ศิลปะ งานฝีมือ หัตถกรรม</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_2_9" >9) พิธีกรรมทางศาสนา</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_2_10" >10) เทคโนโลยีสารสนเทศ</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e8_2_11" >11) อื่น ๆ (ระบุ)</MatCheckbox><input type='textbox' name='e8_2_11_1'  @bind-value="@formData.surveyTemp.e8_2_11_1">
+			<hr>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			9. ประสบการณ์ในการพัฒนาหรือแก้ไขปัญหาของชุมชน  (E9)
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e9_1" >1) มีประสบการณ์ในการพัฒนาหรือแก้ไขปัญหาชุมชนที่ได้รับการสนับสนุนจากหน่วยงานภายนอกเป็นหลัก</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e9_2" >2) มีองค์ความรู้ ผู้รู้ท้องถิ่น และแหล่งเรียนรู้ในการพัฒนา หรือแก้ไขปัญหาที่สอดคล้องกับชุมชน</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e9_3" >3) มีองค์ความรู้ ผู้รู้ท้องถิ่น และแหล่งเรียนรู้ที่สามารถขยายผลให้กับชุมชนอื่น ๆ</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e9_4" >4) มีองค์ความรู้และผู้รู้ท้องถิ่น ที่สามารถประสานกับองค์ความรู้และกลไกภายนอกอย่าง ชัดเจนเป็นรูปธรรม</MatCheckbox>			<hr>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			10. การมีส่วนร่วมในการบริหารจัดการชุมชน องค์กร กลุ่ม หรือสถาบันในชุมชน  (E10)
+			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e10_1" >1) การบริหารจัดการชุมชน องค์กร กลุ่ม หรือสถาบันในชุมชนขึ้นอยู่กับผู้นำเป็นหลัก</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e10_2" >2) สมาชิกกลุ่ม องค์กร หรือสถาบันในชุมชนมีบทบาทเสนอข้อคิดเห็น และมีการนำข้อคิดเห็นไปปรับปรุงการดำเนินงาน</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e10_3" >3) สมาชิกกลุ่ม องค์กร หรือสถาบันในชุมชนได้รับการยอมรับ และมีส่วนร่วมในการดำเนินงานของชุมชน เช่น การกำหนดเป้าหมาย วิเคราะห์ ตัดสินใจวางแผน ดำเนินการ การแก้ไขปัญหา การกำกับและประเมินผล อย่างชัดเจน</MatCheckbox>			<br>&nbsp&nbsp&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.e10_4" >4) สมาชิกมีความรู้สึกเป็นเจ้าของชุมชน องค์กร กลุ่มหรือสถาบันร่วมกัน โดยการให้ความร่วมมือในการเข้าร่วมและดำเนินกิจกรรมต่าง ๆ ของชุมชนอย่างจริงจังและต่อเนื่อง</MatCheckbox>			<hr>
+		</td>
+	</tr>
+@*<?php
+	$mysqli->close();
+include('button2.php');
+?>*@
+</table>
+@*</form>*@
+
+ }
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveyf/"+@HC;}<MatButtonLink Href='/gis_bssm/' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>@*
+
+
+ *@

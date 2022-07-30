@@ -1,0 +1,233 @@
+﻿@page "/surveyf1"
+
+@page "/surveyf1/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@*<?php
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@* <script>
+location='https://livingonnewpace.com/survey_p2/index.php?curr=survey_profile';
+</script> *@
+@*<?php
+	exit();
+}
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$HC=$_SESSION["HC"];
+$query="
+	select 
+		f1_1
+		,f1_2
+		,f1_2_1
+		,f1_3
+		,f1_3_1
+	from
+		survey_f
+	where 
+		HC='$HC'
+		and survey_year='$survey_year'
+		and survey_no='$survey_no'
+";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+?>*@
+@*<form name='surway' method='POST' action='surveyf1_add.php'>*@
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12">
+			<label for="firstName"><b>ส่วนที่ 6 ความคิดเห็นต่อปัญหาและผลกระทบจากโรคติดเชื้อไวรัสโคโรน่า 2019 (COVID-19) และความไม่สงบในพื้นที่ 3 จังหวัดชายแดนภาคใต้ (1/2) (หน้าที่ 20/22)</b></label>
+		</div>
+</div>
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12">
+			<label><b><font size='6' color='red'>HC : @HC</font></b></label>
+		</div>
+</div>
+<br>
+
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>1. ผลกระทบจากสถานการณ์การแพร่ระบาดของโรคติดเชื้อไวรัสโคโรน่า 2019 (COVID-19) (F1)</label>
+		<div class="custom-control" style='border-style: dotted;border-width: 1px'>
+			<div class="col-lg-12  mb-3">
+				<label>1.1	สถานการณ์การแพร่ระบาดของโรคติดเชื้อไวรัสโคโรน่า 2019 มีผลกระทบต่อท่านมากเพียงใด</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('f1_11').checked=false;
+						document.getElementById('f1_12').checked=false;
+						document.getElementById('f1_13').checked=false;
+						document.getElementById('f1_14').checked=false;
+						document.getElementById('f1_15').checked=false;
+				">
+				<div class="col-lg-12  mb-3">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_1" TValue="string">
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("1")" TValue="string"   >1 มากที่สุด</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_1" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_11"> 1 มากที่สุด</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("2")" TValue="string"   >2 มาก</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_1" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_12"> 2 มาก</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("3")" TValue="string"   >3 ปานกลาง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_1" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_13"> 3 ปานกลาง</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("4")" TValue="string"   >4 น้อย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_1" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_14"> 4 น้อย</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("5")" TValue="string"   >5 น้อยที่สุด</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_1" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_15"> 5 น้อยที่สุด</label>*@
+					</div>	
+
+</MatRadioGroup>				</div>
+			</div>
+		</div>
+		<br>
+		<div class="custom-control" style='border-style: dotted;border-width: 1px'>
+			<div class="col-lg-12  mb-3">
+				<label>1.2	สถานการณ์การแพร่ระบาดของโรคติดเชื้อไวรัสโคโรน่า 2019 มีผลกระทบต่อท่านในด้านใดมากที่สุด</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('f1_21').checked=false;
+						document.getElementById('f1_22').checked=false;
+						document.getElementById('f1_23').checked=false;
+						document.getElementById('f1_24').checked=false;
+						document.getElementById('f1_25').checked=false;
+						this.form.f1_2_1.value=''
+				">
+
+				<div class="col-lg-12  mb-3">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_2" TValue="string">
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("1")" TValue="string"   >1 การใช้ชีวิตประจำวัน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_2" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_21"> 1 การใช้ชีวิตประจำวัน</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("2")" TValue="string"   >2 การประกอบอาชีพ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_2" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_22"> 2 การประกอบอาชีพ</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("3")" TValue="string"   >3 การศึกษาของบุตร/หลาน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_2" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_23"> 3 การศึกษาของบุตร/หลาน</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("4")" TValue="string"   >4 สุขภาพอนามัย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_2" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_24"> 4 สุขภาพอนามัย</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("5")" TValue="string"   >5 อื่นๆ ระบุ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_2" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_25">5 อื่นๆ ระบุ</label>*@
+						<input type='text' name='f1_2_1'  @bind-value="@formData.surveyTemp.f1_2_1">
+					</div>
+
+</MatRadioGroup>				</div>
+			</div>
+		</div>
+
+		<br>
+		<div class="custom-control" style='border-style: dotted;border-width: 1px'>
+			<div class="col-lg-12  mb-3">
+				<label>1.3	เพื่อคลี่คลายผลกระทบจากโรคติดเชื้อไวรัสโคโรน่า 2019 ท่านเห็นว่าควรดำเนินการเรื่องใดมากที่สุด</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('f1_31').checked=false;
+						document.getElementById('f1_32').checked=false;
+						document.getElementById('f1_33').checked=false;
+						document.getElementById('f1_34').checked=false;
+						document.getElementById('f1_35').checked=false;
+						document.getElementById('f1_36').checked=false;
+						this.form.f1_3_1.value=''
+				">
+
+				<div class="col-lg-12  mb-3">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_3" TValue="string">
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("1")" TValue="string"   >1 สวัสดิการต่าง ๆ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_3" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_31"> 1 สวัสดิการต่าง ๆ</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("2")" TValue="string"   >2 จัดหาทุนในการประกอบอาชีพ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_3" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_32"> 2 จัดหาทุนในการประกอบอาชีพ</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("3")" TValue="string"   >3 พัฒนาความรู้ในการประกอบอาชีพ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_3" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_33"> 3 พัฒนาความรู้ในการประกอบอาชีพ</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("4")" TValue="string"   >4 จัดหาช่องทางในการประกอบอาชีพ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_3" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_34"> 4 จัดหาช่องทางในการประกอบอาชีพ</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("4")" TValue="string"   >5 การจัดหาวัคซีนแก่ประชาชน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_3" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_35"> 5 การจัดหาวัคซีนแก่ประชาชน</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("5")" TValue="string"   >6 อื่นๆ ระบุ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f1_3" TValue="string">*@
+						@*<label class="custom-control-label" for="f1_36">6 อื่นๆ ระบุ</label>*@
+						<input type='text' name='f1_3_1'  @bind-value="@formData.surveyTemp.f1_3_1">
+					</div>
+
+</MatRadioGroup>				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+@*<?php
+	$mysqli->close();
+include('button.php');
+?>*@
+@*</form>*@
+
+ }
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+			@{var txtLink="surveyf2/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>@**@

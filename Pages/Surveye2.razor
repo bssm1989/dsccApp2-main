@@ -1,0 +1,259 @@
+﻿@page "/surveye2"
+
+@page "/surveye2/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@*<?php
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@*<script>
+location='https://livingonnewpace.com/survey/index.php?curr=survey_profile';
+</script>*@
+@*<?php
+	exit();
+}
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$HC=$_SESSION["HC"];
+$query="select e2_1_1,e2_1_2,e2_1_3,e2_1_4,e2_2_1,e2_2_2,e2_2_3,e2_2_4,e2_3_1,e2_3_2,e2_3_3,e2_3_4,e2_4_1,e2_4_2,e2_4_3,e2_4_4,e2_5_5,e2_5_1,e2_5_2,e2_5_3,e2_5_4 from survey_e2 where HC='$HC'  and survey_year='$survey_year' and survey_no='$survey_no'";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+?>*@
+@*<form name='surway' method='POST' action='surveye2_add.php'>*@
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+<table>
+	<tr>
+		<td align='center'>แบบสอบถาม<br>
+โครงการพัฒนาระบบสนับสนุนการทำงานเชิงพื้นที่เพื่อการแก้ไขปัญหาความยากจนแบบเบ็ดเสร็จและแม่นยำหน่วยบริหารและจัดการทุนด้านการพัฒนาระดับพื้นที่ (บพท.)
+		</td>
+	</tr>
+	<tr>
+		<td><b>ตอนที่ 5 การเกื้อกูลและระบบรองรับทางสังคม (ทุนทางสังคม) (2/3) (หน้าที่ 18/20)</b></td>
+	</tr>
+	<tr>
+		<td><b><font size='6' color='red'>HC : @HC</font></b></td>
+	</tr>
+	<tr>
+		<td>
+			2. ครัวเรือนของท่านเข้าร่วมกิจกรรมของชุมชนอะไรบ้าง (ตอบได้มากกว่า 1 ข้อ) (E2)
+			<br>&nbsp;&nbsp;&nbsp 1) <font color='blue'> กิจกรรมทางศาสนา (E2.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('e2_1_10').checked=false;
+						document.getElementById('e2_1_11').checked=false;
+						document.getElementById('e2_1_12').checked=false;
+						document.getElementById('e2_1_13').checked=false;
+						document.getElementById('e2_1_20').checked=false;
+						document.getElementById('e2_1_21').checked=false;
+						document.getElementById('e2_1_22').checked=false;
+						this.form.e2_1_3.value='';
+						this.form.e2_1_4.value='';
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ระดับการมีส่วนร่วม (E2.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_1_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >ไม่ร่วม</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_1_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >เข้าร่วมรับรู้ รับฟัง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_1_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >เสนอความคิดเห็น ลงแรง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_1_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >ตัดสินใจ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_1_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ในการเข้าร่วม (ระบุ) (E2.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_1_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >ไม่เคยเข้าร่วมเลย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_1_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >เข้าร่วมบางครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_1_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >เข้าร่วมทุกครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_1_2" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ประโยชน์ในการเข้าร่วมกิจกรรมชุมชน (ระบุ) (E2.4)</font>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<input type='text' name='e2_1_3'  @bind-value="@formData.surveyTemp.e2_1_3">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ปัญหาในการเข้าร่วมกิจกรรมชุมชน (ระบุ) (E2.5)</font>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<input type='text' name='e2_1_4'  @bind-value="@formData.surveyTemp.e2_1_4">
+			<hr>
+
+			&nbsp;&nbsp;&nbsp 2) <font color='blue'> กิจกรรมประชาคม (E2.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('e2_2_10').checked=false;
+						document.getElementById('e2_2_11').checked=false;
+						document.getElementById('e2_2_12').checked=false;
+						document.getElementById('e2_2_13').checked=false;
+						document.getElementById('e2_2_20').checked=false;
+						document.getElementById('e2_2_21').checked=false;
+						document.getElementById('e2_2_22').checked=false;
+						this.form.e2_2_3.value='';
+						this.form.e2_2_4.value='';
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ระดับการมีส่วนร่วม (E2.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_2_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >ไม่ร่วม</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_2_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >เข้าร่วมรับรู้ รับฟัง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_2_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >เสนอความคิดเห็น ลงแรง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_2_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >ตัดสินใจ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_2_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ในการเข้าร่วม (ระบุ) (E2.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_2_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >ไม่เคยเข้าร่วมเลย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_2_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >เข้าร่วมบางครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_2_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >เข้าร่วมทุกครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_2_2" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ประโยชน์ในการเข้าร่วมกิจกรรมชุมชน (ระบุ) (E2.4)</font>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<input type='text' name='e2_2_3'  @bind-value="@formData.surveyTemp.e2_2_3">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ปัญหาในการเข้าร่วมกิจกรรมชุมชน (ระบุ) (E2.5)</font>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<input type='text' name='e2_2_4'  @bind-value="@formData.surveyTemp.e2_2_4">
+			<hr>
+
+			&nbsp;&nbsp;&nbsp 3) <font color='blue'> กิจกรรมทางการพัฒนา (E2.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('e2_3_10').checked=false;
+						document.getElementById('e2_3_11').checked=false;
+						document.getElementById('e2_3_12').checked=false;
+						document.getElementById('e2_3_13').checked=false;
+						document.getElementById('e2_3_20').checked=false;
+						document.getElementById('e2_3_21').checked=false;
+						document.getElementById('e2_3_22').checked=false;
+						this.form.e2_3_3.value='';
+						this.form.e2_3_4.value='';
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ระดับการมีส่วนร่วม (E2.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_3_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >ไม่ร่วม</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_3_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >เข้าร่วมรับรู้ รับฟัง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_3_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >เสนอความคิดเห็น ลงแรง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_3_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >ตัดสินใจ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_3_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ในการเข้าร่วม (ระบุ) (E2.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_3_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >ไม่เคยเข้าร่วมเลย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_3_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >เข้าร่วมบางครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_3_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >เข้าร่วมทุกครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_3_2" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ประโยชน์ในการเข้าร่วมกิจกรรมชุมชน (ระบุ) (E2.4)</font>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<input type='text' name='e2_3_3'  @bind-value="@formData.surveyTemp.e2_3_3">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ปัญหาในการเข้าร่วมกิจกรรมชุมชน (ระบุ) (E2.5)</font>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<input type='text' name='e2_3_4'  @bind-value="@formData.surveyTemp.e2_3_4">
+			<hr>
+		
+			&nbsp;&nbsp;&nbsp 4) <font color='blue'> การอนุรักษ์/ฟื้นฟู (E2.1)</font>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('e2_4_10').checked=false;
+						document.getElementById('e2_4_11').checked=false;
+						document.getElementById('e2_4_12').checked=false;
+						document.getElementById('e2_4_13').checked=false;
+						document.getElementById('e2_4_20').checked=false;
+						document.getElementById('e2_4_21').checked=false;
+						document.getElementById('e2_4_22').checked=false;
+						this.form.e2_4_3.value='';
+						this.form.e2_4_4.value='';
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ระดับการมีส่วนร่วม (E2.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_4_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >ไม่ร่วม</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_4_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >เข้าร่วมรับรู้ รับฟัง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_4_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >เสนอความคิดเห็น ลงแรง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_4_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >ตัดสินใจ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_4_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ในการเข้าร่วม (ระบุ) (E2.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_4_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >ไม่เคยเข้าร่วมเลย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_4_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >เข้าร่วมบางครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_4_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >เข้าร่วมทุกครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_4_2" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ประโยชน์ในการเข้าร่วมกิจกรรมชุมชน (ระบุ) (E2.4)</font>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<input type='text' name='e2_4_3'  @bind-value="@formData.surveyTemp.e2_4_3">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ปัญหาในการเข้าร่วมกิจกรรมชุมชน (ระบุ) (E2.5)</font>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<input type='text' name='e2_4_4'  @bind-value="@formData.surveyTemp.e2_4_4">
+			<hr>
+
+			&nbsp;&nbsp;&nbsp 5) <font color='blue'>อื่น ๆ (ระบุ) (E2.1)</font> <input type='text' name='e2_5_5'  @bind-value="@formData.surveyTemp.e2_5_5">
+				<input type='button' value='reset' 
+					onclick="
+						this.form.e2_5_5.value='';
+						document.getElementById('e2_5_10').checked=false;
+						document.getElementById('e2_5_11').checked=false;
+						document.getElementById('e2_5_12').checked=false;
+						document.getElementById('e2_5_13').checked=false;
+						document.getElementById('e2_5_20').checked=false;
+						document.getElementById('e2_5_21').checked=false;
+						document.getElementById('e2_5_22').checked=false;
+						this.form.e2_5_3.value='';
+						this.form.e2_5_4.value='';
+				">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ระดับการมีส่วนร่วม (E2.2)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_5_1" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >ไม่ร่วม</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_5_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >เข้าร่วมรับรู้ รับฟัง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_5_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >เสนอความคิดเห็น ลงแรง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_5_1" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("3")" TValue="string"   >ตัดสินใจ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_5_1" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ความถี่ในการเข้าร่วม (ระบุ) (E2.3)</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_5_2" TValue="string">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("0")" TValue="string"   >ไม่เคยเข้าร่วมเลย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_5_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("1")" TValue="string"   >เข้าร่วมบางครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_5_2" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<MatRadioButton Value="@("2")" TValue="string"   >เข้าร่วมทุกครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.e2_5_2" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ประโยชน์ในการเข้าร่วมกิจกรรมชุมชน (ระบุ) (E2.4)</font>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<input type='text' name='e2_5_3'  @bind-value="@formData.surveyTemp.e2_5_3">
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<font color='red'>ปัญหาในการเข้าร่วมกิจกรรมชุมชน (ระบุ) (E2.5)</font>
+			<br>&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp<input type='text' name='e2_5_4'  @bind-value="@formData.surveyTemp.e2_5_4">
+			<hr>
+		
+		</td>
+	</tr>
+	@*<tr>*@
+@*<?php
+	$mysqli->close();
+include('button2.php');
+?>*@
+</table>
+@*</form>*@
+ 
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveye3/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>@**@

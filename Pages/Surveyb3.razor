@@ -1,0 +1,131 @@
+﻿@page "/surveyb3"
+
+@page "/surveyb3/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@*<?php
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@*<script>
+location='https://livingonnewpace.com/survey/index.php?curr=survey_profile';
+</script>*@
+@*<?php
+	exit();
+}
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$HC=$_SESSION["HC"];
+$query="select b9_1,b9_2,b9_3,b9_4,b9_5,b9_6,b9_6_1,b10,b10_1,b10_2,b10_3,b10_4,b10_5,b10_6,b10_7,b10_7_1 from survey_b2 where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+?>*@
+@*<form name='survey' method='POST' >*@
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12 mb-3">
+			<b>ตอนที่ 2 ข้อมูลด้านกายภาพและสาธารณูปโภคสาธารณูปการ (ทุนกายภาพ) (3/4) (หน้าที่ 9/20)</b>
+	</div>
+</div>
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12">
+		<label><b><font size='6' color='red'>HC : @HC</font></b></label>
+	</div>
+</div>
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>9. ครัวเรือนของท่านใช้น้ำเพื่อทำการเกษตรจากแหล่งใดเป็นหลัก (B9)</label>
+		<div class="custom-control custom-checkbox">@*<?php if($row1->b9_1=='1'){echo"checked";}>*@
+			<MatCheckbox  @bind-Value="@formData.b9_1" >1) แม่น้ำ ลำห้วย ลำเหมือง</MatCheckbox>			@*<label class="custom-control-label" for="b9_1">1) แม่น้ำ ลำห้วย ลำเหมือง</label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.b9_2" >2) อ่างเก็บน้ำ สระน้ำหมู่บ้าน</MatCheckbox>			@*<label class="custom-control-label" for="b9_2">2) อ่างเก็บน้ำ สระน้ำหมู่บ้าน</label>*@
+		</div>
+		<div class="custom-control custom-checkbox"> @*<?php if($row1->b9_3=='3'){echo"checked";}?>*@
+			<MatCheckbox  @bind-Value="@formData.b9_3" >3) น้ำใต้ดิน (บ่อน้ำผิวดิน น้ำบาดาล)</MatCheckbox>			@*<label class="custom-control-label" for="b9_3">3) น้ำใต้ดิน (บ่อน้ำผิวดิน น้ำบาดาล)</label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.b9_4" >4) น้ำฝน</MatCheckbox>			@*<label class="custom-control-label" for="b9_4">4) น้ำฝน</label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.b9_5" >5) คลองชลประทาน</MatCheckbox>			@*<label class="custom-control-label" for="b9_5">5) คลองชลประทาน</label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.b9_6" >6) อื่น ๆ (ระบุ)</MatCheckbox>			@*<label class="custom-control-label" for="b9_6">6) อื่น ๆ (ระบุ)</label>*@
+			<input type='text' name='b9_6_1'   @bind-value="@formData.surveyTemp.b9_6_1"  class="form-control" >
+		</div>@*<?php echo$row1->b9_6_1;?>*@
+	</div>
+</div>
+
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>10. ครัวเรือนของท่านมีปัญหาเกี่ยวกับพื้นที่ทำกินหรือไม่ (B10)</label>
+		<MatRadioGroup @bind-Value="@formData.surveyTemp.b10" TValue="string">
+		<div class="custom-control">
+			<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่มีปัญหา</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b10" TValue="string">*@			@*<label class="custom-control-label" for="b10_a"> 0) ไม่มีปัญหา</label>*@		
+		</div>
+		<div class="custom-control">
+			<MatRadioButton Value="@("1")" TValue="string"   >1) มีปัญหา</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b10" TValue="string">*@			@*<label class="custom-control-label" for="b10_b"> 1) มีปัญหา</label>*@
+
+
+			<div class="custom-control custom-checkbox">
+				<MatCheckbox  @bind-Value="@formData.b10_1" >1) น้ำเข้าไม่ถึงแปลง หรือมีน้ำไม่เพียงพอตลอดทั้งปี</MatCheckbox>				@*<label class="custom-control-label" for="b10_1">1) น้ำเข้าไม่ถึงแปลง หรือมีน้ำไม่เพียงพอตลอดทั้งปี</label>*@
+			</div>
+
+			<div class="custom-control custom-checkbox">
+				<MatCheckbox  @bind-Value="@formData.b10_2" >2) ดินไม่อุดมสมบูรณ์ ทำให้ผลผลิตไม่ดี</MatCheckbox>				@*<label class="custom-control-label" for="b10_2">2) ดินไม่อุดมสมบูรณ์ ทำให้ผลผลิตไม่ดี</label>*@
+			</div>
+
+			<div class="custom-control custom-checkbox">
+				<MatCheckbox  @bind-Value="@formData.b10_3" >3) ไม่มีเอกสารสิทธิ์ในที่ดิน</MatCheckbox>				@*<label class="custom-control-label" for="b10_3"> 3) ไม่มีเอกสารสิทธิ์ในที่ดิน</label>*@
+			</div>
+
+			<div class="custom-control custom-checkbox">
+				<MatCheckbox  @bind-Value="@formData.b10_4" >4) ที่ดินติดจำนอง</MatCheckbox>				@*<label class="custom-control-label" for="b10_4">4) ที่ดินติดจำนอง </label>*@
+			</div>
+
+
+			<div class="custom-control custom-checkbox">
+				<MatCheckbox  @bind-Value="@formData.b10_5" >5) อยู่ในพื้นที่เสี่ยงภัย เช่น อุทกภัย ดินถล่ม</MatCheckbox>				@*<label class="custom-control-label" for="b10_5">5) อยู่ในพื้นที่เสี่ยงภัย เช่น อุทกภัย ดินถล่ม  </label>*@
+			</div>
+
+			<div class="custom-control custom-checkbox">
+				<MatCheckbox  @bind-Value="@formData.b10_6" >6) เข้าถึงยาก (เช่น ไม่มีถนนหรือถนนไม่ดี เข้าได้บางฤดูกาล)</MatCheckbox>				@*<label class="custom-control-label" for="b10_6">6) เข้าถึงยาก (เช่น ไม่มีถนนหรือถนนไม่ดี เข้าได้บางฤดูกาล) </label>*@
+			</div>
+
+			<div class="custom-control custom-checkbox">
+				<MatCheckbox  @bind-Value="@formData.b10_7" >7) อื่น ๆ (ระบุ)</MatCheckbox>				@*<label class="custom-control-label" for="b10_7">7) อื่น ๆ (ระบุ) </label>*@
+				<input type='text' name='b10_7_1'  @bind-value="@formData.surveyTemp.b10_7_1"  class="form-control" >
+			</div>
+		</div>
+		</MatRadioGroup>
+	</div>
+</div>
+@*</form>*@
+
+
+@*<?php
+	$mysqli->close();
+include('button.php');
+?>*@
+ 
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveyb4/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>

@@ -1,0 +1,532 @@
+﻿@page "/surveyb1"
+
+@page "/surveyb1/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@*<?php
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@*<script>
+location='https://livingonnewpace.com/survey/index.php?curr=survey_profile';
+</script>*@
+@*<?php
+	exit();
+}
+
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$HC=$_SESSION["HC"];
+$query="select b1_1,b1_2,b2,b2_2,b2_3,b2_4_1,b2_4_1_1,b2_4_1_2,b2_4_1_3,b2_4_2,b2_4_2_1,b2_4_2_2,b2_4_2_3,b2_4_3,b2_4_3_1,b2_4_3_2,b2_4_3_3,b2_4_4,b2_4_4_1,b2_4_4_2,b2_4_4_3,b3,b4_1,b4_2,b4_3,b4_4,b5_1,b5_2,b6_1,b6_2,b6_3,b7_1,b7_1_1
+,b7_2
+,b7_2_1
+,b7_2_1_1
+,b7_2_2
+,b7_2_2_1
+
+,b7_3
+,b7_3_1
+,b7_3_1_1
+,b7_3_2
+,b7_3_2_1
+
+from survey_b1 where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+
+$query_up="select ch2_st from survey_staff where  HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result_up=$mysqli->query($query_up);
+$row_up=$result_up->fetch_object();
+
+if($row_up->ch2_st==0){
+	$query_up1="update survey_staff set ch2_st='".date("U")."' where  HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+	$result_up1=$mysqli->query($query_up1);
+}
+
+?>*@
+@*<form name='survey' method='POST' action='surveyb1_add.php'>*@
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12 mb-3">
+			<b>ตอนที่ 2 ข้อมูลด้านกายภาพและสาธารณูปโภคสาธารณูปการ (ทุนกายภาพ) (1/4)  (หน้าที่ 7/20)</b>
+	</div>
+</div>
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12">
+		<label><b><font size='6' color='red'>HC : @HC</font></b></label>
+	</div>
+</div>
+<br>
+
+
+
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>1. ให้ระบบ pin location ของบ้านด้วย GIS (B1)</label><br>
+		@*<label>ละติจูด (latitude)</label>*@<input type='text' name='b1_1' id="latlng1"  @bind-value="@formData.surveyTemp.b1_1" class="form-control" onkeypress='if (event.keyCode != 46){if( event.keyCode < 48 || event.keyCode > 57 ){event.returnValue = false}}'>
+		@*<label>ลองจิจูด (longitude)</label>*@<input type='text' name='b1_2' id="latlng2"  @bind-value="@formData.surveyTemp.b1_2" class="form-control" onkeypress='if (event.keyCode != 46){if( event.keyCode < 48 || event.keyCode > 57 ){event.returnValue = false}}'>
+		<input type='button' value='Update ตำแหน่ง ปัจจุบัน' class="form-control" onclick="update_location('@*<?php echo$HC?>*@',this.form.b1_1.value,this.form.b1_2.value)" style='background-color: #FFA0A0;'>
+	</div>
+</div>
+@*<script>
+function update_location(hc,b1_1,b1_2){
+	if(confirm('ท่านต้องการบันทึกตำแหน่งบ้านใหม่ ใช่หรือไม่')){
+		var script = document.createElement('script');
+		script.src = 'update_location.php?hc='+hc+"&b1_1="+b1_1+"&b1_2="+b1_2+"&table=b"
+		document.head.appendChild(script);
+//		obj.next.value=0
+//		obj.submit();
+	}
+}
+</script>*@
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>2. ท่านและสมาชิกในครัวเรือนมีบ้านเป็นของตนเองหรือไม่ (B2)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b21').checked=false;
+						document.getElementById('b22').checked=false;
+						document.getElementById('b23').checked=false;
+						document.getElementById('b24').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b2" TValue="string">
+		<div class="custom-control custom-radio">
+			<MatRadioButton Value="@("1")" TValue="string"   >1) อาศัยอยู่กับผู้อื่น</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b2" TValue="string">*@			@*<label class="custom-control-label" for="b21">1) อาศัยอยู่กับผู้อื่น  </label>*@
+		</div>
+		<div class="custom-control custom-radio">
+			<MatRadioButton Value="@("2")" TValue="string"   >2) เช่าบ้านอยู่ ค่าเช่า</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b2" TValue="string">*@			@*<label class="custom-control-label" for="b22">2) เช่าบ้านอยู่ ค่าเช่า</label>*@
+			<input type='text' name='b2_2' placeholder='--บาท/เดือน--'  class="form-control"  @bind-value="@formData.surveyTemp.b2_2">
+		</div>
+		<div class="custom-control custom-radio">
+			<MatRadioButton Value="@("3")" TValue="string"   >3) ปลูกบ้านในที่ดินผู้อื่น เช่น ญาติ ที่ดินสาธารณะ หน่วยงานภาครัฐ เอกชน ศาสนสถาน เป็นต้น มีค่าเช่า</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b2" TValue="string">*@			@*<label class="custom-control-label" for="b23">3) ปลูกบ้านในที่ดินผู้อื่น เช่น ญาติ ที่ดินสาธารณะ หน่วยงานภาครัฐ เอกชน ศาสนสถาน เป็นต้น มีค่าเช่า</label>*@
+			<input type='text' name='b2_3' placeholder='--บาท/เดือน--'  class="form-control"  @bind-value="@formData.surveyTemp.b2_3">
+		</div>
+		<div class="custom-control custom-radio">
+			<MatRadioButton Value="@("4")" TValue="string"   >4) มีบ้านและที่ดินเป็นของตนเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b2" TValue="string">*@			@*<label class="custom-control-label" for="b24">4) มีบ้านและที่ดินเป็นของตนเอง </label>*@
+		</div>
+
+</MatRadioGroup>
+		<div class="custom-control custom-checkbox">
+			&nbsp;&nbsp;&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.b2_4_1" >บ้านไม่ติดจำนองหรือค้ำประกัน</MatCheckbox>			@*<label class="custom-control-label" for="b2_4_1">บ้านไม่ติดจำนองหรือค้ำประกัน  </label>*@<br>
+			<div class="col-lg-12  mb-3">
+				<label>พื้นที่</label><br>
+				<label>ไร่</label>
+				<input type='text' name='b2_4_1_1'  @bind-value="@formData.surveyTemp.b2_4_1_1" class="form-control" placeholder="ไร่">
+				<label>งาน</label>
+				<input type='text' name='b2_4_1_2'  @bind-value="@formData.surveyTemp.b2_4_1_2" class="form-control" placeholder="งาน">
+				<label>ตารางวา</label>
+				<input type='text' name='b2_4_1_3'  @bind-value="@formData.surveyTemp.b2_4_1_3" class="form-control" placeholder="ตารางวา">
+			</div>
+		</div>
+
+		<div class="custom-control custom-checkbox">
+			&nbsp;&nbsp;&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.b2_4_2" >บ้านติดจำนองหรือค้ำประกันกับสถาบันการเงิน ธนาคาร</MatCheckbox>			@*<label class="custom-control-label" for="b2_4_2">  บ้านติดจำนองหรือค้ำประกันกับสถาบันการเงิน ธนาคาร   </label>*@
+			<div class="col-lg-12  mb-3">
+				<label>พื้นที่</label><br>
+				<label>ไร่</label>
+				<input type='text' name='b2_4_2_1'   @bind-value="@formData.surveyTemp.b2_4_2_1" class="form-control" placeholder="ไร่">
+				<label>งาน</label>
+				<input type='text' name='b2_4_2_2'   @bind-value="@formData.surveyTemp.b2_4_2_2" class="form-control" placeholder="งาน">
+				<label>ตารางวา</label>
+				<input type='text' name='b2_4_2_3'   @bind-value="@formData.surveyTemp.b2_4_2_3" class="form-control" placeholder="ตารางวา">
+				<label>ตารางวา</label>
+				<!--input type='text' name='b2_4_2_4'  value='@*<?php echo$row1->b2_4_2_4;?>*@' class="form-control" placeholder="ตารางวา"-->
+			</div>
+		</div>
+
+		<div class="custom-control custom-checkbox">
+			&nbsp;&nbsp;&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.b2_4_3" >บ้านติดจำนองหรือค้ำประกันกับเจ้าหนี้นอกระบบ</MatCheckbox>			@*<label class="custom-control-label" for="b2_4_3">  บ้านติดจำนองหรือค้ำประกันกับเจ้าหนี้นอกระบบ   </label>*@
+			<div class="col-lg-12  mb-3">
+				<label>พื้นที่</label><br>
+				<label>ไร่</label>
+				<input type='text' name='b2_4_3_1'   @bind-value="@formData.surveyTemp.b2_4_3_1" class="form-control" placeholder="ไร่">
+				<label>งาน</label>
+				<input type='text' name='b2_4_3_2'   @bind-value="@formData.surveyTemp.b2_4_3_2" class="form-control" placeholder="งาน">
+				<label>ตารางวา</label>
+				<input type='text' name='b2_4_3_3'   @bind-value="@formData.surveyTemp.b2_4_3_3" class="form-control" placeholder="ตารางวา">
+			</div>
+		</div>
+
+		<div class="custom-control custom-checkbox">
+			&nbsp;&nbsp;&nbsp;&nbsp;<MatCheckbox  @bind-Value="@formData.b2_4_4" >บ้านและที่ดินที่ไม่มีเอกสารสิทธิ์ตามกฎหมาย</MatCheckbox>			@*<label class="custom-control-label" for="b2_4_4">  บ้านและที่ดินที่ไม่มีเอกสารสิทธิ์ตามกฎหมาย   </label>*@
+			<div class="col-lg-12  mb-3">
+				<label>พื้นที่</label><br>
+				<label>ไร่</label>
+				<input type='text' name='b2_4_4_1'   @bind-value="@formData.surveyTemp.b2_4_4_1" class="form-control" placeholder="ไร่">
+				<label>งาน</label>
+				<input type='text' name='b2_4_4_2'   @bind-value="@formData.surveyTemp.b2_4_4_2" class="form-control" placeholder="งาน">
+				<label>ตารางวา</label>
+				<input type='text' name='b2_4_4_3'   @bind-value="@formData.surveyTemp.b2_4_4_3" class="form-control" placeholder="ตารางวา">
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>3. สภาพของบ้านที่อาศัยอยู่ในปัจจุบันเป็นอย่างไร (B3)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b31').checked=false;
+						document.getElementById('b32').checked=false;
+						document.getElementById('b33').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b3" TValue="string">
+		<div class="custom-control custom-radio">**
+			<MatRadioButton Value="@("1")" TValue="string"   >1) สภาพทรุดโทรม หรือวัสดุก่อสร้างบ้านไม่ถาวร เช่น ไม้ไผ่ แผ่นไม้อัด มุงจาก มุงหญ้าคา</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b3" TValue="string">*@			@*<label class="custom-control-label" for="b31">1) สภาพทรุดโทรม หรือวัสดุก่อสร้างบ้านไม่ถาวร เช่น ไม้ไผ่ แผ่นไม้อัด มุงจาก มุงหญ้าคา  </label>*@
+		</div>
+
+		<div class="custom-control custom-radio">
+			<MatRadioButton Value="@("2")" TValue="string"   >2) บ้านไม้หรือตึก หลังคามุงกระเบื้องหรือสังกะสี ที่มีสภาพแข็งแรงปานกลาง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b3" TValue="string">*@			@*<label class="custom-control-label" for="b32">2) บ้านไม้หรือตึก หลังคามุงกระเบื้องหรือสังกะสี ที่มีสภาพแข็งแรงปานกลาง  </label>*@
+		</div>
+
+		<div class="custom-control custom-radio">
+			<MatRadioButton Value="@("3")" TValue="string"   >3) บ้านอาคารไม้/ตึกที่มีสภาพมั่นคงแข็งแรง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b3" TValue="string">*@			@*<label class="custom-control-label" for="b33">3) บ้านอาคารไม้/ตึกที่มีสภาพมั่นคงแข็งแรง  </label>*@
+		</div>
+
+</MatRadioGroup>	</div>
+</div>
+
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>4. ความเป็นระเบียบเรียบร้อย และถูกสุขลักษณะของบ้านพักอาศัย (ใช้การสังเกต) (B4)</label>
+
+		<div class="col-lg-12  mb-3">
+			<label>4.1 บ้านพักอาศัย<b><u>มี</u></b>การจัดเก็บสิ่งของเป็นระเบียบ<b><u>ไม่รกรุงรัง</u></b> </label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b4_11').checked=false;
+						document.getElementById('b4_12').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_1" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >1) ใช่ (ไม่รก)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_1" TValue="string">*@				@*<label class="custom-control-label" for="b4_11"> 1) ใช่ (ไม่รก)</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ใช่ (รก)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_1" TValue="string">*@				@*<label class="custom-control-label" for="b4_12"> 0) ไม่ใช่ (รก)</label>*@
+			</div>
+
+</MatRadioGroup>		</div>
+
+		<div class="col-lg-12  mb-3">
+			<label>4.2 บ้านพักอาศัย<b><u>มี</u></b>การจัดการ<b><u>ระบบระบายน้ำ</u></b>ในบ้าน </label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b4_21').checked=false;
+						document.getElementById('b4_22').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_2" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >1) ใช่ (มี)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_2" TValue="string">*@				@*<label class="custom-control-label" for="b4_21"> 1) ใช่ (มี)</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ใช่ (ไม่มี)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_2" TValue="string">*@				@*<label class="custom-control-label" for="b4_22"> 0) ไม่ใช่ (ไม่มี)</label>*@
+			</div>
+
+</MatRadioGroup>		</div>
+
+		<div class="col-lg-12  mb-3">
+			<label>4.3 บ้านพักอาศัย<b><u>มี</u></b>ห้องส้วมที่<b><u>สะอาด</u></b> แข็งแรง ระบายน้ำดี<b><u>ไม่มีกลิ่นเหม็น</u></b>  </label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b4_31').checked=false;
+						document.getElementById('b4_32').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_3" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >1) ใช่</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_3" TValue="string">*@				@*<label class="custom-control-label" for="b4_31"> 1) ใช่</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ใช่</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_3" TValue="string">*@				@*<label class="custom-control-label" for="b4_32"> 0) ไม่ใช่</label>*@
+			</div>
+
+</MatRadioGroup>		</div>
+
+		<div class="col-lg-12  mb-3">
+			<label>4.4 บ้านพักอาศัย<b><u>มี</u></b>การคัดแยกขยะและกำหนด<b><u>จุด</u></b>ทิ้งขยะ<b><u>ชัดเจน</u></b> </label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b4_41').checked=false;
+						document.getElementById('b4_42').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_4" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >1) ใช่ (มี)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_4" TValue="string">*@				@*<label class="custom-control-label" for="b4_41"> 1) ใช่ (มี)</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ใช่ (ไม่มี)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b4_4" TValue="string">*@				@*<label class="custom-control-label" for="b4_42"> 0) ไม่ใช่ (ไม่มี)</label>*@
+			</div>
+
+</MatRadioGroup>		</div>
+	</div>
+</div>
+
+
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>5. การใช้ไฟฟ้าหรือพลังงานทางเลือก (B5)</label>
+		<div class="col-lg-12  mb-3">
+			<label>5.1 ครัวเรือนของท่านมีไฟฟ้าใช้หรือไม่  </label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b5_11').checked=false;
+						document.getElementById('b5_12').checked=false;
+						document.getElementById('b5_13').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b5_1" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >1) ไม่มี (เช่น เทียน ตะเกียง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b5_1" TValue="string">*@				@*<label class="custom-control-label" for="b5_11">1) ไม่มี (เช่น เทียน ตะเกียง)</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >2) ต่อพ่วงไฟฟ้าจากคนอื่น (ไม่มีมิเตอร์ไฟฟ้าของตนเอง)</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b5_1" TValue="string">*@				@*<label class="custom-control-label" for="b5_12">2) ต่อพ่วงไฟฟ้าจากคนอื่น (ไม่มีมิเตอร์ไฟฟ้าของตนเอง)</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("2")" TValue="string"   >3) มีมิเตอร์ของตนเอง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b5_1" TValue="string">*@				@*<label class="custom-control-label" for="b5_13">3) มีมิเตอร์ของตนเอง</label>*@
+			</div>
+
+</MatRadioGroup>		</div>
+
+		<div class="col-lg-12  mb-3">
+			<label>5.2 ครัวเรือนของท่านได้ใช้พลังงานทางเลือกหรือไม่ (เช่น พลังงานแสงอาทิตย์ พลังงานน้ำ พลังงานลม เครื่องปั่นไฟ แก๊สชีวภาพ แก๊สชีวมวล เป็นต้น)  </label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b5_21').checked=false;
+						document.getElementById('b5_22').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b5_2" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >1) ใช้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b5_2" TValue="string">*@				@*<label class="custom-control-label" for="b5_21"> 1) ใช้</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >2) ไม่ใช้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b5_2" TValue="string">*@				@*<label class="custom-control-label" for="b5_22"> 2) ไม่ใช้</label>*@
+			</div>
+
+</MatRadioGroup>		</div>
+
+	</div>
+</div>
+
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>6. น้ำในการอุปโภคบริโภคของครัวเรือนท่านมาจากแหล่งใด (ตอบได้มากกว่า 1 ข้อ) </label>
+
+		<div class="col-lg-12  mb-3">
+			<label>6.1 น้ำจากระบบประปา (นครหลวง, ภูมิภาค, ชุมชน, ต่อพ่วงคนอื่น) </label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b6_11').checked=false;
+						document.getElementById('b6_12').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b6_1" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >1) ใช้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b6_1" TValue="string">*@				@*<label class="custom-control-label" for="b6_11"> 1) ใช้</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ใช้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b6_1" TValue="string">*@				@*<label class="custom-control-label" for="b6_12"> 0) ไม่ใช้</label>*@
+			</div>
+
+</MatRadioGroup>		</div>
+
+		<div class="col-lg-12  mb-3">
+			<label>6.2 น้ำจากแหล่งน้ำต่างๆ (เช่น น้ำบ่อ น้ำห้วย บาดาล อ่างเก็บน้ำ น้ำฝน) </label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b6_21').checked=false;
+						document.getElementById('b6_22').checked=false;
+						document.getElementById('b6_23').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b6_2" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("2")" TValue="string"   >2) เพียงพอตลอดปี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b6_2" TValue="string">*@				@*<label class="custom-control-label" for="b6_21"> 2) เพียงพอตลอดปี</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >1) ไม่เพียงพอ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b6_2" TValue="string">*@				@*<label class="custom-control-label" for="b6_22"> 1) ไม่เพียงพอ</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่ใช้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b6_2" TValue="string">*@				@*<label class="custom-control-label" for="b6_23"> 0) ไม่ใช้</label>*@
+			</div>
+
+</MatRadioGroup>		</div>
+
+		<div class="col-lg-12  mb-3">
+			<label>6.3 ซื้อน้ำ (น้ำถัง น้ำขวด ตู้กดน้ำดื่ม) </label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b6_31').checked=false;
+						document.getElementById('b6_32').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b6_3" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >1) ชื้อ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b6_3" TValue="string">*@				@*<label class="custom-control-label" for="b6_31"> 1) ชื้อ</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >2) ไม่ชื้อ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b6_3" TValue="string">*@				@*<label class="custom-control-label" for="b6_32"> 2) ไม่ชื้อ</label>*@
+			</div>
+
+</MatRadioGroup>		</div>
+
+	</div>
+</div>
+
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>7. ครัวเรือนของท่านมีอุปกรณ์สารสนเทศหรือไม่ (โทรศัพท์บ้าน โทรศัพท์มือถือ เครื่องคอมพิวเตอร์ และสัญญาณอินเตอร์เน็ต) (B7)</label>
+		<div class="col-lg-12  mb-3">
+			<label>7.1 โทรศัพท์บ้าน (B7.1)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b7_11').checked=false;
+						document.getElementById('b7_12').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b7_1" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่มี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b7_1" TValue="string">*@				@*<label class="custom-control-label" for="b7_11"> 0) ไม่มี</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >1) มีโทรศัพท์บ้าน จำนวน</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b7_1" TValue="string">*@				@*<label class="custom-control-label" for="b7_12"> 1) มีโทรศัพท์บ้าน จำนวน</label>*@
+				<input type='text' name='b7_1_1'  @bind-value="@formData.surveyTemp.b7_1_1" placeholder="เครื่อง" class="form-control">
+			</div>
+
+</MatRadioGroup>		</div>
+
+		<div class="col-lg-12  mb-3">
+			<label>7.2 โทรศัพท์มือถือ (B7.2)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b7_21').checked=false;
+						document.getElementById('b7_22').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b7_2" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่มี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b7_2" TValue="string">*@				@*<label class="custom-control-label" for="b7_21"> 0) ไม่มี</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >1) มี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b7_2" TValue="string">*@				@*<label class="custom-control-label" for="b7_22"> 1) มี</label>*@
+			</div>
+
+</MatRadioGroup>			<div class="col-lg-12  mb-3">
+				<div class="custom-control custom-checkbox">
+					<MatCheckbox  @bind-Value="@formData.b7_2_1" >1) มีโทรศัพท์มือถือแต่ไม่มีอินเตอร์เน็ต จำนวน</MatCheckbox>					@*<label class="custom-control-label" for="b7_2_1"> 1) มีโทรศัพท์มือถือแต่ไม่มีอินเตอร์เน็ต จำนวน </label>*@
+					<input type='text' name='b7_2_1_1'  @bind-value="@formData.surveyTemp.b7_2_1_1" placeholder="เครื่อง" class="form-control">
+				</div>
+				<div class="custom-control custom-checkbox">
+					<MatCheckbox  @bind-Value="@formData.b7_2_2" >2) มีโทรศัพท์มือถือและมีอินเตอร์เน็ต จำนวน</MatCheckbox>					@*<label class="custom-control-label" for="b7_2_2"> 2) มีโทรศัพท์มือถือและมีอินเตอร์เน็ต จำนวน </label>*@
+					<input type='text' name='b7_2_2_1'  @bind-value="@formData.surveyTemp.b7_2_2_1" placeholder="เครื่อง" class="form-control">
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-12  mb-3">
+			<label>7.3 เครื่องคอมพิวเตอร์ (B7.3)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('b7_31').checked=false;
+						document.getElementById('b7_32').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.b7_3" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("0")" TValue="string"   >0) ไม่มี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b7_3" TValue="string">*@				@*<label class="custom-control-label" for="b7_31"> 0) ไม่มี</label>*@
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" TValue="string"   >1) มี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.b7_3" TValue="string">*@				@*<label class="custom-control-label" for="b7_32"> 1) มี</label>*@
+			</div>
+
+</MatRadioGroup>
+			<div class="col-lg-12  mb-3">
+				<div class="custom-control custom-checkbox">
+					<MatCheckbox  @bind-Value="@formData.b7_3_1" >1) มี แต่ไม่มีอินเตอร์เน็ต จำนวน</MatCheckbox>					@*<label class="custom-control-label" for="b7_3_1"> 1) มี แต่ไม่มีอินเตอร์เน็ต จำนวน </label>*@
+					<input type='text' name='b7_3_1_1'  @bind-value="@formData.surveyTemp.b7_3_1_1" placeholder="เครื่อง" class="form-control">
+				</div>
+				<div class="custom-control custom-checkbox">
+					<MatCheckbox  @bind-Value="@formData.b7_3_2" >2) มีและมีอินเตอร์เน็ต จำนวน</MatCheckbox>					@*<label class="custom-control-label" for="b7_3_2"> 2) มีและมีอินเตอร์เน็ต จำนวน </label>*@
+					<input type='text' name='b7_3_2_1'  @bind-value="@formData.surveyTemp.b7_3_2_1" placeholder="เครื่อง" class="form-control">
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+@*</form>*@
+@*<?php
+	$mysqli->close();
+	include('button.php');
+?>*@ }
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveyb2/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>@*
+public bool b2_4_1 {get;set;}
+public bool b2_4_2 {get;set;}
+public bool b2_4_3 {get;set;}
+public bool b2_4_4 {get;set;}
+public bool b7_2_1 {get;set;}
+public bool b7_2_2 {get;set;}
+public bool b7_3_1 {get;set;}
+public bool b7_3_2 {get;set;}
+formData.b2_4_1 = String.IsNullOrEmpty(formData.surveyTemp.b2_4_1) ? false : true;
+formData.b2_4_2 = String.IsNullOrEmpty(formData.surveyTemp.b2_4_2) ? false : true;
+formData.b2_4_3 = String.IsNullOrEmpty(formData.surveyTemp.b2_4_3) ? false : true;
+formData.b2_4_4 = String.IsNullOrEmpty(formData.surveyTemp.b2_4_4) ? false : true;
+formData.b7_2_1 = String.IsNullOrEmpty(formData.surveyTemp.b7_2_1) ? false : true;
+formData.b7_2_2 = String.IsNullOrEmpty(formData.surveyTemp.b7_2_2) ? false : true;
+formData.b7_3_1 = String.IsNullOrEmpty(formData.surveyTemp.b7_3_1) ? false : true;
+formData.b7_3_2 = String.IsNullOrEmpty(formData.surveyTemp.b7_3_2) ? false : true;
+ formData.surveyTemp.b2_4_1= formData.b2_4_1 ? "0" : "";
+ formData.surveyTemp.b2_4_2= formData.b2_4_2 ? "0" : "";
+ formData.surveyTemp.b2_4_3= formData.b2_4_3 ? "0" : "";
+ formData.surveyTemp.b2_4_4= formData.b2_4_4 ? "0" : "";
+ formData.surveyTemp.b7_2_1= formData.b7_2_1 ? "0" : "";
+ formData.surveyTemp.b7_2_2= formData.b7_2_2 ? "0" : "";
+ formData.surveyTemp.b7_3_1= formData.b7_3_1 ? "0" : "";
+ formData.surveyTemp.b7_3_2= formData.b7_3_2 ? "0" : "";*@

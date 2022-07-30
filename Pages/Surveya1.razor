@@ -1,0 +1,199 @@
+﻿@page "/surveya1"
+@page "/surveya1/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12">
+		<label for="firstName"><b>ตอนที่ 1 ข้อมูลสมาชิกในครัวเรือน (ทุนมนุษย์) (1/5)  (หน้าที่ 2/20)</b></label>
+		<label for="firstName">ไม่สำรวจข้อมูลบุคคลที่มีชื่อตามทะเบียนบ้านแต่ไม่ได้พักอาศัยอยู่ในบ้านโดยไม่มีการติดต่อใด ๆ กับครัวเรือนมาแล้วเป็นเวลาไม่น้อยกว่า 3 ปี</label>
+	</div>
+</div>
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12">
+			@{
+				var sessionHC= JSRuntime.InvokeAsync<string>("localStorage.getItem", "HC");
+			}
+		<label><b><font size='6' color='red'>HC :@HC</font></b></label>
+	</div>
+</div>
+
+@*<?php
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$query_up="select ch1_st from survey_staff where  HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result_up=$mysqli->query($query_up);
+$row_up=$result_up->fetch_object();
+if($row_up->ch1_st==0){
+	$query_up1="update survey_staff set ch1_st='".date("U")."' where  HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+	$result_up1=$mysqli->query($query_up1);
+}
+
+$query="select PP,HHM from survey_profile where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result=$mysqli->query($query);
+$row=$result->fetch_object();
+$count=$row->HHM;
+
+//background-color
+for($i=1;$i<=$count;$i++){//for($i=1;$i<=$count;$i++){
+	$background=($background=='#FFEFFF')?"#EFFFFF":"#FFEFFF";
+	$query1="select a2,a3,a4,a5,a6,popid,a2_b from survey_a1 where HC='$HC' and a1='$i' and survey_year='$survey_year' and survey_no='$survey_no'";
+	$result1=$mysqli->query($query1);
+	$row1=$result1->fetch_object();
+>?*@
+@{
+	var background ="";
+	int i = 0;
+	string[] title=new string[]{"อยู่ในทะเบียนบ้าน","ไม่อยู่ในทะเบียนบ้าน"};
+}
+<EditForm Model="@survey_A1s" OnValidSubmit="@HandleValidSubmit" >
+
+
+@foreach(var item in listMoSurA1)
+	{
+		if (i < listMoSurA1.Count)
+		{
+			
+		i++;
+		}
+		else
+		{
+			i = 1;
+		}
+		var index=i;
+		
+
+		<input type="hidden" value="i" name="a1[@index]">
+	
+		<br>
+<div class="row" style="border-style: dotted;border-width: 1px;background-color:@((index%2==0)?"#FFEFFF":"#EFFFFF")">
+
+
+	<div class="col-lg-12  mb-3">
+		<label for="a2[@index]"><h3><font color="blue">คนที่ @index</font> (@((index<Convert.ToInt32( survey_Profiles.First().HHM)?title[0]:title[1]))) (A1)</h3> </label><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;<MatCheckbox  @bind-Value="@item.del"  Label="@item.title" ></MatCheckbox>
+		<br>
+		<label for="a2[@index]">1. ชื่อ-นามสกุล (ให้ระบุคำนำหน้าชื่อลงไปด้วย) เช่น นาย,นาง,นางสาว,เด็กหญิง, เด็กชาย (A2)</label>
+		<input type="text" name="a2[@index]" id="a2[@index]" @bind-value="@item.survey_A1.a1" placeholder="--ชื่อ-นามสกุล (ให้ระบุคำนำหน้าชื่อลงไปด้วย)--"  class="form-control">
+
+			</div>
+</div>
+
+<br>
+<div class="row" style="border-style: dotted;border-width: 1px;background-color:@((index%2==0)?"#FFEFFF":"#EFFFFF")">
+	<div class="col-lg-12  mb-3">
+		<label for="popid[@index]">2. หมายเลขบัตรประจำตัวประชาชน</label>
+		<input type='text'  id='popid[@index]' name='popid[@index]'  @bind-value="@item.survey_A1.popid" placeholder="--หมายเลขบัตรประจำตัวประชาชน--" onkeyup="autoTab(this,1)" onkeypress="autoTab(this,1)" maxlength='17'  class="form-control">
+	</div>
+</div>
+
+<br>
+<div class="row" style="border-style: dotted;border-width: 1px;background-color:@((index%2==0)?"#FFEFFF":"#EFFFFF")">
+	<div class="col-lg-12  mb-3">
+		<label for="a3[@index]">3. อายุ (ปี/เดือน ) (A3)</label>
+		<input type='text' placeholder='--อายุ ปี/เดือน --' name='a3[@index]' id='a3[@index]' @bind-value="@item.survey_A1.a3" class="form-control">
+		<div class="panel-body">
+			<label>วันเกิด (ท่านสามารถพิมพ์วันเกิดได้เอง โดยมีรูปแบบดังนี้ ปีเดือนวัน เช่น 25230803)</label>
+			<input type='hidden' name='searchdate' value='0'>
+			<input id="inputdatepicker" class="datepicker form-control" data-date-format="yyymmdd" name='date1[@index]' @bind-value="@item.survey_A1.a2_b">
+		</div>
+
+	</div>
+</div>
+
+<br>
+<div class="row" style="border-style: dotted;border-width: 1px;background-color:@((index%2==0)?"#FFEFFF":"#EFFFFF")">
+	<div class="col-lg-12  mb-3">
+		<label for="firstName">4. เพศ (A4)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('a41[@index]').checked=false;
+						document.getElementById('a42[@index]').checked=false;
+				">
+	 <MatRadioGroup @bind-Value="@item.survey_A1.a4" TValue="string">
+
+		<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" Label="1) ชาย " TValue="string"></MatRadioButton>
+		</div>
+		<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("2")" Label="2) หญิง" TValue="string"></MatRadioButton>
+		</div>
+		</MatRadioGroup>
+	</div>
+</div>
+
+<br>
+<div class="row" style="border-style: dotted;border-width: 1px;background-color:@((index%2==0)?"#FFEFFF":"#EFFFFF")">
+	<div class="col-lg-12  mb-3">
+	<label>5. สถานะตามทะเบียนบ้าน (A5)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('a51[@index]').checked=false;
+						document.getElementById('a52[@index]').checked=false;
+						document.getElementById('a53[@index]').checked=false;
+						document.getElementById('a54[@index]').checked=false;
+				">
+	 <MatRadioGroup @bind-Value="@item.survey_A1.a5" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" Label="1) มีชื่อและอาศัยอยู่" TValue="string"></MatRadioButton>
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("2")" Label="2) มีชื่อแต่ไม่อาศัย" TValue="string"></MatRadioButton>
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("3")" Label="3) ไม่มีชื่อแต่อาศัยอยู่" TValue="string"></MatRadioButton>
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("4")" Label="4) มีชื่อแต่เสียชีวิตแล้ว" TValue="string"></MatRadioButton>
+			</div>
+	</MatRadioGroup>
+
+</div>
+</div>
+
+<br>
+<div class="row" style="border-style: dotted;border-width: 1px;background-color:@((index%2==0)?"#FFEFFF":"#EFFFFF")">
+	<div class="col-lg-12  mb-3">
+	<label>6. สุขภาพ (A6)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('a61[@index]').checked=false;
+						document.getElementById('a62[@index]').checked=false;
+						document.getElementById('a63[@index]').checked=false;
+						document.getElementById('a64[@index]').checked=false;
+				">
+					<MatRadioGroup @bind-Value="@item.survey_A1.a6" TValue="string">
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("1")" Label="1) ปกติ " TValue="string"></MatRadioButton>
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("2")" Label="2) ป่วยเรื้อรังได้ที่ไม่ติดเตียง(เช่น หัวใจ เบาหวาน)" TValue="string"></MatRadioButton>
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("3")" Label="3) พิการพึ่งตนเองได้" TValue="string"></MatRadioButton>
+			</div>
+			<div class="custom-control custom-radio">
+				<MatRadioButton Value="@("4")" Label="4) ผู้ป่วยติดเตียง/พิการพึ่งตัวเองไม่ได้" TValue="string"></MatRadioButton>
+			</div>
+	</MatRadioGroup>
+
+</div>
+</div>
+		}
+<br>
+<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveya2/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>
+
+@code {
+	
+}

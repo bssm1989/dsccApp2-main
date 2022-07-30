@@ -1,0 +1,310 @@
+﻿@page "/surveya4"
+@page "/surveya4/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@*<?php
+ session_start();
+ //phpinfo();
+ if(!$_SESSION["HC"]){
+ ?>*@
+
+ <br>
+ <div class="row" style='border-style: dotted;border-width: 1px'>
+ <div class="col-lg-12  mb-3">
+ <label for="firstName"><b>ตอนที่ 1 ข้อมูลสมาชิกในครัวเรือน (ทุนมนุษย์) (4/5)  (หน้าที่ 5/20)</b></label>
+ <label for="firstName">จำนวนเงินสวัสดิการให้ระบุจำนวนเงิน และความถี่ เช่น  กรณีผู้สูงอายุ 600 บาท ทุกเดือน   หรือ กรณีเงินเยียวยาจากโควิด 15,000 บาท  ครั้งเดียว</label>
+ </div>
+ </div>
+ <br>
+ <div class="row" style='border-style: dotted;border-width: 1px'>
+ <div class="col-lg-12">
+ <label><b><font size='6' color='red'>HC : @HC</font></b></label>
+ </div>
+ </div>
+ @*<?php
+ $mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+ $HC=$_SESSION["HC"];
+ $query="select a1,a2 from survey_a1 where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no' order by convert(a1,integer)";
+ $result=$mysqli->query($query);
+ $i=1;
+ while($row=$result->fetch_object()){
+ $query1="select a14,a15_0,a15_0_1,a15_0_1_1,a15_0_1_2,a15_0_1_3,a15_0_1_4,a15_0_1_5,a15_0_1_6,a15_0_1_7,a15_0_1_7_1,a15_0_2,a15_0_2_1,a15_0_2_2,a15_0_2_3,a15_0_2_4,a15_0_2_5,a15_0_2_6,a15_0_2_7,a15_0_2_7_1,a15_1,a15_2,a15_3,a15_4,a15_5,a15_6,a15_7,a15_8,a15_9,a15_10,a15_10_1,a16_0,a16_1,a16_2,a16_3,a16_4,a16_5,a16_6,a16_7,a16_8,a16_9,a16_10,a16_10_1,a17_1,a17_2,a17_3_1,a17_3_2 from survey_a2 where HC='$HC' and a1='$row->a1' and survey_year='$survey_year' and survey_no='$survey_no' ";
+ $result1=$mysqli->query($query1);
+ $row1=$result1->fetch_object();
+ ?>*@
+  @{
+		//var hc_year_no=configSurvey.HC_noId(HC);
+		var i = 0;
+	}
+ <EditForm Model="@modelSurA2sByHc" OnValidSubmit="@HandleValidSubmit" >
+
+	@foreach(var item in modelSurA2sByHc )
+	{
+		if (i < modelSurA2sByHc.Count)
+		{
+			
+		i++;
+		}
+		else
+		{
+			i = 1;
+		}
+		
+		var index=i;
+ <br>
+ <input type='hidden' name='a1[@index]' value='@*<?php echo$row->a1?>*@'>
+ <div class="row" style='border-style: dotted;border-width: 1px'>
+ <div class="col-lg-12  mb-3">
+ <label for="firstName"><b>@index. @item.survey_A1_2.a1</b></label>
+ 
+ 
+
+
+
+
+
+
+ <div class="col-lg-12  mb-3">
+ <label>14. สถานภาพการทำงาน (A14)</label>
+ <input type='button' value='reset'
+ onclick="
+ document.getElementById('a142[@index]').checked=false;
+ document.getElementById('a141[@index]').checked=false;
+ ">
+  <MatRadioGroup GroupName="a" @bind-Value="@item.survey_A1.a14" TValue="string" >
+			
+ <div class="custom-control custom-radio">
+<MatRadioButton GroupName="a"  Value="@("0")" Label=" 0) ไม่ทำงาน"TValue="string"></MatRadioButton>
+ </div>
+
+  <MatRadioGroup GroupName="b" @bind-Value="@item.survey_A1.a14_0" TValue="string" >
+	  <div class="custom-control custom-radio"><MatRadioButton GroupName="b"  Value="@("1")" Label=" 1) ชรา"TValue="string"></MatRadioButton></div>
+	  <div class="custom-control custom-radio"><MatRadioButton GroupName="b"  Value="@("2")" Label=" 2) พิการ"TValue="string"></MatRadioButton></div>
+	  <div class="custom-control custom-radio"><MatRadioButton GroupName="b"  Value="@("3")" Label=" 3) เจ็บป่วย"TValue="string"></MatRadioButton></div>
+	  <div class="custom-control custom-radio"><MatRadioButton GroupName="b"  Value="@("4")" Label=" 4) เด็กเล็ก/นักเรียน/นักศึกษา"TValue="string"></MatRadioButton></div>
+	  <div class="custom-control custom-radio"><MatRadioButton GroupName="b"  Value="@("5")" Label=" 5) อื่น ๆ (ระบุ)"TValue="string"></MatRadioButton></div>
+	 <input type='text'   @bind-value="@item.survey_A1.a14_0_1" class="form-control">
+	  </MatRadioGroup>
+ <div class="custom-control custom-radio">
+<MatRadioButton GroupName="a" Value="@("1")" Label=" 1) ว่างงาน (ข้ามไป A16)"TValue="string"></MatRadioButton>
+<div class="custom-control">
+	
+<MatRadioGroup GroupName="c" @bind-Value="@item.survey_A1.a14_0" TValue="string" >
+					<div class="custom-control custom-radio"> 
+	  <div class="custom-control custom-radio"><MatRadioButton GroupName="c"  Value="@("1")" Label=" ตกงานจากการแพร่ระบาดของ covid-19 ในพื้นที่"TValue="string"></MatRadioButton></div>
+	<div class="custom-control">
+						<label > อาชีพเดิมที่ทำ</label>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_1_1" > 1. ร้านอาหาร  </MatCheckbox></div>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_1_2" > 2. แรงงานรับจ้าง  </MatCheckbox></div>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_1_3" > 3. ก่อสร้าง  </MatCheckbox></div>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_1_4" > 4. แม่บ้าน    </MatCheckbox></div>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_1_5" > 5. แรงงานประมง   </MatCheckbox></div>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_1_6" > 6. ค้าขาย  </MatCheckbox></div>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_1_7" > 7. อื่น ๆ (ระบุ)    </MatCheckbox></div>
+
+					</div>
+	  
+	  </div>
+	  <div class="custom-control custom-radio"><MatRadioButton GroupName="c"  Value="@("2")" Label=" กลับจากต่างประเทศ/มาเลเซีย"TValue="string"></MatRadioButton></div>
+	  <div class="custom-control">
+						<label > อาชีพเดิมที่ทำ</label>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_2_1" > 1. ร้านอาหาร  </MatCheckbox></div>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_2_2" > 2. แรงงานรับจ้าง  </MatCheckbox></div>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_2_3" > 3. ก่อสร้าง  </MatCheckbox></div>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_2_4" > 4. แรงงานประมง  </MatCheckbox></div>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_2_5" > 5. แม่บ้าน  </MatCheckbox></div>
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a14_1_2_7" > 6. อื่น ๆ (ระบุ)  </MatCheckbox></div>
+ <input type='text' @bind-value="@item.survey_A1.a14_1_2_7_1" class="form-control">
+
+
+
+
+
+
+						</div>
+	  <div class="custom-control custom-radio"><MatRadioButton GroupName="c"  Value="@("3")" Label=" อื่น ๆ ระบุ"TValue="string"></MatRadioButton></div>
+	  <div class="custom-control">
+	  <input type='text' id='a14_1_3_1'  @bind-value="@item.survey_A1.a14_1_3_1" class="form-control">
+	   </div>
+	 <input type='text'   @bind-value="@item.survey_A1.a14_0_1" class="form-control">
+	  </MatRadioGroup>
+
+		
+		 </div>
+ </div>
+ </MatRadioGroup>
+
+
+
+@* <label>14. สถานภาพการทำงาน (A14)</label>
+					<input type='button' value='reset' 
+						onclick="
+							
+							document.getElementById('a14_1_3[<?php echo$i?>]').checked=false;
+							document.getElementById('a14_2[<?php echo$i?>]').checked=false;
+
+					">
+						 <MatRadioGroup bind-Value="@item.survey_A1.a14" TValue="string">
+							  </MatRadioGroup>
+			<div class="custom-control custom-radio">
+					<input id="a14_0[<?php echo$i?>]" name="a14[<?php echo$i?>]" type="radio" class="custom-control-input" value='0' <?php if($row->a14=='0'){echo"checked";}?> onclick='a14_click(<?php echo$i?>)' required>
+					<label class="custom-control-label" for="a14_0[<?php echo$i?>]"> 0) ไม่ทำงาน (ข้ามไป A16)</label>
+			</div>
+			<div class="custom-control custom">
+				<div class="col-lg-12  mb-3">
+					<div class="custom-control custom-radio">
+							<input id="a14_0_1[<?php echo$i?>]" name="a14_0[<?php echo$i?>]" type="radio" class="custom-control-input" value='1' <?php if($row->a14_0=='1'){echo"checked";}?> required>
+							<label class="custom-control-label" for="a14_0_1[<?php echo$i?>]"> 1) ชรา</label>
+					</div>
+					<div class="custom-control custom-radio">
+							<input id="a14_0_2[<?php echo$i?>]" name="a14_0[<?php echo$i?>]" type="radio" class="custom-control-input" value='2' <?php if($row->a14_0=='2'){echo"checked";}?> required>
+							<label class="custom-control-label" for="a14_0_2[<?php echo$i?>]"> 2) พิการ</label>
+					</div>
+					<div class="custom-control custom-radio">
+							<input id="a14_0_3[<?php echo$i?>]" name="a14_0[<?php echo$i?>]" type="radio" class="custom-control-input" value='3' <?php if($row->a14_0=='3'){echo"checked";}?> required>
+							<label class="custom-control-label" for="a14_0_3[<?php echo$i?>]"> 3) เจ็บป่วย</label>
+					</div>
+					<div class="custom-control custom-radio">
+							<input id="a14_0_4[<?php echo$i?>]" name="a14_0[<?php echo$i?>]" type="radio" class="custom-control-input" value='4' <?php if($row->a14_0=='4'){echo"checked";}?> required>
+							<label class="custom-control-label" for="a14_0_4[<?php echo$i?>]"> 4) เด็กเล็ก/นักเรียน/นักศึกษา</label>
+					</div>
+					<div class="custom-control custom-radio">
+							<input id="a14_0_5[<?php echo$i?>]" name="a14_0[<?php echo$i?>]" type="radio" class="custom-control-input" value='5' <?php if($row->a14_0=='5'){echo"checked";}?> required>
+							<label class="custom-control-label" for="a14_0_5[<?php echo$i?>]"> 5) อื่น ๆ (ระบุ)</label>
+							<input type='text' name='a14_0_1[<?php echo$i?>]' value='<?php echo $row->a14_0_1?>' class="form-control">
+					</div>
+				</div*@
+ </div> 
+ 
+ <label>&nbsp;&nbsp;&nbsp;15. อาชีพ (A15) </label>
+ <div class="col-lg-12  mb-3" >
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0" >0) ว่างงาน</MatCheckbox>
+ 
+ <div class="custom-control custom-checkbox">
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_1" > ตกงานจากการแพร่ระบาดของ covid-19 ในพื้นที่</MatCheckbox>
+ <label > อาชีพเดิมที่ทำ</label>
+ 
+ <div class="custom-control custom-checkbox"><MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_1_1" > ร้านอาหาร  </MatCheckbox></div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_1_2" > แรงงานรับจ้าง  </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_1_3" > ก่อสร้าง </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_1_4" >  แม่บ้าน  </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_1_5" > แรงงานประมง  </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_1_6" > ค้าขาย  </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_1_7" > อื่น ๆ (ระบุ)  </MatCheckbox>
+ <input type='text' name='a15_0_1_7_1[@index]' @bind-value="@item.survey_A1.a15_0_1_7_1"   class="form-control">
+ </div>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_2" > กลับจากต่างประเทศ (เช่น มาเลเซีย)</MatCheckbox>
+ <label > อาชีพเดิมที่ทำ</label>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_2_1" > ร้านอาหาร  </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_2_2" > แรงงานรับจ้าง  </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_2_3" > ก่อสร้าง </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_2_4" >  แม่บ้าน  </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_2_5" > แรงงานประมง  </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_2_6" > ค้าขาย  </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_0_2_7" > อื่น ๆ (ระบุ)  </MatCheckbox>
+ <input type='text' name='a15_0_2_7_1[@index]' @bind-value="@item.survey_A1.a15_0_2_7_1" class="form-control">
+ </div>
+ </div>
+ </div>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_1" >1) เกษตรกรรม </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_2" >2) ประมง </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_3" >3) รับจ้างภาคการเกษตร/ประมง </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_4" >4) รับจ้างทั่วไปนอกภาคการเกษตร (รายวัน) </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_5" >5) ลูกจ้าง บ.เอกชน โรงงาน โรงแรม ห้างร้าน </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_6" >6) ลูกจ้างหน่วยงานภาครัฐ/รัฐวิสาหกิจ </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_7" >7) รับราชการ/พนักงานหน่วยงานภาครัฐ/รัฐวิสาหกิจ </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_8" >8) ธุรกิจส่วนตัว/งานบริการ (เช่น ร้านขายของชำ ร้านซ่อมมอเตอร์ไชค์ ค้าขาย/หาบเร่/แผงลอย ร้านเสริมสวย รับจ้างซักรีด ขับสามล้อ มอเตอร์ไชค์รับจ้าง เป็นต้น) </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_9" >9) ปศุสัตว์ </MatCheckbox>
+ </div>
+ 
+ <div class="custom-control custom-checkbox">
+<MatCheckbox  @bind-Value="@item.checkSurveya2.a15_10" >10) อื่น ๆ (ระบุ)</MatCheckbox>
+ <input type='text' name='a15_10_1[@index]' @bind-value="@item.survey_A1.a15_10_1" class="form-control">
+ </div>
+ </div>
+ </div>
+ </div>
+ <hr>
+ }
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveya5/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>

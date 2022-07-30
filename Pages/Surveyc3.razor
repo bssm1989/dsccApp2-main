@@ -1,0 +1,77 @@
+﻿@page "/surveyc3"
+
+@page "/surveyc3/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@*<?php
+
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@*<script>
+location='https://livingonnewpace.com/survey/index.php?curr=survey_profile';
+</script>*@
+@*<?php
+	exit();
+}
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$HC=$_SESSION["HC"];
+$query="select c6,c6_1,c6_2,c6_3,c6_4,c6_5,c6_6,c6_7,c6_8,c6_9,c6_10,c6_11,c6_11_1 from survey_c1 where HC='$HC'";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+?>*@
+@*<form name='survey' method='POST' action='surveyc3_add.php'>*@
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+<table>
+	<tr>
+		<td align='center'>แบบสอบถาม<br>
+โครงการพัฒนาระบบสนับสนุนการทำงานเชิงพื้นที่เพื่อการแก้ไขปัญหาความยากจนแบบเบ็ดเสร็จและแม่นยำหน่วยบริหารและจัดการทุนด้านการพัฒนาระดับพื้นที่ (บพท.)
+		</td>
+	</tr>
+	<tr>
+		<td><b>ตอนที่ 3 สภาพพื้นฐานทางเศรษฐกิจ (ทุนการเงิน) (3/3) (หน้าที่ 13/20)</b></td>
+	</tr>
+	<tr>
+		<td><b><font size='6' color='red'>HC : @HC</font></b></td>
+	</tr>
+	<tr>
+		<td>
+			6. ครัวเรือนของท่านมีทรัพย์สินเพื่อการประกอบอาชีพหรือไม่ (C6)
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6" >1) ไม่มี</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5" >2) มี และได้ใช้เพื่อประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6_1" >1) เครื่องจักรกล เช่น รถไถขนาดเล็ก เครื่องตัดหญ้า ฯลฯ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6_2" >2) รถมอเตอร์ไซค์ (พร้อมเสื้อ)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6_3" >3) รถแท็กซี่</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6_4" >4) เรือประมง เรือติดเครื่องยนต์</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6_5" >5) แผงขายของ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6_6" >6) รถโชเล่ย์ (รถพ่วงข้าง)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6_7" >7) ยุ้งฉาง</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6_8" >8) หุ้น</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6_9" >9) แชร์ (ที่ยังไม่ได้เปีย)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6_10" >10) สัตว์เลี้ยง</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c6_11" >11) อื่น ๆ (ระบุ)</MatCheckbox><input type='text' name='c6_11_1'  @bind-value="@formData.surveyTemp.c6_11_1">
+			<hr>
+		</td>
+	</tr>
+@*<?php
+	$mysqli->close();
+include('button2.php');
+?>*@
+</table>
+@*</form>*@
+ 
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveyd1/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>

@@ -1,0 +1,151 @@
+﻿@page "/index2"
+@page "/index2/{id}"
+
+
+@inject Models.EmployeeContext DBContext
+@inject Models.EmployeeContext2 DBContext2
+
+
+
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@*test deploy   id test<h1>Hello, Bassam</h1>*@
+<div>
+	<div class="container content">
+		<div class="row" style='border-style: dotted;border-width: 1px'>
+			<div class="col-lg-12">
+				<label><b>ระบบสารสนเทศ</b></label>
+				<label>โครงการพัฒนาระบบสนับสนุนการทำงานเชิงพื้นที่เพื่อการแก้ไขปัญหาความยากจนแบบเบ็ดเสร็จและแม่นยำ หน่วยบริหารและจัดการทุนด้านการพัฒนาระดับพื้นที่ (บพท.)</label>
+			</div>
+		</div>
+
+		<!--label><b><font color='red' size='6'>ประกาศ วันที่ 25 สิงหาคม 2563 เวลา 23.00-1.00 น. ทางระบบขอปิดระบบเพื่ออัพเดตระบบชั่วคราวครับ</font></b></label-->
+@**@
+
+		<label>&nbsp&nbsp;<a href='index.php?curr=list_edit'>แก้ไข / ลบ HC</a> | </label>
+		<label><a href='https://www.facebook.com/groups/livingonnewpace/' target="_blank">แจ้งปัญหา</a> | </label>
+		<label>&nbsp&nbsp;ถ้าไม่ใช้งานกรุณา <a href='logout.php'>Logout</a> |</label>
+		<label><a href='/gis' target="fberror">GIS</a></label>
+	</div>
+</div>
+
+
+
+<hr />
+@*********************************  แบบสำรวจของฉัน ***************************@
+@**@
+<br>
+@*
+*@
+<div class="container content">
+		<div class="row" style='border-style: dotted;border-width: 1px'>
+<div class=\"row\">
+	<div class=\"col-lg-12\">
+		<form action='index.php?curr=list_staff1' method='POST'>
+			<input type='text' name='HC_search' id='HC_search' placeholder='--กรอก HC ที่ต้องการค้นหา----' class=\"form-control\" value='$HC_search'>
+			<input type='submit' value='ค้น' class=\"form-control\">
+		</form>
+	</div>
+</div>
+</div>
+</div>
+@**@
+<br>
+<div class="container content">
+<div class="row">
+	<div class="col-lg-12">
+		<label>ขณะนี้มีแบบสำรวจทั้งหมด&nbsp; @tableListSurveys.Count() &nbsp;ชุด&nbsp;&nbsp;<a href='index.php?curr=list_staff1&all=1'>ดูทั้งหมด</a></label>
+	</div>
+</div>
+</div>
+@*
+";
+*@
+
+<br>
+<div class="container content">
+<div class=\"row\">
+	<div class=\"col-lg-12\">
+		<label><a href='index.php?curr=list_staff1'>รายการทั้งหมด</a> ||</label>
+		<label><a href='index.php?curr=list_staff4'>รายการที่กรอกสมบูรณ์</a> ||</label>
+		<label><a href='index.php?curr=list_staff5'>รายการที่ไม่สมบูรณ์ (มีข้อมูลพื้นฐาน)</a> ||</label>
+		<label><a href='index.php?curr=list_staff3'>รายการที่ไม่มีข้อมูลพื้นฐาน</a></label>
+	</div>
+</div>
+</div>
+@**@
+<div class="container"> 
+<div class="row">
+	<div class="col-lg-12 col-md-12">
+<table border=1>
+<tr>
+	<td rowspan='2' align='center'>HC</td>
+	<td rowspan='2' align='center'>อาสาสมัคร</td>
+	<td rowspan='2' align='center'>จังหวัด</td>
+	<td colspan='2' align='center'>ตอนที่ 1</td>
+	<td colspan='2' align='center'>ตอนที่ 2</td>
+	<td colspan='2' align='center'>ตอนที่ 3</td>
+	<td colspan='2' align='center'>ตอนที่ 4</td>
+	<td colspan='2' align='center'>ตอนที่ 5</td>
+	<td  ></td>
+</tr>
+
+<tr>
+	<td align='center'>เริ่มทำ</td>
+	<td align='center'>ทำเสร็จ</td>
+	<td align='center'>เริ่มทำ</td>
+	<td align='center'>ทำเสร็จ</td>
+	<td align='center'>เริ่มทำ</td>
+	<td align='center'>ทำเสร็จ</td>
+	<td align='center'>เริ่มทำ</td>
+	<td align='center'>ทำเสร็จ</td>
+	<td align='center'>เริ่มทำ</td>
+	<td align='center'>ทำเสร็จ</td>
+	<td align='center'></td>
+</tr>
+
+@foreach (var item in tableListSurveys)
+{
+
+
+@**@@*		";
+	}else{
+		echo"*@
+			<tr>
+				<td><a href='surveypageone/@item.HC' >@item.HC</a></td>
+				<td>@item.UserName<br/>	<img src="@item.imageFormData"/> </td>
+				<td>@item.nameProvince </td>
+				<td>@UnixTimeStampToDateTime(item.survey_staff.ch1_st)</td>
+				<td>@UnixTimeStampToDateTime(item.survey_staff.ch1_sp)</td>
+				<td>@UnixTimeStampToDateTime(item.survey_staff.ch2_st)</td>
+				<td>@UnixTimeStampToDateTime(item.survey_staff.ch2_sp)</td>
+				<td>@UnixTimeStampToDateTime(item.survey_staff.ch3_st)</td>
+				<td>@UnixTimeStampToDateTime(item.survey_staff.ch3_sp)</td>
+				<td>@UnixTimeStampToDateTime(item.survey_staff.ch4_st)</td>
+				<td>@UnixTimeStampToDateTime(item.survey_staff.ch4_sp)</td>
+				<td>@UnixTimeStampToDateTime(item.survey_staff.ch5_st)</td>
+				<td>@UnixTimeStampToDateTime(item.survey_staff.ch5_sp)</td>
+				 <td>
+                        <input type="button" class="btn btn-danger btn-sm"  @onclick="@(e => DeleteSurvey_profile(item.id))" value="ลบ" />
+						@{
+							var isDisable = false;
+								if(!String.IsNullOrEmpty(item.status)){
+
+									isDisable= item.status.Equals("1")?true:false;
+								}
+
+
+								
+							}
+								
+                         <input type="button"class="btn  @(item.spinning?"btn-dark":"btn-primary") "  @onclick="@(e => syndatabyHc(item.id,item.index))" value="ส่งข้อมูล" disabled=@isDisable />
+						 </td>
+			</tr>	
+
+@**@
+}
+</table>
+</div>
+</div>
+</div>

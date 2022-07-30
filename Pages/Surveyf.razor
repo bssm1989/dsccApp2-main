@@ -1,0 +1,119 @@
+﻿@page "/surveyf"
+
+@page "/surveyf/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+
+@*<?php
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@* <script>
+location='https://livingonnewpace.com/survey/index.php?curr=survey_profile';
+</script> *@
+@*<?php
+	exit();
+}
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$HC=$_SESSION["HC"];
+$query="select comment1,comment2,r1,r2,r3,r4,r5,r6,r7,r8,r9 from survey_f where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+?>*@
+@* <script>
+function check_ok(obj){
+	if(confirm('ท่านต้องการบันทึกการตรวจสอบหรือไม่ \n เมื่อบันทึกแล้วจะทำผู้สำรวจไม่สามารถแก้ไขข้อมูลครัวเรือนได้')){
+		obj.action='survey_check2.php'
+		obj.submit();
+	}
+}
+</script> *@
+@*<form name='surway' method='POST' action='surveyef_add.php'>*@
+	<br>
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12">
+		<label for="firstName">ข้อเสนอแนะ (หน้าที่ 20/20)</label>
+	</div>
+</div>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12">
+		<label><b><font size='6' color='red'>HC : @HC</font></b></label>
+	</div>
+</div>
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label for="firstName">ข้อเสนอแนะจากเจ้าของบ้านต่อผู้ว่าราชการจังหวัด/หน่วยงานราชการ</label>
+		<input type="text" name='comment1' @bind-value="@formData.surveyTemp.comment1"  class="form-control">
+	</div>
+</div>
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12 mb-3">
+		<label for="firstName">ข้อเสนอแนะจากอาสาสมัครต่อการสำรวจ</label>
+		<input type="text" name='comment2' @bind-value="@formData.surveyTemp.comment2" class="form-control">@*<?php echo$row1->comment2;?>*@
+	</div
+</div>
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12 mb-3">
+		<label for="firstName">ท่านได้ข้อมูลครัวเรือนนี้มาจากแหล่งข้อมูลใด?</label>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.r1" >จปฐ.</MatCheckbox>			@*<label class="custom-control-label" for="r1"> จปฐ. </label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.r2" >กชช.2ค.</MatCheckbox>			@*<label class="custom-control-label" for="r2"> กชช.2ค. </label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.r3" >TPMAP</MatCheckbox>			@*<label class="custom-control-label" for="r3"> TPMAP </label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.r4" >พมจ.</MatCheckbox>			@*<label class="custom-control-label" for="r4"> พมจ.</label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.r5" >พอช.</MatCheckbox>			@*<label class="custom-control-label" for="r5"> พอช. </label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.r6" >อสม./อาสาสมัครเก็บข้อมูล </MatCheckbox>			@*<label class="custom-control-label" for="r6"> อสม./อาสาสมัครเก็บข้อมูล </label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.r7" >อบต./อบท..</MatCheckbox>			@*<label class="custom-control-label" for="r7"> อบต./อบท.</label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.r8" >ชาวบ้าน </MatCheckbox>			@*<label class="custom-control-label" for="r8"> ชาวบ้าน </label>*@
+		</div>
+		<div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@formData.r9" >อื่นๆ</MatCheckbox>			@*<label class="custom-control-label" for="r9">  <input type='text' name='r9_1'  @bind-value="@formData.surveyTemp.r9_1"> </label>		</div>*@
+
+	</div>
+	</div>
+</div>
+@*<?php
+	$mysqli->close()
+?>*@
+@*<?php
+	$mysqli->close();
+include('button2.php');
+if($_SESSION["survey_check"]){echo"<input type='button' value='ตรวจสอบเรียบร้อย' onclick='check_ok(this.form)'>";}
+?>*@
+@*</form>*@ }
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveyf1/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>@*
+
+
+*@

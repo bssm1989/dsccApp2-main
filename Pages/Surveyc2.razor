@@ -1,0 +1,490 @@
+﻿@page "/surveyc2"
+@page "/surveyc2/{HC}"
+@inject Models.EmployeeContext DBContext
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@*<?php
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@*<script>
+location='https://livingonnewpace.com/survey/index.php?curr=survey_profile';
+</script>*@
+@*<?php
+	exit();
+}
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+$HC=$_SESSION["HC"];
+$query="select c5,c5_1_1,c5_1_2,c5_1_3,c5_1_4,c5_1_4_1,c5_2_1,c5_2_1_1,c5_2_1_2_1,c5_2_1_2_2,c5_2_1_2_3,c5_2_1_3,c5_2_1_4,c5_2_2,c5_2_2_1,c5_2_2_2_1,c5_2_2_2_2,c5_2_2_2_3,c5_2_2_3,c5_2_2_4,c5_2_3,c5_2_3_1,c5_2_3_2_1,c5_2_3_2_2,c5_2_3_2_3,c5_2_3_3,c5_2_3_4,c5_2_4,c5_2_4_1,c5_2_4_2_1,c5_2_4_2_2,c5_2_4_2_3,c5_2_4_3,c5_2_4_4,c5_2_5,c5_2_5_1,c5_2_5_2_1,c5_2_5_2_2,c5_2_5_2_3,c5_2_5_3,c5_2_5_4,c5_2_6,c5_2_6_1,c5_2_6_2_1,c5_2_6_2_2,c5_2_6_2_3,c5_2_6_3,c5_2_6_4,c5_2_7,c5_2_7_1,c5_2_7_2_1,c5_2_7_2_2,c5_2_7_2_3,c5_2_7_3,c5_2_7_4,c5_2_8,c5_2_8_1,c5_2_8_2_1,c5_2_8_2_2,c5_2_8_2_3,c5_2_8_3,c5_2_8_4,c5_2_9,c5_2_9_1,c5_2_9_2_1,c5_2_9_2_2,c5_2_9_2_3,c5_2_9_3,c5_2_9_4,c5_2_10,c5_2_10_1,c5_2_10_2_1,c5_2_10_2_2,c5_2_10_2_3,c5_2_10_3,c5_2_10_4,c5_2_11,c5_2_11_1,c5_2_11_2_1,c5_2_11_2_2,c5_2_11_2_3,c5_2_11_3,c5_2_11_4,c5_2_12,c5_2_12_1_1,c5_2_12_1_2,c5_2_12_2_1,c5_2_12_2_2,c5_2_12_2_3,c5_2_12_3,c5_2_12_4 from survey_c2 where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+?>*@
+@*<form name='survey' method='POST' action='surveyc2_add.php'>*@
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+<table>
+	<tr>
+		<td align='center'>แบบสอบถาม<br>
+โครงการพัฒนาระบบสนับสนุนการทำงานเชิงพื้นที่เพื่อการแก้ไขปัญหาความยากจนแบบเบ็ดเสร็จและแม่นยำหน่วยบริหารและจัดการทุนด้านการพัฒนาระดับพื้นที่ (บพท.)
+		</td>
+	</tr>
+	<tr>
+		<td><b>ตอนที่ 3 สภาพพื้นฐานทางเศรษฐกิจ (ทุนการเงิน) (2/3) (หน้าที่ 12/20)</b></td>
+	</tr>
+	<tr>
+		<td><b><font size='6' color='red'>HC : @HC</font></b></td>
+	</tr>
+	<tr>
+		<td>
+			5. ครัวเรือนของท่านมีหนี้สินหรือไม่ (C5)
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c50').checked=false;
+						document.getElementById('c51').checked=false;
+						document.getElementById('c5_1_11').checked=false;
+						document.getElementById('c5_1_12').checked=false;
+						document.getElementById('c5_1_13').checked=false;
+						document.getElementById('c5_1_14').checked=false;
+						this.form.c5_1_4_1.value='';
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0) ไม่มี เนื่องจาก </MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_1_1" >1) ไม่มีหลักทรัพย์ค้ำประกัน</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_1_2" >2) ไม่มีความสามารถในการชำระคืน</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_1_3" >3) ไม่ต้องการเป็นหนี้</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_1_4" >4) อื่น ๆ (ระบุ)</MatCheckbox><input type='text' name='c5_1_4_1'  @bind-value="@formData.surveyTemp.c5_1_4_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1) มี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp แหล่งสินเชื่อ(สถาบันการเงิน/ กองทุน/ เงินบุคคล)
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_1" >1. <font color='blue'>ญาติ/เพื่อน/เพื่อนบ้าน (ไม่มีค่าตอบแทนอื่นใด)</font></MatCheckbox>				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_1').checked=false;
+						this.form.c5_2_1_1.value='';				
+						document.getElementById('c5_2_1_2_11').checked=false;
+						document.getElementById('c5_2_1_2_12').checked=false;
+						document.getElementById('c5_2_1_2_13').checked=false;
+						document.getElementById('c5_2_1_30').checked=false;
+						document.getElementById('c5_2_1_31').checked=false;
+						document.getElementById('c5_2_1_32').checked=false;
+						document.getElementById('c5_2_1_40').checked=false;
+						document.getElementById('c5_2_1_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_1_1' size=5  @bind-value="@formData.surveyTemp.c5_2_1_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_1_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_1_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_1_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_1_3" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_1_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_1_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_1_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_1_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_1_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_1_4" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_2" >2. <font color='blue'>ญาติ/เพื่อน/เพื่อนบ้าน(อัตราดอกเบี้ยต่ำกว่าร้อยละ 15 ต่อปี)</font></MatCheckbox>				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_2').checked=false;
+						this.form.c5_2_2_1.value='';
+						document.getElementById('c5_2_2_2_11').checked=false;
+						document.getElementById('c5_2_2_2_12').checked=false;
+						document.getElementById('c5_2_2_2_13').checked=false;
+						document.getElementById('c5_2_2_30').checked=false;
+						document.getElementById('c5_2_2_31').checked=false;
+						document.getElementById('c5_2_2_32').checked=false;
+						document.getElementById('c5_2_2_40').checked=false;
+						document.getElementById('c5_2_2_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_2_1' size=5  @bind-value="@formData.surveyTemp.c5_2_2_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_2_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_2_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_2_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_2_3" TValue="string">			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@**@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_2_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_2_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_2_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_2_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_2_4" TValue="string">*@			
+</MatRadioGroup>
+			
+			
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_3" >3. <font color='blue'>กองทุนการเงินของชุมชน (สหกรณ์ กลุ่มออมทรัพย์ และกลุ่มกองทุน)</font></MatCheckbox>				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_3').checked=false;
+						this.form.c5_2_3_1.value='';
+						document.getElementById('c5_2_3_2_11').checked=false;
+						document.getElementById('c5_2_3_2_12').checked=false;
+						document.getElementById('c5_2_3_2_13').checked=false;
+						document.getElementById('c5_2_3_30').checked=false;
+						document.getElementById('c5_2_3_31').checked=false;
+						document.getElementById('c5_2_3_32').checked=false;
+						document.getElementById('c5_2_3_40').checked=false;
+						document.getElementById('c5_2_3_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_3_1' size=5  @bind-value="@formData.surveyTemp.c5_2_3_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_3_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_3_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_3_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_3_3" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_3_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_3_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_3_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_3_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_3_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_3_4" TValue="string">*@			
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_4" >4. <font color='blue'>กองทุนการเงินที่รัฐสนับสนุน (กองทุนหมู่บ้าน/กองทุนเงินล้าน/โครงการแก้ไขปัญหาความยากจน (กขคจ.))</font></MatCheckbox>				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_4').checked=false;
+						this.form.c5_2_4_1.value='';
+						document.getElementById('c5_2_4_2_11').checked=false;
+						document.getElementById('c5_2_4_2_12').checked=false;
+						document.getElementById('c5_2_4_2_13').checked=false;
+						document.getElementById('c5_2_4_30').checked=false;
+						document.getElementById('c5_2_4_31').checked=false;
+						document.getElementById('c5_2_4_32').checked=false;
+						document.getElementById('c5_2_4_40').checked=false;
+						document.getElementById('c5_2_4_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_4_1' size=5  @bind-value="@formData.surveyTemp.c5_2_4_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_4_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_4_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_4_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_4_3" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_4_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_4_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_4_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_4_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_4_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_4_4" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_5" >5. <font color='blue'>ธนาคารเพื่อการเกษตรและสหกรณ์</font></MatCheckbox>				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_5').checked=false;
+						this.form.c5_2_5_1.value='';
+						document.getElementById('c5_2_5_2_11').checked=false;
+						document.getElementById('c5_2_5_2_12').checked=false;
+						document.getElementById('c5_2_5_2_13').checked=false;
+						document.getElementById('c5_2_5_30').checked=false;
+						document.getElementById('c5_2_5_31').checked=false;
+						document.getElementById('c5_2_5_32').checked=false;
+						document.getElementById('c5_2_5_40').checked=false;
+						document.getElementById('c5_2_5_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_5_1' size=5  @bind-value="@formData.surveyTemp.c5_2_5_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_5_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_5_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_5_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_5_3" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_5_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_5_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_5_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_5_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_5_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_5_4" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_6" >6. <font color='blue'>ธนาคารออมสิน</font></MatCheckbox>				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_6').checked=false;
+						this.form.c5_2_6_1.value='';
+						document.getElementById('c5_2_6_2_11').checked=false;
+						document.getElementById('c5_2_6_2_12').checked=false;
+						document.getElementById('c5_2_6_2_13').checked=false;
+						document.getElementById('c5_2_6_30').checked=false;
+						document.getElementById('c5_2_6_31').checked=false;
+						document.getElementById('c5_2_6_32').checked=false;
+						document.getElementById('c5_2_6_40').checked=false;
+						document.getElementById('c5_2_6_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_6_1' size=5  @bind-value="@formData.surveyTemp.c5_2_6_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_6_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_6_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_6_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_6_3" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_6_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_6_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_6_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_6_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_6_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_6_4" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_7" >7. <font color='blue'>ธนาคารพาณิชย์อื่น ๆ (เช่น กสิกร ไทยพาณิชย์ กรุงไทย ธอส. ฯลฯ)</font></MatCheckbox>				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_7').checked=false;
+						this.form.c5_2_7_1.value='';
+						document.getElementById('c5_2_7_2_11').checked=false;
+						document.getElementById('c5_2_7_2_12').checked=false;
+						document.getElementById('c5_2_7_2_13').checked=false;
+						document.getElementById('c5_2_7_30').checked=false;
+						document.getElementById('c5_2_7_31').checked=false;
+						document.getElementById('c5_2_7_32').checked=false;
+						document.getElementById('c5_2_7_40').checked=false;
+						document.getElementById('c5_2_7_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_7_1' size=5  @bind-value="@formData.surveyTemp.c5_2_7_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_7_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_7_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_7_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_7_3" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_7_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_7_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_7_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_7_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_7_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_7_4" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_8" >8. <font color='blue'>สถาบันการเงินเอกชน  (ไฟแนนซ์ ,อิออน, เงินติดล้อ)</font></MatCheckbox>				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_8').checked=false;
+						this.form.c5_2_8_1.value='';
+						document.getElementById('c5_2_8_2_11').checked=false;
+						document.getElementById('c5_2_8_2_12').checked=false;
+						document.getElementById('c5_2_8_2_13').checked=false;
+						document.getElementById('c5_2_8_30').checked=false;
+						document.getElementById('c5_2_8_31').checked=false;
+						document.getElementById('c5_2_8_32').checked=false;
+						document.getElementById('c5_2_8_40').checked=false;
+						document.getElementById('c5_2_8_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_8_1' size=5  @bind-value="@formData.surveyTemp.c5_2_8_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_8_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_8_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_8_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_8_3" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_8_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_8_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_8_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_8_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_8_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_8_4" TValue="string">*@
+</MatRadioGroup>
+			
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_9" >9. <font color='blue'>ร้านค้าอุปโภค บริโภค และปัจจัยการผลิต (ปุ๋ย ยา ฯลฯ) </font></MatCheckbox>				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_9').checked=false;
+						this.form.c5_2_9_1.value='';
+						document.getElementById('c5_2_9_2_11').checked=false;
+						document.getElementById('c5_2_9_2_12').checked=false;
+						document.getElementById('c5_2_9_2_13').checked=false;
+						document.getElementById('c5_2_9_30').checked=false;
+						document.getElementById('c5_2_9_31').checked=false;
+						document.getElementById('c5_2_9_32').checked=false;
+						document.getElementById('c5_2_9_40').checked=false;
+						document.getElementById('c5_2_9_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_9_1' size=5  @bind-value="@formData.surveyTemp.c5_2_9_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_9_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_9_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_9_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_9_3" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_9_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_9_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_9_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_9_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_9_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_9_4" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_10" >10.<font color='blue'> เงินกู้นอกระบบ (อัตราดอกเบี้ยเกินกว่าร้อยละ 15 ต่อปี)</font></MatCheckbox>				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_10').checked=false;
+						this.form.c5_2_10_1.value='';
+						document.getElementById('c5_2_10_2_11').checked=false;
+						document.getElementById('c5_2_10_2_12').checked=false;
+						document.getElementById('c5_2_10_2_13').checked=false;
+						document.getElementById('c5_2_10_30').checked=false;
+						document.getElementById('c5_2_10_31').checked=false;
+						document.getElementById('c5_2_10_32').checked=false;
+						document.getElementById('c5_2_10_40').checked=false;
+						document.getElementById('c5_2_10_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_10_1' size=5  @bind-value="@formData.surveyTemp.c5_2_10_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_10_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_10_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_10_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_10_3" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_10_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_10_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_10_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_10_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_10_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_10_4" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_11" >11. <font color='blue'>กองทุนกู้ยืมเพื่อการศึกษา</font></MatCheckbox>				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_11').checked=false;
+						this.form.c5_2_11_1.value='';
+						document.getElementById('c5_2_11_2_11').checked=false;
+						document.getElementById('c5_2_11_2_12').checked=false;
+						document.getElementById('c5_2_11_2_13').checked=false;
+						document.getElementById('c5_2_11_30').checked=false;
+						document.getElementById('c5_2_11_31').checked=false;
+						document.getElementById('c5_2_11_32').checked=false;
+						document.getElementById('c5_2_11_40').checked=false;
+						document.getElementById('c5_2_11_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_11_1' id='c5_2_11_1' size=5  @bind-value="@formData.surveyTemp.c5_2_11_1">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_11_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_11_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_11_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_11_3" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_11_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_11_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_11_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_11_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_11_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_11_4" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_12" >12.<font color='blue'>แหล่งอื่น ๆ (ระบุ)</font></MatCheckbox><input type='text' name='c5_2_12_1_1' size=5  @bind-value="@formData.surveyTemp.c5_2_12_1_1">
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c5_2_12').checked=false;
+						this.form.c5_2_12_1_1.value='';
+						this.form.c5_2_12_1_2.value='';
+						document.getElementById('c5_2_12_2_11').checked=false;
+						document.getElementById('c5_2_12_2_12').checked=false;
+						document.getElementById('c5_2_12_2_13').checked=false;
+						document.getElementById('c5_2_12_30').checked=false;
+						document.getElementById('c5_2_12_31').checked=false;
+						document.getElementById('c5_2_12_32').checked=false;
+						document.getElementById('c5_2_12_40').checked=false;
+						document.getElementById('c5_2_12_41').checked=false;
+				">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp จำนวนเงินกู้ที่คงค้าง (บาท) <input type='text' name='c5_2_12_1_2' size=5  @bind-value="@formData.surveyTemp.c5_2_12_1_2">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>วัตถุประสงค์การกู้</font>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_12_2_1" >1 เพื่ออุปโภคบริโภค</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_12_2_2" >2 เพื่อลงทุนประกอบอาชีพ</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c5_2_12_2_3" >3 อื่น ๆ (เช่น รักษาพยาบาล การศึกษา ด้านสังคม เป็นต้น)</MatCheckbox>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>เคยผิดนัดชำระหนี้หรือไม่</font>
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_12_3" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 ไม่เคย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_12_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 เคย 1-2 ครั้ง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_12_3" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("2")" TValue="string"   > 2 เป็นประจำ</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_12_3" TValue="string">*@
+</MatRadioGroup>
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <font color='red'>ถ้าต้องกู้เพิ่มจะกู้แหล่งนี้ได้อีกไหม</font>่
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_12_4" TValue="string">
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   > 0 กู้ไม่ได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_12_4" TValue="string">*@
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   > 1 กู้เพิ่มได้</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c5_2_12_4" TValue="string">*@			<hr>
+</MatRadioGroup>
+		</td>
+	</tr>
+@*<?php
+	$mysqli->close();
+include('button2.php');
+?>*@
+</table>
+@*</form>*@
+ }
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveyc3/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+			</div>
+		</div>
+</EditForm>

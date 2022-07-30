@@ -1,0 +1,99 @@
+﻿@page "/addemp"
+@inject Models.EmployeeContext DBContext
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+
+@inject IJSRuntime JSRuntime
+
+<EditForm Model="@emp" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row" style="margin-top:10px">
+                <div class="col-md-12">
+                    <label for="Fullname">Fullname #</label>
+                    <input type="text" class="form-control" id="Fullname" @bind-value="@emp.Fullname" placeholder="enter Fullname..." />
+                    <ValidationMessage For="@(()=>emp.Fullname)" />
+                </div>
+            </div>
+            <div class="row" style="margin-top:10px">
+                <div class="col-md-12">
+                    <label for="Email">Email#</label>
+                    <input type="text" class="form-control" id="Email" @bind-value="@emp.Email" placeholder="enter Email..." />
+                    <ValidationMessage For="@(()=>emp.Email)" />
+                </div>
+            </div>
+            <div class="row" style="margin-top:10px">
+                <div class="col-md-12">
+                    <label for="MobileNumber">Mobile Number #</label>
+                    <input type="text" class="form-control" id="MobileNumber" @bind-value="@emp.MobileNumber" />
+                    <ValidationMessage For="@(()=>emp.MobileNumber)" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-info" Style="margin-top:10px">Add user</button>
+            <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+        </div>
+        @if (displayValidationErrorMessages)
+        {
+            <div class="col-md-4" style="margin-top:10px">
+                <label>Validation Messages: </label>
+                <ValidationSummary />
+            </div>
+        }
+    </div>
+</EditForm>
+@if (displayUserAddedToDB)
+{
+    <div class="row bg-success text-white" style="margin-top:10px; height:40px">
+        <label class="p-2">User added to database... </label>
+    </div>
+}
+@*</div>*@
+
+@code{
+    Employee emp = new Employee();
+
+    bool displayValidationErrorMessages = false;
+    bool displayUserAddedToDB = false;
+
+
+    //add user server
+    Employee ReceivedEmployee;
+    public string FormSubmitMessage { get; set; } = "Reservation Not Created";
+
+    public async Task HandleValidSubmit(Employee employee)
+    {
+        ReceivedEmployee = new Employee();
+
+        FormSubmitMessage = "Reservation Created";
+    }
+    //add user local
+    private void HandleInvalidSubmit(EditContext context)
+    {
+        displayValidationErrorMessages = true;
+        displayUserAddedToDB = false;
+    }
+    protected async Task HandleValidSubmit(EditContext context)
+    {
+        displayValidationErrorMessages = true;
+        displayUserAddedToDB = false;
+
+
+        await DBContext.Add(new Models.Employee()
+        {
+            Email = emp.Email,
+            Fullname = emp.Fullname,
+            MobileNumber = emp.MobileNumber,
+            User = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "name")
+
+        });
+        NavigationManager.NavigateTo("index2");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("index2");
+    }
+
+}

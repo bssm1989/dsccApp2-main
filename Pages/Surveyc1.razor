@@ -1,0 +1,132 @@
+﻿@page "/surveyc1"
+
+@page "/surveyc1/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@*<?php
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@*<script>
+location='https://livingonnewpace.com/survey/index.php?curr=survey_profile';
+</script>*@
+@*<?php
+	exit();
+}
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$HC=$_SESSION["HC"];
+$query="select c1_1_0,c1_1_1,c1_1_1_1,c1_1_1_2,c1_1_2,c1_1_2_1,c1_1_2_2,c1_1_3,c1_1_3_1,c1_1_3_2,c1_1_4,c1_1_4_1,c1_1_4_2,c1_2_0,c1_2_1,c1_2_1_1,c1_2_1_2,c1_2_2,c1_2_2_1,c1_2_2_2,c1_2_3,c1_2_3_1,c1_2_3_2,c1_3_0,c1_3_1,c1_3_1_1,c1_3_1_2,c1_3_2,c1_3_2_1,c1_3_2_2,c2
+,c3_1
+,c3_1_1
+,c3_1_2
+,c3_1_3
+
+,c3_2,c3_2_1,c3_3,c3_3_1,c3_4,c3_4_1,c3_5,c3_5_1,c3_6,c3_6_1,c3_7,c3_7_1,c3_8,c3_8_1,c3_9,c3_9_1,c3_10,c3_10_1,c3_10_2,c4,c4_1,c4_1_1,c4_2,c4_2_1,c4_3,c4_3_1,c4_4,c4_4_1,c4_5,c4_5_1,c4_6,c4_6_1,c4_6_2 from survey_c1 where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+
+$query_up="select ch3_st from survey_staff where  HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result_up=$mysqli->query($query_up);
+$row_up=$result_up->fetch_object();
+if($row_up->ch3_st==0){
+	$query_up1="update survey_staff set ch3_st='".date("U")."' where  HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+	$result_up1=$mysqli->query($query_up1);
+}
+?>*@
+@*<form name='survey' method='POST' action='surveyc1_add.php'>*@
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+<table>
+	<tr>
+		<td align='center'>แบบสอบถาม<br>
+โครงการพัฒนาระบบสนับสนุนการทำงานเชิงพื้นที่เพื่อการแก้ไขปัญหาความยากจนแบบเบ็ดเสร็จและแม่นยำหน่วยบริหารและจัดการทุนด้านการพัฒนาระดับพื้นที่ (บพท.)
+		</td>
+	</tr>
+	<tr>
+		<td><b>ตอนที่ 3 สภาพพื้นฐานทางเศรษฐกิจ (ทุนการเงิน) (1/3) (หน้าที่ 11/20)</b></td>
+	</tr>
+	<tr>
+		<td><b><font size='6' color='red'>HC : @HC</font></b></td>
+	</tr>
+	<tr>
+		<td>
+			1. รายได้จากภาคการเกษตรของครัวเรือนมาจากอะไร (ตอบได้มากกว่า 1 ข้อ) (C1)
+			<br>&nbsp&nbsp;&nbsp;&nbsp 1.1 พืชเกษตร (C1.1)
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_1_0" >0) ไม่ได้เพาะปลูกพืชเกษตร</MatCheckbox>			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_1_1" >1) ทำนา</MatCheckbox>			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp ผลผลิตจริงที่ได้ <input type='text' name='c1_1_1_1' size=5  @bind-value="@formData.surveyTemp.c1_1_1_1"> เกวียน/ตัน ราคาที่ขายได้รวม <input type='text' name='c1_1_1_2' size=5  @bind-value="@formData.surveyTemp.c1_1_1_2"> บาท/ปี
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_1_2" >2) ทำสวนผัก/ผลไม้</MatCheckbox>			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp ผลผลิตจริงที่ได้ <input type='text' name='c1_1_2_1' size=5  @bind-value="@formData.surveyTemp.c1_1_2_1"> กก. ราคาที่ขายได้รวม <input type='text' name='c1_1_2_2' size=5  @bind-value="@formData.surveyTemp.c1_1_2_2"> บาท/ปี
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_1_3" >3) พืชไร่ มันสำปะหลัง อ้อย ถั่วเหลือง ถั่วอื่น ๆ  พริก ฯลฯ</MatCheckbox>			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp ผลผลิตจริงที่ได้ <input type='text' name='c1_1_3_1' size=5  @bind-value="@formData.surveyTemp.c1_1_3_1"> ตัน ราคาที่ขายได้รวม <input type='text' name='c1_1_3_2' size=5  @bind-value="@formData.surveyTemp.c1_1_3_2"> บาท/ปี
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_1_4" >4) พืชอุตสาหกรรมอื่น ๆ เช่น ยางพารา ปาล์มน้ำมัน</MatCheckbox>			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp ผลผลิตจริงที่ได้ <input type='text' name='c1_1_4_1' size=5  @bind-value="@formData.surveyTemp.c1_1_4_1"> เกวียน/ตัน ราคาที่ขายได้รวม <input type='text' name='c1_1_4_2' size=5  @bind-value="@formData.surveyTemp.c1_1_4_2"> บาท/ปี
+
+			<br>&nbsp&nbsp;&nbsp;&nbsp 1.2 ปศุสัตว์ (C1.2)
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_2_0" >0) ไม่ได้ทำปศุสัตว์</MatCheckbox>			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_2_1" >1) สัตว์ปีก ราคาที่ขายได้รวม</MatCheckbox><input type='text' name='c1_2_1_1' size=5  @bind-value="@formData.surveyTemp.c1_2_1_1"> บาท/ปี ต้นทุน <input type='text' name='c1_2_1_2' size=5  @bind-value="@formData.surveyTemp.c1_2_1_2"> บาท/ปี
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_2_2" >2) หมู ราคาที่ขายได้รวม</MatCheckbox><input type='text' name='c1_2_2_1' size=5  @bind-value="@formData.surveyTemp.c1_2_2_1"> บาท/ปี ต้นทุน <input type='text' name='c1_2_2_2' size=5  @bind-value="@formData.surveyTemp.c1_2_2_2"> บาท/ปี
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_2_3" >3) วัว/ควาย ราคาที่ขายได้รวม</MatCheckbox><input type='text' name='c1_2_3_1' size=5  @bind-value="@formData.surveyTemp.c1_2_3_1"> บาท/ปี ต้นทุน <input type='text' name='c1_2_3_2' size=5  @bind-value="@formData.surveyTemp.c1_2_3_2"> บาท/ปี
+
+			<br>&nbsp&nbsp;&nbsp;&nbsp 1.3 ประมง (C1.3)
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_3_0" >0 ไม่ได้ทำประมง</MatCheckbox>			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_3_1" >1) ประมงน้ำเค็ม ราคาที่ขายได้รวม</MatCheckbox><input type='text' name='c1_3_1_1' size=5  @bind-value="@formData.surveyTemp.c1_3_1_1"> บาท ต้นทุน <input type='text' name='c1_3_1_2' size=5  @bind-value="@formData.surveyTemp.c1_3_1_2"> บาท
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c1_3_2" >2) ประมงน้ำจืด (เช่น บ่อปลา กุ้ง กบ เป็นต้น) รายได้</MatCheckbox><input type='text' name='c1_3_2_1' size=5  @bind-value="@formData.surveyTemp.c1_3_2_1"> บาท ต้นทุน <input type='text' name='c1_3_2_2' size=5  @bind-value="@formData.surveyTemp.c1_3_2_2"> บาท
+			<hr>
+		</td>
+	</tr>
+	<tr>
+		<td>2. รายได้จากการส่งกลับมาจากลูกหลานที่ทำงานนอกพื้นที่อื่น ๆ รายได้ (C2) <input type='text' name='c2' size=5  @bind-value="@formData.surveyTemp.c1_3_2_2"> บาท/ปี<hr></td>
+	</tr>
+	<tr>
+		<td>
+			3. รายจ่ายครัวเรือน (ตอบได้มากกว่า 1 ข้อ) (C3)
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c3_1" >1) ค่าใช้จ่ายเฉลี่ยเพื่อการบริโภค (อาหาร เครื่องดื่ม) รวม</MatCheckbox><input type='text' name='c3_1_1' size=5  @bind-value="@formData.surveyTemp.c3_1_1"> บาท/วัน
+			<input type='text' name='c3_1_2' size=5  @bind-value="@formData.surveyTemp.c3_1_2"> บาท/สัปดาห์
+			<input type='text' name='c3_1_3' size=5  @bind-value="@formData.surveyTemp.c3_1_3"> บาท/เดือน
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c3_2" >2) ค่าใช้จ่ายเฉลี่ยเพื่อการอุปโภค (ของใช้ในครัวเรือน เดินทาง พลังงาน) รวม</MatCheckbox><input type='text' name='c3_2_1' size=5  @bind-value="@formData.surveyTemp.c3_2_1"> บาท/เดือน
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c3_3" >3) ค่าใช้จ่ายเฉลี่ย น้ำ ไฟ โทรศัพท์ อินเตอร์เน็ต รวม</MatCheckbox><input type='text' name='c3_3_1' size=5  @bind-value="@formData.surveyTemp.c3_3_1"> บาท/เดือน
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c3_4" >4) ค่าใช้จ่ายเฉลี่ยเพื่อการศึกษา (ค่าเทอม ค่าเครื่องแบบนักเรียน สมุด หนังสือ และอื่น ๆ) รวม</MatCheckbox><input type='text' name='c3_4_1' size=5  @bind-value="@formData.surveyTemp.c3_4_1"> บาท/เดือน
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c3_5" >5) ค่าใช้จ่ายเฉลี่ยเพื่อการรักษาพยาบาล รวม</MatCheckbox><input type='text' name='c3_5_1' size=5  @bind-value="@formData.surveyTemp.c3_5_1"> บาท/ปี
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c3_6" >6) ค่าใช้จ่ายเฉลี่ยเพื่อการประกันภัยต่าง ๆ ประกันรถยนต์ รวม</MatCheckbox><input type='text' name='c3_6_1' size=5  @bind-value="@formData.surveyTemp.c3_6_1"> บาท/ปี
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c3_7" >7) ค่าใช้จ่ายเฉลี่ยด้านสังคม (งานบวช งานแต่ง งานศพ) ศาสนา บริจาค รวม</MatCheckbox><input type='text' name='c3_7_1' size=5  @bind-value="@formData.surveyTemp.c3_7_1"> บาท/เดือน
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c3_8" >8) ค่าใช้จ่ายเพื่อความบันเทิง ท่องเที่ยว รวม</MatCheckbox><input type='text' name='c3_8_1' size=5  @bind-value="@formData.surveyTemp.c3_8_1"> บาท/เดือน
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c3_9" >9) ค่าใช้จ่ายในการเสี่ยงโชค เช่น ล็อตเตอรี่ รวม</MatCheckbox><input type='text' name='c3_9_1' size=5  @bind-value="@formData.surveyTemp.c3_9_1"> บาท/เดือน
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c3_10" >10) ค่าใช้จ่ายเฉลี่ย อื่น ๆ (ระบุ)</MatCheckbox><input type='text' name='c3_10_1' size=5  @bind-value="@formData.surveyTemp.c3_10_1"> รวม <input type='text' name='c3_10_2' size=5  @bind-value="@formData.surveyTemp.c3_10_2">
+			<hr>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			4. ครัวเรือนของท่านมีการออมหรือไม่ (C4)
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('c40').checked=false;
+						document.getElementById('c41').checked=false;
+				">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.c4" TValue="string">			<br>&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("1")" TValue="string"   >1) มี</MatRadioButton>
+			<br>&nbsp&nbsp;&nbsp;&nbsp <MatRadioButton Value="@("0")" TValue="string"   >0) ไม่มี</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.c4" TValue="string">*@			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c4_1" >1) เงินสด และทรัพย์สิน (เช่น ทอง)</MatCheckbox><input type='text' name='c4_1_1' size=5  @bind-value="@formData.surveyTemp.c4_1_1"> บาท
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c4_2" >2) เงินฝากกับสถาบันการเงิน (ธนาคาร หน่วยประกันชีวิต)</MatCheckbox><input type='text' name='c4_2_1' size=5  @bind-value="@formData.surveyTemp.c4_2_1"> บาท
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c4_3" >3) เงินฝากกับสหกรณ์ กลุ่มออมทรัพย์ กองทุนชุมชน กลุ่มสัจจะ กองทุนหมู่บ้าน</MatCheckbox><input type='text' name='c4_3_1' size=5  @bind-value="@formData.surveyTemp.c4_3_1"> บาท
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c4_4" >4) พันธบัตร/สลากออมทรัพย์ (ออมสิน ธกส. ฯลฯ)</MatCheckbox><input type='text' name='c4_4_1' size=5  @bind-value="@formData.surveyTemp.c4_4_1"> บาท
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c4_5" >5) กองทุนการออมแห่งชาติ (กอช.)</MatCheckbox><input type='text' name='c4_5_1' size=5  @bind-value="@formData.surveyTemp.c4_5_1"> บาท
+			<br>&nbsp&nbsp;&nbsp;&nbsp&nbsp&nbsp;&nbsp;&nbsp <MatCheckbox  @bind-Value="@formData.c4_6" >6) การออมอื่น ๆ (ระบุ) ระบุ</MatCheckbox><input type='text' name='c4_6_1' size=5  @bind-value="@formData.surveyTemp.c4_6_1"> <input type='text' name='c4_6_2' size=5  @bind-value="@formData.surveyTemp.c4_6_2"> บาท
+			<hr>
+			</MatRadioGroup>
+		</td>
+	</tr>
+@*<?php
+	$mysqli->close();
+include('button2.php');
+?>*@
+</table>
+@*</form>*@
+ 
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveyc2/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>

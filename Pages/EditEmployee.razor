@@ -1,0 +1,133 @@
+﻿@page "/editemployee/{id}"
+@inject Models.EmployeeContext DBContext
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+
+
+
+
+<EditForm Model="employee" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
+    <DataAnnotationsValidator />
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input type="hidden" name="hidden" @bind-value="@employee.Id" />
+                <input for="Name" class="form-control" @bind="@employee.Fullname" />
+                <ValidationMessage For="@(()=>employee.Fullname)" />
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="Email">Email#</label>
+                <input type="text" class="form-control" id="Email" @bind-value="@employee.Email" placeholder="enter Email..." />
+                <ValidationMessage For="@(()=>employee.Email)" />
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="MobileNumber">Mobile Number #</label>
+                <input type="text" class="form-control" id="MobileNumber" @bind-value="@employee.MobileNumber" />
+                <ValidationMessage For="@(()=>employee.MobileNumber)" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <button type="submit" class="btn btn-info" Style="margin-top:10px">Update</button>
+            <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+        </div>
+    </div>
+</EditForm>
+@*<EditForm  OnInvalidSubmit="HandleInvalidSubmit">
+        <DataAnnotationsValidator />
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row" style="margin-top:10px">
+                    <div class="col-md-12">
+                        <label for="Fullname">Fullname #</label>
+                        <input type="text" class="form-control" id="Fullname" @bind="@employee.Fullname" placeholder="enter Fullname..." />
+                        <ValidationMessage For="@(()=>employee.Fullname)" />
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-md-12">
+                        <label for="Email">Email#</label>
+                        <input type="text" class="form-control" id="Email" @bind-value="@employee.Email" placeholder="enter Email..." />
+                        <ValidationMessage For="@(()=>employee.Email)" />
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px">
+                    <div class="col-md-12">
+                        <label for="MobileNumber">Mobile Number #</label>
+                        <input type="text" class="form-control" id="MobileNumber" @bind-value="@employee.MobileNumber" />
+                        <ValidationMessage For="@(()=>employee.MobileNumber)" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info" Style="margin-top:10px">Add user</button>
+                <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+            </div>
+            @if (displayValidationErrorMessages)
+            {
+                <div class="col-md-4" style="margin-top:10px">
+                    <label>Validation Messages: </label>
+                    <ValidationSummary />
+                </div>
+            }
+        </div>
+    </EditForm>*@
+@if (displayUserAddedToDB)
+{
+    <div class="row bg-success text-white" style="margin-top:10px; height:40px">
+        <label class="p-2">User added to database... </label>
+    </div>
+}
+@*</div>*@
+
+@code{
+
+    [Parameter]
+    public String id { get; set; }
+    Employee employee = new Employee();
+    protected override async Task OnInitializedAsync()
+    {
+        employee = await DBContext.GetById(Int32.Parse(id));
+    }
+    Employee emp = new Employee();
+
+    bool displayValidationErrorMessages = false;
+    bool displayUserAddedToDB = false;
+
+
+
+    private void HandleInvalidSubmit(EditContext context)
+    {
+        displayValidationErrorMessages = true;
+        displayUserAddedToDB = false;
+    }
+    protected async Task HandleValidSubmit(EditContext context)
+    {
+        displayValidationErrorMessages = true;
+        displayUserAddedToDB = false;
+        await DBContext.UpdateById(new Models.Employee()
+        {
+            Email = employee.Email,
+            Fullname = employee.Fullname,
+            MobileNumber = employee.MobileNumber,
+            Id = employee.Id
+
+        });
+        NavigationManager.NavigateTo("index2");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("index2");
+    }
+
+}

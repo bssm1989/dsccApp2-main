@@ -1,0 +1,288 @@
+﻿@page "/surveya2"
+@page "/surveya2/{HC}"
+
+
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@using static FirstBlazorApp.Pages.Surveypageone
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+
+
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label for="firstName"><b>ตอนที่ 1 ข้อมูลสมาชิกในครัวเรือน (ทุนมนุษย์) (2/5)  (หน้าที่ 3/20)</b></label>
+		<label for="firstName">จำนวนเงินสวัสดิการให้ระบุจำนวนเงิน และความถี่ เช่น  กรณีผู้สูงอายุ 600 บาท ทุกเดือน   หรือ กรณีเงินเยียวยาจากโควิด 15,000 บาท  ครั้งเดียว</label>
+	</div>
+</div>
+
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12">
+		<label><b><font size='6' color='red'>HC : @HC</font></b></label>
+	</div>
+</div>
+@*<?php
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+$HC=$_SESSION["HC"];
+$query="select HHM,PP from survey_profile where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no'";
+$result=$mysqli->query($query);
+$row=$result->fetch_object();
+$count=$row->HHM+$row->PP;
+survey_a1
+$query1="select a1,a2,a7_0,a7_1,a7_1_1,a7_1_2,a7_2,a7_2_1,a7_2_2,a7_3,a7_3_1,a7_3_2,a7_4,a7_4_1,a7_4_2,a7_5,a7_5_1,a7_5_2,a7_6,a7_6_1,a7_6_2,a7_7,a7_7_1,a7_7_2,a7_8,a7_8_1,a7_8_2
+from survey_a1 
+where HC='$HC' and survey_year='$survey_year' and survey_no='$survey_no' order by convert(a1,integer)";
+$result1=$mysqli->query($query1);
+$i=1;
+while($row1=$result1->fetch_object()){//while($row1=$result1->fetch_object()){
+>?*@
+@{
+		var hc_year_no=configSurvey.HC_noId(HC);
+		var i = 0;
+	}
+<EditForm Model="@modelSurA2sByHc" OnValidSubmit="@HandleValidSubmit" >
+
+	@foreach(var item in modelSurA2sByHc )
+	{
+		if (i < modelSurA2sByHc.Count)
+		{
+			
+		i++;
+		}
+		else
+		{
+			i = 1;
+		}
+		var index=i;
+
+	
+	<input type='hidden' name='a1[@index]' value=''>
+<br>
+	<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label><b>@index. @item.survey_A1.a1</b></label><br>
+		<label>7-8. สวัสดิการสังคม (เลือกได้มากกว่า 1) (A7-A8)</label>
+	</div>
+	<div class="col-lg-12  mb-3" >
+        <div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@item.checkSurveya2.a7_0" >			
+			0) ไม่ได้รับ</MatCheckbox>
+		</div>
+	</div>
+	<div class="col-lg-12  mb-3">
+        <div class="custom-control custom-checkbox">
+			<MatCheckbox   @bind-Value="@item.checkSurveya2.a7_1" >  เด็กแรกเกิด</MatCheckbox>
+			<input type='text'placeholder='--จำนวนเงิน--'@bind-value="@item.survey_A1.a7_1_1"  class="form-control">
+
+						<select class="form-control selectpicker" @bind="item.survey_A1.a7_1_2">
+							
+								<option>--ความถี่--</option>
+								<option value="1">1</option> 
+								<option Value="2"	>2 ครั้งต่อเดือน</option>
+								<option Value="3"	>3 ครั้งต่อเดือน</option>
+								<option Value="4"	>4 ครั้งต่อเดือน</option>
+								<option Value="5"	>2 เดือนต่อ 1 ครั้ง</option>
+								<option Value="6"	>3 เดือนต่อ 1 ครั้ง</option>
+								<option Value="7"	>4 เดือนต่อ 1 ครั้ง</option>
+								<option Value="8"	>6 เดือนต่อ 1 ครั้ง</option>
+								<option Value="10"	>1 ครั้งต่อปี</option>
+								<option Value="11"	>2 ครั้งต่อปี</option>
+								<option Value="9"	>ครั้งเดียว</option>
+
+
+							</select>
+						</div>
+	</div>
+	<div class="col-lg-12  mb-3">
+        <div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@item.checkSurveya2.a7_2" >
+			2) เบี้ยผู้สูงอายุ/คนชรา</MatCheckbox>
+			<input type='text' name='a7_2_1[@index]' placeholder='--จำนวนเงิน--'@bind-value="@item.survey_A1.a7_2_1"  class="form-control">
+			
+						<select class="form-control selectpicker" @bind="item.survey_A1.a7_2_2">
+							
+								<option>--ความถี่--</option>
+								<option value="1">1</option> 
+								<option Value="2"	>2 ครั้งต่อเดือน</option>
+								<option Value="3"	>3 ครั้งต่อเดือน</option>
+								<option Value="4"	>4 ครั้งต่อเดือน</option>
+								<option Value="5"	>2 เดือนต่อ 1 ครั้ง</option>
+								<option Value="6"	>3 เดือนต่อ 1 ครั้ง</option>
+								<option Value="7"	>4 เดือนต่อ 1 ครั้ง</option>
+								<option Value="8"	>6 เดือนต่อ 1 ครั้ง</option>
+								<option Value="10"	>1 ครั้งต่อปี</option>
+								<option Value="11"	>2 ครั้งต่อปี</option>
+								<option Value="9"	>ครั้งเดียว</option>
+
+
+							</select>
+					
+		</div>
+	</div>
+	<div class="col-lg-12  mb-3">
+        <div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@item.checkSurveya2.a7_3">
+			3) เบี้ยคนพิการ</MatCheckbox>
+			<input type='text' name='a7_3_1[@index]' placeholder='--จำนวนเงิน--'@bind-value="@item.survey_A1.a7_3_1"  class="form-control">
+			
+						<select class="form-control selectpicker" @bind="item.survey_A1.a7_3_2">
+							
+								<option>--ความถี่--</option>
+								<option value="1">1</option> 
+								<option Value="2"	>2 ครั้งต่อเดือน</option>
+								<option Value="3"	>3 ครั้งต่อเดือน</option>
+								<option Value="4"	>4 ครั้งต่อเดือน</option>
+								<option Value="5"	>2 เดือนต่อ 1 ครั้ง</option>
+								<option Value="6"	>3 เดือนต่อ 1 ครั้ง</option>
+								<option Value="7"	>4 เดือนต่อ 1 ครั้ง</option>
+								<option Value="8"	>6 เดือนต่อ 1 ครั้ง</option>
+								<option Value="10"	>1 ครั้งต่อปี</option>
+								<option Value="11"	>2 ครั้งต่อปี</option>
+								<option Value="9"	>ครั้งเดียว</option>
+
+
+							</select>
+						
+		</div>
+	</div>
+	<div class="col-lg-12  mb-3">
+        <div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@item.checkSurveya2.a7_4">
+			4) ประกันสังคม (นายจ้าง)</MatCheckbox>
+			<input type='text' name='a7_4_1[@index]' placeholder='--จำนวนเงิน--'@bind-value="@item.survey_A1.a7_4_1"  class="form-control">
+				<select class="form-control selectpicker" @bind="item.survey_A1.a7_4_2">
+							
+								<option>--ความถี่--</option>
+								<option value="1">1</option> 
+								<option Value="2"	>2 ครั้งต่อเดือน</option>
+								<option Value="3"	>3 ครั้งต่อเดือน</option>
+								<option Value="4"	>4 ครั้งต่อเดือน</option>
+								<option Value="5"	>2 เดือนต่อ 1 ครั้ง</option>
+								<option Value="6"	>3 เดือนต่อ 1 ครั้ง</option>
+								<option Value="7"	>4 เดือนต่อ 1 ครั้ง</option>
+								<option Value="8"	>6 เดือนต่อ 1 ครั้ง</option>
+								<option Value="10"	>1 ครั้งต่อปี</option>
+								<option Value="11"	>2 ครั้งต่อปี</option>
+								<option Value="9"	>ครั้งเดียว</option>
+
+
+							</select>
+		</div>
+	</div>
+	<div class="col-lg-12  mb-3">
+        <div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@item.checkSurveya2.a7_5" >
+			5) ประกันตนเอง</MatCheckbox>
+			<input type='text' name='a7_5_1[@index]' placeholder='--จำนวนเงิน--'@bind-value="@item.survey_A1.a7_5_1"  class="form-control">
+				<select class="form-control selectpicker" @bind="item.survey_A1.a7_5_2">
+							
+								<option>--ความถี่--</option>
+								<option value="1">1</option> 
+								<option Value="2"	>2 ครั้งต่อเดือน</option>
+								<option Value="3"	>3 ครั้งต่อเดือน</option>
+								<option Value="4"	>4 ครั้งต่อเดือน</option>
+								<option Value="5"	>2 เดือนต่อ 1 ครั้ง</option>
+								<option Value="6"	>3 เดือนต่อ 1 ครั้ง</option>
+								<option Value="7"	>4 เดือนต่อ 1 ครั้ง</option>
+								<option Value="8"	>6 เดือนต่อ 1 ครั้ง</option>
+								<option Value="10"	>1 ครั้งต่อปี</option>
+								<option Value="11"	>2 ครั้งต่อปี</option>
+								<option Value="9"	>ครั้งเดียว</option>
+
+
+							</select>
+
+		</div>
+	</div>
+	<div class="col-lg-12  mb-3">
+        <div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@item.checkSurveya2.a7_6" >
+			6) บัตรสวัสดิการแห่งรัฐ</MatCheckbox>
+			<input type='text' name='a7_6_1[@index]' placeholder='--จำนวนเงิน--'@bind-value="@item.survey_A1.a7_6_1"  class="form-control">
+				<select class="form-control selectpicker" @bind="item.survey_A1.a7_6_2">
+							
+								<option>--ความถี่--</option>
+								<option value="1">1</option> 
+								<option Value="2"	>2 ครั้งต่อเดือน</option>
+								<option Value="3"	>3 ครั้งต่อเดือน</option>
+								<option Value="4"	>4 ครั้งต่อเดือน</option>
+								<option Value="5"	>2 เดือนต่อ 1 ครั้ง</option>
+								<option Value="6"	>3 เดือนต่อ 1 ครั้ง</option>
+								<option Value="7"	>4 เดือนต่อ 1 ครั้ง</option>
+								<option Value="8"	>6 เดือนต่อ 1 ครั้ง</option>
+								<option Value="10"	>1 ครั้งต่อปี</option>
+								<option Value="11"	>2 ครั้งต่อปี</option>
+								<option Value="9"	>ครั้งเดียว</option>
+
+
+							</select>
+		</div>
+	</div>
+	<div class="col-lg-12  mb-3">
+        <div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@item.checkSurveya2.a7_7" >
+			7) การเยียวยาจากโควิด</MatCheckbox>
+			<input type='text' name='a7_7_1[@index]' placeholder='--จำนวนเงิน--'@bind-value="@item.survey_A1.a7_7_1"  class="form-control">
+				<select class="form-control selectpicker" @bind="item.survey_A1.a7_7_2">
+							
+								<option>--ความถี่--</option>
+								<option value="1">1</option> 
+								<option Value="2"	>2 ครั้งต่อเดือน</option>
+								<option Value="3"	>3 ครั้งต่อเดือน</option>
+								<option Value="4"	>4 ครั้งต่อเดือน</option>
+								<option Value="5"	>2 เดือนต่อ 1 ครั้ง</option>
+								<option Value="6"	>3 เดือนต่อ 1 ครั้ง</option>
+								<option Value="7"	>4 เดือนต่อ 1 ครั้ง</option>
+								<option Value="8"	>6 เดือนต่อ 1 ครั้ง</option>
+								<option Value="10"	>1 ครั้งต่อปี</option>
+								<option Value="11"	>2 ครั้งต่อปี</option>
+								<option Value="9"	>ครั้งเดียว</option>
+
+
+							</select>
+		</div>
+	</div>
+	<div class="col-lg-12  mb-3">
+        <div class="custom-control custom-checkbox">
+			<MatCheckbox  @bind-Value="@item.checkSurveya2.a7_8" >8) อื่น ๆ</MatCheckbox>
+			<input type='text' name='a7_8_1[@index]' placeholder='--จำนวนเงิน--'@bind-value="@item.survey_A1.a7_8_1"  class="form-control">
+				<select class="form-control selectpicker" @bind="item.survey_A1.a7_8_2">
+							
+								<option>--ความถี่--</option>
+								<option value="1">1</option> 
+								<option Value="2"	>2 ครั้งต่อเดือน</option>
+								<option Value="3"	>3 ครั้งต่อเดือน</option>
+								<option Value="4"	>4 ครั้งต่อเดือน</option>
+								<option Value="5"	>2 เดือนต่อ 1 ครั้ง</option>
+								<option Value="6"	>3 เดือนต่อ 1 ครั้ง</option>
+								<option Value="7"	>4 เดือนต่อ 1 ครั้ง</option>
+								<option Value="8"	>6 เดือนต่อ 1 ครั้ง</option>
+								<option Value="10"	>1 ครั้งต่อปี</option>
+								<option Value="11"	>2 ครั้งต่อปี</option>
+								<option Value="9"	>ครั้งเดียว</option>
+
+
+							</select>
+		</div>
+	</div>
+</div>
+}
+<br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="surveya3/"+@HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>
+@*<?php
+	$i++;
+}//while($row1=$result1->fetch_object()){
+$mysqli->close();
+include('button.php');
+>?*@

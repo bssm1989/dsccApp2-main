@@ -1,0 +1,315 @@
+﻿@page "/surveyf2"
+
+@page "/surveyf2/{HC}"
+@inject Models.EmployeeContext DBContext
+
+@using FirstBlazorApp.Models
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@*<?php
+session_start();
+//phpinfo();
+if(!$_SESSION["HC"]){
+?>*@
+@* <script>
+location='https://livingonnewpace.com/survey_p2/index.php?curr=survey_profile';
+</script> *@
+@*<?php
+	exit();
+}
+$mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
+
+$HC=$_SESSION["HC"];
+$query="
+	select 
+		f2
+		,f2_1
+		,f2_2
+		,f2_2_1
+		,f2_2_2
+		,f2_2_3
+		,f2_2_4
+		,f2_2_5
+		,f2_2_5_1
+		,f2_3_1
+		,f2_3_2
+		,f2_3_3
+		,f2_3_4
+		,f2_3_5
+		,f2_3_6
+		,f2_3_7
+		,f2_3_8
+		,f2_3_9
+		,f2_3_10
+		,f2_3_10_1
+		,f2_4_1
+		,f2_4_2
+		,f2_4_3
+		,f2_4_4
+		,f2_4_5
+		,f2_4_6
+		,f2_4_7
+		,f2_4_8
+		,f2_4_8_1 
+	from
+		survey_f
+	where 
+		HC='$HC'
+		and survey_year='$survey_year'
+		and survey_no='$survey_no'
+";
+$result=$mysqli->query($query);
+$row1=$result->fetch_object();
+?>*@
+@*<form name='surway' method='POST' action='surveyf2_add.php'>*@
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit">
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12">
+			<label for="firstName"><b>ส่วนที่ 6 ความคิดเห็นต่อปัญหาและผลกระทบจากโรคติดเชื้อไวรัสโคโรน่า 2019 (COVID-19) และความไม่สงบในพื้นที่ 3 จังหวัดชายแดนภาคใต้ (2/2) (หน้าที่ 21/22)</b></label>
+		</div>
+</div>
+<br>
+<div class="row" style='border-style: dotted;border-width: 1px'>
+		<div class="col-lg-12">
+			<label><b><font size='6' color='red'>HC : @HC</font></b></label>
+		</div>
+</div>
+<br>
+
+<div class="row" style='border-style: dotted;border-width: 1px'>
+	<div class="col-lg-12  mb-3">
+		<label>2. ผลกระทบจากสถานการณ์ความไม่สงบในพื้นที่ (เฉพาะจังหวัดนราธิวาส ยะลา และปัตตานี) (F2)</label>
+
+
+		<div class="custom-control" style='border-style: dotted;border-width: 1px'>
+			<div class="custom-control custom-checkbox">
+				<MatCheckbox  @bind-Value="@formData.f2" ></MatCheckbox>
+				@*<label class="custom-control-label" for="f2">ไม่ได้อยู่ในพื้นที่ จังหวัดนราธิวาส ยะลา และปัตตานี</label>*@
+			</div>
+		</div>
+		<br>
+		<div id='f2_show'>
+		<div class="custom-control" style='border-style: dotted;border-width: 1px'>
+			<div class="col-lg-12  mb-3">
+				<label>2.1 สถานการณ์ความไม่สงบในพื้นที่ มีผลกระทบต่อท่านมากเพียงใด (F2.1)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('f2_11').checked=false;
+						document.getElementById('f2_12').checked=false;
+						document.getElementById('f2_13').checked=false;
+						document.getElementById('f2_14').checked=false;
+						document.getElementById('f2_15').checked=false;
+				">
+				<div class="col-lg-12  mb-3">
+<MatRadioGroup @bind-Value="@formData.surveyTemp.f2_1" TValue="string">
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("1")" TValue="string"   >1 มากที่สุด</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f2_1" TValue="string">*@
+						@*<label class="custom-control-label" for="f2_11"> 1 มากที่สุด</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("2")" TValue="string"   >2 มาก</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f2_1" TValue="string">*@
+						@*<label class="custom-control-label" for="f2_12"> 2 มาก</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("3")" TValue="string"   >3 ปานกลาง</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f2_1" TValue="string">*@
+						@*<label class="custom-control-label" for="f2_13"> 3 ปานกลาง</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("4")" TValue="string"   >4 น้อย</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f2_1" TValue="string">*@
+						@*<label class="custom-control-label" for="f2_14"> 4 น้อย</label>*@
+					</div>
+
+					<div class="custom-control custom-radio">
+						<MatRadioButton Value="@("5")" TValue="string"   >5 น้อยที่สุด</MatRadioButton>
+@*<MatRadioGroup @bind-Value="@formData.surveyTemp.f2_1" TValue="string">*@
+						@*<label class="custom-control-label" for="f2_15"> 5 น้อยที่สุด</label>*@
+					</div>	
+
+</MatRadioGroup>				</div>
+			</div>
+		</div>
+		<br>
+		<div class="custom-control" style='border-style: dotted;border-width: 1px'>
+			<div class="col-lg-12  mb-3">
+				<label>2.2. ปัญหาความไม่สงบในพื้นที่ มีกระทบต่อการดำรงชีวิตด้านใดมากที่สุด  (ตอบได้มากกว่า 1 ข้อ) (F2.2)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('f2_2_1').checked=false;
+						document.getElementById('f2_2_2').checked=false;
+						document.getElementById('f2_2_3').checked=false;
+						document.getElementById('f2_2_4').checked=false;
+						document.getElementById('f2_2_5').checked=false;
+						this.form.f2_2_5_1.value=''
+				">
+
+				<div class="col-lg-12  mb-3">
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_2_1" >1 การใช้ชีวิตประจำวัน </MatCheckbox>						@*<label class="custom-control-label" for="f2_2_1"> 1 การใช้ชีวิตประจำวัน</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_2_2" >2 การประกอบอาชีพ </MatCheckbox>						@*<label class="custom-control-label" for="f2_2_2"> 2 การประกอบอาชีพ</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_2_3" >3 การประกอบกิจกรรมทางศาสนา </MatCheckbox>						@*<label class="custom-control-label" for="f2_2_3"> 3 การประกอบกิจกรรมทางศาสนา</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_2_4" >4 การประกอบกิจกรรมนันทนาการ พักผ่อนหย่อนใจ</MatCheckbox>						@*<label class="custom-control-label" for="f2_2_4"> 4 การประกอบกิจกรรมนันทนาการ พักผ่อนหย่อนใจ</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_2_5" >5 กิจกรรมอื่นๆ ระบุ </MatCheckbox>						@*<label class="custom-control-label" for="f2_2_5">5 กิจกรรมอื่นๆ ระบุ</label>*@
+						<input type='text' name='f2_2_5_1'  @bind-value="@formData.surveyTemp.f2_2_5_1">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<br>
+		<div class="custom-control" style='border-style: dotted;border-width: 1px'>
+			<div class="col-lg-12  mb-3">
+				<label>2.3 ปัญหาความไม่สงบในพื้นที่ ส่งผลต่อการการประกอบอาชีพอย่างไร (ตอบได้มากกว่า 1 ข้อ) (F2.3)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('f2_3_1').checked=false;
+						document.getElementById('f2_3_2').checked=false;
+						document.getElementById('f2_3_3').checked=false;
+						document.getElementById('f2_3_4').checked=false;
+						document.getElementById('f2_3_5').checked=false;
+						document.getElementById('f2_3_6').checked=false;
+						document.getElementById('f2_3_7').checked=false;
+						document.getElementById('f2_3_8').checked=false;
+						document.getElementById('f2_3_9').checked=false;
+						document.getElementById('f2_3_10').checked=false;
+						this.form.f2_3_10_1.value=''
+				">
+
+				<div class="col-lg-12  mb-3">
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_3_1" >1 เกิดปัญหาด้านสุขภาพกับประชาชนในพื้นที่</MatCheckbox>						@*<label class="custom-control-label" for="f2_3_1"> 1 เกิดปัญหาด้านสุขภาพกับประชาชนในพื้นที่</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_3_2" >2 ขาดแรงงานในการผลิต แปรรูป และจำหน่ายสินค้า </MatCheckbox>						@*<label class="custom-control-label" for="f2_3_2"> 2 ขาดแรงงานในการผลิต แปรรูป และจำหน่ายสินค้า</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_3_3" >3 ขาดสถานที่ในการจำหน่ายสินค้า 3 ขาดสถานที่ในการจำหน่ายสินค้า 3 ขาดสถานที่ในการจำหน่ายสินค้า 3 ขาดสถานที่ในการจำหน่ายสินค้า</MatCheckbox>						@*<label class="custom-control-label" for="f2_3_3"> 3 ขาดสถานที่ในการจำหน่ายสินค้า</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_3_4" >4 ขาดความรู้ในการพัฒนา ปรับปรุงการผลิต และการจำหน่าย </MatCheckbox>						@*<label class="custom-control-label" for="f2_3_4"> 4 ขาดความรู้ในการพัฒนา ปรับปรุงการผลิต และการจำหน่าย</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_3_5" >5 ขาดเงินทุนในการประกอบการ </MatCheckbox>						@*<label class="custom-control-label" for="f2_3_5"> 5 ขาดเงินทุนในการประกอบการ</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_3_6" >6 ขาดที่ดินสำหรับทำการผลิต </MatCheckbox>						@*<label class="custom-control-label" for="f2_3_6"> 6 ขาดที่ดินสำหรับทำการผลิต</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_3_7" >7 ขาดแหล่งน้ำในการผลิต </MatCheckbox>						@*<label class="custom-control-label" for="f2_3_7"> 7 ขาดแหล่งน้ำในการผลิต</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_3_8" >8 ขาดระบบคมนาคมเพื่อนำผลผลิตออกจากพื้นที่ </MatCheckbox>						@*<label class="custom-control-label" for="f2_3_8"> 8 ขาดระบบคมนาคมเพื่อนำผลผลิตออกจากพื้นที่</label>*@
+					</div>
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_3_9" >9 ขาดระบบเทคโนโลยีสารสนเทศสมัยใหม่ </MatCheckbox>						@*<label class="custom-control-label" for="f2_3_9"> 9 ขาดระบบเทคโนโลยีสารสนเทศสมัยใหม่</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_3_10" >10 กิจกรรมอื่นๆ ระบุ </MatCheckbox>						@*<label class="custom-control-label" for="f2_3_10">10 กิจกรรมอื่นๆ ระบุ</label>*@
+						<input type='text' name='f2_3_10_1'  @bind-value="@formData.surveyTemp.f2_3_10_1">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<br>
+		<div class="custom-control" style='border-style: dotted;border-width: 1px'>
+			<div class="col-lg-12  mb-3">
+				<label>2.4 สิ่งที่ควรดำเนินการโดยเร่งด่วนเพื่อลดผลกระทบหรือความเดือดร้อนจากปัญหาความไม่สงบในพื้นที่ (F2.4)</label>
+				<input type='button' value='reset' 
+					onclick="
+						document.getElementById('f2_4_1').checked=false;
+						document.getElementById('f2_4_2').checked=false;
+						document.getElementById('f2_4_3').checked=false;
+						document.getElementById('f2_4_4').checked=false;
+						document.getElementById('f2_4_5').checked=false;
+						document.getElementById('f2_4_6').checked=false;
+						document.getElementById('f2_4_7').checked=false;
+						document.getElementById('f2_4_8').checked=false;
+						this.form.f2_4_8_1.value=''
+				">
+
+				<div class="col-lg-12  mb-3">
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_4_1" >1 ปรับปรุงและพัฒนาระบบคมนาคมขนส่งในพื้นที่</MatCheckbox>						@*<label class="custom-control-label" for="f2_4_1"> 1 ปรับปรุงและพัฒนาระบบคมนาคมขนส่งในพื้นที่</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_4_2" >2 เพิ่มการเข้าถึงปัจจัยพื้นฐานในการผลิต </MatCheckbox>						@*<label class="custom-control-label" for="f2_4_2"> 2 เพิ่มการเข้าถึงปัจจัยพื้นฐานในการผลิต</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_4_3" >3 ปรับปรุงและพัฒนาคุณภาพปัจจัยพื้นฐานในการผลิต </MatCheckbox>						@*<label class="custom-control-label" for="f2_4_3"> 3 ปรับปรุงและพัฒนาคุณภาพปัจจัยพื้นฐานในการผลิต</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_4_4" >4 พัฒนาโครงข่ายการสื่อสารรองรับเทคโนโลยีสมัยใหม่ </MatCheckbox>						@*<label class="custom-control-label" for="f2_4_4"> 4 พัฒนาโครงข่ายการสื่อสารรองรับเทคโนโลยีสมัยใหม่</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_4_5" >5 ส่งเสริมความรู้ในการประกอบอาชีพ และสร้างรายได้ </MatCheckbox>						@*<label class="custom-control-label" for="f2_4_5"> 5 ส่งเสริมความรู้ในการประกอบอาชีพ และสร้างรายได้</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_4_6" >6 ส่งเสริมการแปรูป และการตลาดสำหรับผลิตภัณฑ์ในพื้นที่ </MatCheckbox>						@*<label class="custom-control-label" for="f2_4_6"> 6 ส่งเสริมการแปรูป และการตลาดสำหรับผลิตภัณฑ์ในพื้นที่</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_4_7" >7 ส่งเสริมการมีส่วนร่วมในการแก้ไขปัญหา</MatCheckbox>						@*<label class="custom-control-label" for="f2_4_7"> 7 ส่งเสริมการมีส่วนร่วมในการแก้ไขปัญหา</label>*@
+					</div>
+
+					<div class="custom-control custom-checkbox">
+						<MatCheckbox  @bind-Value="@formData.f2_4_8" >8 อื่นๆ ระบุ</MatCheckbox>						@*<label class="custom-control-label" for="f2_4_8">8 อื่นๆ ระบุ</label>*@
+						<input type='text' name='f2_4_8_1'  @bind-value="@formData.surveyTemp.f2_4_8_1">
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+
+@*<?php
+	$mysqli->close();
+include('button.php');
+?>*@
+@*</form>*@
+
+ }
+ <br>
+		<div class="row">
+			<div class="col-lg-12  mb-3">
+				<MatButton Raised="true" type="submit" >บันทึก @complete</MatButton>
+				@{var txtLink="/";}<MatButtonLink Href='/gis_bssm/' Raised="true" Style="Default">ถัดไป</MatButtonLink>
+
+			</div>
+		</div>
+</EditForm>@*
+*@

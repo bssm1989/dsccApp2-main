@@ -1,0 +1,27 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            @{
+                
+            }
+            <a class="ml-md-auto">@user</a>
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>
+@code   {
+    private string user = "";
+    protected override async Task OnInitializedAsync()
+        {
+            user = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "name");
+        }
+}

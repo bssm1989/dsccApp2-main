@@ -1,0 +1,114 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    <StartupObject></StartupObject>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+<PropertyGroup>
+    <PublishTrimmed>false</PublishTrimmed>
+</PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
+    <PackageReference Include="DnetIndexedDb" Version="2.4.1" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="MatBlazor" Version="2.8.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.6" PrivateAssets="all" />
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.19" />
+    <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+    <PackageReference Include="System.Threading" Version="4.3.0" />
+    <PackageReference Include="Syncfusion.Blazor.Core" Version="20.2.0.40" />
+    <PackageReference Include="Syncfusion.Blazor.Calendars" Version="20.2.0.40" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.2.0.40" />
+    <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="20.2.0.40" />
+    <PackageReference Include="Syncfusion.Blazor.Data" Version="20.2.0.40" />
+    <PackageReference Include="Syncfusion.Blazor.Inputs" Version="20.2.0.40" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="wwwroot\css\fonts\" />
+    <Folder Include="wwwroot\script\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Syncfusion.Blazor.Core" />
+    <None Remove="Syncfusion.Blazor.Calendars" />
+    <None Remove="Syncfusion.Blazor.Themes" />
+    <None Remove="Syncfusion.Blazor.DropDowns" />
+    <None Remove="Syncfusion.Blazor.Data" />
+    <None Remove="Syncfusion.Blazor.Inputs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Pages\Addemp.razor" />
+    <Content Remove="Pages\Component.razor" />
+    <Content Remove="Pages\Counter.razor" />
+    <Content Remove="Pages\Datalist.razor" />
+    <Content Remove="Pages\EditEmployee.razor" />
+    <Content Remove="Pages\FetchData.razor" />
+    <Content Remove="Pages\Surveyc2.razor" />
+    <Content Remove="Pages\Surveya4.razor" />
+    <Content Remove="Pages\Surveya2.razor" />
+    <Content Remove="Pages\Surveya5.razor" />
+    <Content Remove="Pages\Surveyc1.razor" />
+    <Content Remove="Pages\Surveyc3.razor" />
+    <Content Remove="Pages\Surveya3.razor" />
+    <Content Remove="Pages\Surveya1.razor" />
+    <Content Remove="Pages\Surveyd1.razor" />
+    <Content Remove="Pages\Surveyd3.razor" />
+    <Content Remove="Pages\Index2.razor" />
+    <Content Remove="Pages\Surveyb2.razor" />
+    <Content Remove="Pages\Surveyb4.razor" />
+    <Content Remove="Pages\Staff.razor" />
+    <Content Remove="Pages\Surveyd2.razor" />
+    <Content Remove="Pages\Surveyb3.razor" />
+    <Content Remove="Pages\Surveyb1.razor" />
+    <Content Remove="Pages\Surveye3.razor" />
+    <Content Remove="Pages\Surveye1.razor" />
+    <Content Remove="Pages\Surveye2.razor" />
+    <Content Remove="Pages\Surveyf1.razor" />
+    <Content Remove="Pages\Surveyf.razor" />
+    <Content Remove="Pages\Surveyf2.razor" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Pages\Component.razor.cs" />
+    <Compile Remove="Pages\EmployeeDetailsBase.cs" />
+    <Compile Remove="Pages\Index2.razor.cs" />
+    <Compile Remove="Pages\Surveyc1.razor.cs" />
+    <Compile Remove="Pages\Surveya2.razor.cs" />
+    <Compile Remove="Pages\Surveya3.razor.cs" />
+    <Compile Remove="Pages\Surveyb1.razor.cs" />
+    <Compile Remove="Pages\Surveya5.razor.cs" />
+    <Compile Remove="Pages\Surveya4.razor.cs" />
+    <Compile Remove="Pages\Surveyd1.razor.cs" />
+    <Compile Remove="Pages\Surveya1.razor.cs" />
+    <Compile Remove="Pages\Surveyb4.razor.cs" />
+    <Compile Remove="Pages\Surveyc2.razor.cs" />
+    <Compile Remove="Pages\Surveyc3.razor.cs" />
+    <Compile Remove="Pages\Surveyd2.razor.cs" />
+    <Compile Remove="Pages\Surveyd3.razor.cs" />
+    <Compile Remove="Pages\Surveyb2.razor.cs" />
+    <Compile Remove="Pages\Surveyb3.razor.cs" />
+    <Compile Remove="Pages\Surveye1.razor.cs" />
+    <Compile Remove="Pages\Surveyf2.razor.cs" />
+    <Compile Remove="Pages\Surveye2.razor.cs" />
+    <Compile Remove="Pages\Surveye3.razor.cs" />
+    <Compile Remove="Pages\Surveyf.razor.cs" />
+    <Compile Remove="Pages\Surveyf1.razor.cs" />
+  </ItemGroup>
+</Project>
