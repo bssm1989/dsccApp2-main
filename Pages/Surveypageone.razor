@@ -87,16 +87,16 @@
             <DropDownListEvents TItem="const_edulev" TValue="string"></DropDownListEvents>
             <DropDownListFieldSettings Text="edulevnme" Value="edulevid"></DropDownListFieldSettings>
         </SfDropDownList>
-        
-        
+
+
     </div>
     <div class="form-group">
         <label for="const_currlev">ระดับชั้นการศึกษาปัจจุบัน</label>
         <SfDropDownList ID="const_currlev" TItem="const_currlev" @bind-Value="personAdd.currlevid" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_currlev1">
             <DropDownListEvents TItem="const_currlev" TValue="string"></DropDownListEvents>
             <DropDownListFieldSettings Text="currlevnme" Value="currlevid"></DropDownListFieldSettings>
-         
-            
+
+
         </SfDropDownList>
     </div>
     <div class="form-group">
@@ -104,6 +104,34 @@
         <SfTextBox ID="blood_type" @bind-Value="personAdd.blood_type">
         </SfTextBox>
 
+    </div>
+    <div class="form-group">
+        <label for="occid">อาชีพ</label>
+        <SfDropDownList ID="occid" TItem="const_occ" @bind-Value="personAdd.occid" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_occ1">
+            <DropDownListEvents TItem="const_occ" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="occnme" Value="occid"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+    <div class="form-group">
+        <label for="add_occid">อาชีพเสริม (ถ้ามี)w</label>
+        <SfTextBox ID="add_occid" @bind-Value="personAdd.add_occid">
+        </SfTextBox>
+    </div>
+    <div class="form-group">
+        <label for="sal">รายได้ต่อเดือน (บาท)</label>
+        <SfNumericTextBox ID="sal" @bind-Value="personAdd.sal">
+        </SfNumericTextBox>
+    </div>
+    <div class="form-group">
+        <label for="roladr">บ้านเลขที่</label>
+        <SfTextBox ID="roladr" @bind-Value="personAdd.roladr">
+        </SfTextBox>
+
+    </div>
+    <div class="form-group">
+        <label for="rolvllsoi">ถนน ตรอก ซอย</label>
+        <SfTextBox ID="rolvllsoi" @bind-Value="personAdd.rolvllsoi">
+        </SfTextBox>
     </div>
     
 

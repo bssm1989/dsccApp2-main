@@ -252,7 +252,7 @@ namespace FirstBlazorApp.Pages
             const_edulev1 = await DBContext.GetAll<const_edulev>("const_edulev");
             const_elderly_grp1 = await DBContext.GetAll<const_elderly_grp>("const_elderly_grp");
             //const_house_conditions1 = await DBContext.GetAll<const_house_conditions>("const_house_conditions");
-            //const_occ1 = await DBContext.GetAll<const_occ>("const_occ");
+            const_occ1 = await DBContext.GetAll<const_occ>("const_occ");
             //const_pertyp1 = await DBContext.GetAll<const_pertyp>("const_pertyp");
             //const_plc1 = await DBContext.GetAll<const_plc>("const_plc");
             //const_plcnmegen1 = await DBContext.GetAll<const_plcnmegen>("const_plcnmegen ");
