@@ -22,12 +22,12 @@
 
     </div>
     <div class="form-group">
-        <label for="pid">
+        <label for="preid">
             คำนำหน้าชื่อ*"
         </label>
-        <SfDropDownList ID="prenme" TItem="const_prenme" @bind-Value="personAdd.preid" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_prenme1">
+        <SfDropDownList ID="preid" TItem="const_prenme" @bind-Value="personAdd.preid" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_prenme1">
             <DropDownListEvents TItem="const_prenme" TValue="string"></DropDownListEvents>
-            <DropDownListFieldSettings Text="sexnme" Value="sexid"></DropDownListFieldSettings>
+            <DropDownListFieldSettings Text="prenme" Value="preid"></DropDownListFieldSettings>
         </SfDropDownList>
     </div>
     <div class="form-group">
@@ -50,21 +50,63 @@
         <label for="surnme">อายุ (ปี)</label>
         <SfNumericTextBox ID="surnme" @bind-Value="personAdd.age">
         </SfNumericTextBox>
-
     </div>
     <div class="form-group">
         <SfRadioButton Label="Male" Name="Gender" Value="1" @bind-Checked="@personAdd.sex"></SfRadioButton>
         <SfRadioButton Label="Female" Name="Gender" Value="2 " @bind-Checked="@personAdd.sex"></SfRadioButton>
     </div>
     <div class="form-group">
-        <label for="sex">
-            คำนำหน้าชื่อ*"
-        </label>
-        @*<SfDropDownList ID="sex" TItem="const_sex" @bind-Value="personAdd.sex" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_prenme1">
-            <DropDownListEvents TItem="const_sex" TValue="string"></DropDownListEvents>
-            <DropDownListFieldSettings Text="prenme" Value="preid"></DropDownListFieldSettings>
-        </SfDropDownList>*@
+        <label for="sex">ศาสนา</label>
+        <SfDropDownList ID="reg" TItem="const_reg" @bind-Value="personAdd.reg" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_reg1">
+            <DropDownListEvents TItem="const_reg" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="regnme" Value="regid"></DropDownListFieldSettings>
+        </SfDropDownList>
     </div>
+    <div class="form-group">
+        <label for="stsmar">สถานภาพ</label>
+        <SfDropDownList ID="stsmar" TItem="const_stsmar" @bind-Value="personAdd.stsmar" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_stsmar1">
+            <DropDownListEvents TItem="const_stsmar" TValue="string"></DropDownListEvents>
+
+            <DropDownListFieldSettings Text="stsmarnme" Value="stsmar"></DropDownListFieldSettings>
+        </SfDropDownList>
+
+    </div>
+    <div class="form-group">
+        <label for="numchi">จำนวนบุตรที่มีชีวิตอยู่</label>
+        <SfNumericTextBox ID="numchi" @bind-Value="personAdd.numchi">
+        </SfNumericTextBox>
+    </div>
+    <div class="form-group">
+        <label for="numchistd">จำนวนบุตรที่กำลังเรียนอยู่"</label>
+        <SfNumericTextBox ID="numchistd" @bind-Value="personAdd.numchistd">
+        </SfNumericTextBox>
+    </div>
+    <div class="form-group">
+        <label for="edulev">ระดับการศึกษาสูงสุด</label>
+        <SfDropDownList ID="edulev" TItem="const_edulev" @bind-Value="personAdd.reg" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_edulev1">
+            <DropDownListEvents TItem="const_edulev" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="edulevnme" Value="edulevid"></DropDownListFieldSettings>
+        </SfDropDownList>
+        
+        
+    </div>
+    <div class="form-group">
+        <label for="const_currlev">ระดับชั้นการศึกษาปัจจุบัน</label>
+        <SfDropDownList ID="const_currlev" TItem="const_currlev" @bind-Value="personAdd.currlevid" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_currlev1">
+            <DropDownListEvents TItem="const_currlev" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="currlevnme" Value="currlevid"></DropDownListFieldSettings>
+         
+            
+        </SfDropDownList>
+    </div>
+    <div class="form-group">
+        <label for="blood_type">กรุ๊ปเลือด</label>
+        <SfTextBox ID="blood_type" @bind-Value="personAdd.blood_type">
+        </SfTextBox>
+
+    </div>
+    
+
 </EditForm>
 <EditForm Model="@recordSurveyProfile" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
