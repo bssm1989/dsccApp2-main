@@ -11,7 +11,13 @@
     <div class="col-lg-12  mb-3">
 
         <label for="province2">จังหวัด<a href='index.php?curr=edit'>เปลี่ยนจังหวัดเริ่มต้น</a></label>-->
-        <MatSelect Label="จังหวัด" @bind-Value="@SelectProvinceId" TValue="string" Outlined="true" FullWidth>
+        <MudSelect @bind-Value="@SelectProvinceId" Label="Select drink" HelperText="Enum" OpenIcon="@Icons.Material.Filled.LocalDrink" AdornmentColor="Color.Secondary">
+            @foreach (var item in provinces1)
+            {
+                <MudSelectItem TValue="string" Value="@item.province_id">@item.province_name_thai</MudSelectItem>
+            }
+        </MudSelect>
+        @*<MatSelect Label="จังหวัด" @bind-Value="@SelectProvinceId" TValue="string" Outlined="true" FullWidth>
 
             @foreach (var item in provinces1)
             {
@@ -20,8 +26,8 @@
             }
 
 
-        </MatSelect>
-        
+        </MatSelect>*@
+
 
         <div class="invalid-feedback">
             กรุณาเลือกตำบล
@@ -38,23 +44,23 @@
 
     <div class="col-lg-12  mb-3">
         <label for="district2">อำเภอ</label>
-        <MatSelect Label="เลือกอำเภอ" @bind-Value="@SelectDistrictId" TValue="string" Outlined="true" FullWidth>
-
-
-
-            @foreach (var item in districts)
-            {
-                if (item.district_id == recordSurveyProfile.AMP)
+        <MudSelect @bind-Value="@SelectDistrictId" Label="Select drink"  OpenIcon="@Icons.Material.Filled.LocalDrink" AdornmentColor="Color.Secondary">
+         
+                @foreach (var item in districts)
                 {
-                    districtId = item.district_id;
+                    if (item.district_id == recordSurveyProfile.AMP)
+                    {
+                        districtId = item.district_id;
+                    }
+
+
+                    <MudSelectItem TValue="string"  Value="@item.district_id">@item.district_name_thai</MudSelectItem>
+
                 }
 
-
-                <MatOption TValue="string" Value="@item.district_id">@item.district_name_thai</MatOption>
-
-            }
-
-        </MatSelect>
+            
+        </MudSelect>
+        
         <div class="invalid-feedback">
 
             กรุณาเลือกอำเภอ
@@ -66,9 +72,18 @@
 
     <div class="col-lg-12  mb-3">
         <label for="subdist2">ตำบล </label>
-        <input type="text" class="form-control" id="TMP" name="TMP" placeholder="--ตำบล--" value='<?php echo $row1->TMP?>' -->
+        <MudSelect @bind-Value="@SelectTambonId" Label="Select drink"  OpenIcon="@Icons.Material.Filled.LocalDrink" AdornmentColor="Color.Secondary">
 
-        <MatSelect Label="เลือกอำเภอ" @bind-Value="@SelectTambonId" TValue="string" Outlined="true" FullWidth>
+
+            @foreach (var item in tambons)
+            {
+
+                <MudSelectItem TValue="string" Value="@item.tambon_id">@item.tambon_name_thai</MudSelectItem>
+
+            }
+
+        </MudSelect>
+        @*<MatSelect Label="เลือกอำเภอ" @bind-Value="@SelectTambonId" TValue="string" Outlined="true" FullWidth>
 
 
 
@@ -79,7 +94,7 @@
 
             }
 
-        </MatSelect>
+        </MatSelect>*@
         <div class="invalid-feedback">
             กรุณาเลือกตำบล
         </div>
