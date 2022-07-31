@@ -261,7 +261,7 @@ namespace FirstBlazorApp.Pages
             //const_school1 = await DBContext.GetAll<const_school>("const_school");
             //const_sex1 = await DBContext.GetAll<const_sex>("const_sex");
             const_stsmar1 = await DBContext.GetAll<const_stsmar>("const_stsmar");
-            //const_vaccination1 = await DBContext.GetAll<const_vaccination>("const_vaccination");
+            const_vaccination1 = await DBContext.GetAll<const_vaccination>("const_vaccination");
             await JSRuntime.InvokeVoidAsync("localStorage.setItem", "HC", HC);
 			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./script/callFunction.js");
 			if(HC!= null)

@@ -1614,8 +1614,6 @@ namespace FirstBlazorApp.Models
         public string d1_1 { get; set; }
         public string d1_2 { get; set; }
         public string d2 { get; set; }
-        public string d2_1 { get; set; }
-        public string d2_2 { get; set; }
         public string d2_3 { get; set; }
         public string d2_3_1 { get; set; }
         public string d3 { get; set; }
@@ -1656,9 +1654,9 @@ namespace FirstBlazorApp.Models
         public string house_conid { get; set; }
         public string picname1 { get; set; }
         public string picname2 { get; set; }
-        public string congenital_disease { get; set; }
+        public string[] congenital_disease { get; set; }
         public string congenital_disease_oth { get; set; }
-        public string medical_permis { get; set; }
+        public string[] medical_permis { get; set; }
         public string medical_permis_oth { get; set; }
         public string medical_permis_office { get; set; }
         public string vaccination_id { get; set; }

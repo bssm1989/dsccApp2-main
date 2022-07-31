@@ -133,9 +133,175 @@
         <SfTextBox ID="rolvllsoi" @bind-Value="personAdd.rolvllsoi">
         </SfTextBox>
     </div>
+    <div class="form-group">
+        <label for="vll2">หมู่บ้าน</label>
+        <SfTextBox ID="vll2" @bind-Value="personAdd.rolvllsoi">
+        </SfTextBox>
+    </div>
+
+    <div class="form-group">
+        <label for="tel">เบอร์โทรศัพท์</label>
+        <SfTextBox ID="tel" @bind-Value="personAdd.tel">
+        </SfTextBox>
+    </div>
+    <br><h3>ข้อมูลเชิงพื้นที่</h3>
+
+    <div class="form-group">
+        <label for="lat">พิกัดบ้าน ละติจูด</label>
+        <SfTextBox ID="lat" @bind-Value="personAdd.lat">
+        </SfTextBox>
+    </div>
+    <div class="form-group">
+        <label for="lon">พิกัดบ้าน ลองจิจูด</label>
+        <SfTextBox ID="lon" @bind-Value="personAdd.lon">
+        </SfTextBox>
+    </div>
+    <div class="form-group">
+        <label for="house_conid">สภาพบ้าน</label>
+        <SfDropDownList ID="house_conid" TItem="const_house_conditions" @bind-Value="personAdd.house_conid" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_house_conditions1">
+            <DropDownListEvents TItem="const_house_conditions" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="occnme" Value="occid"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+    <div class="form-group">
+        <label for="lat">รูปภาพบ้าน</label>
+        <SfTextBox ID="lat" @bind-Value="personAdd.lat">
+        </SfTextBox>
+    </div>
+    <br><h3>ข้อมูลด้านสุขภาพ</h3>
+
+    <div class="form-group">
+        <label>ท่านมีโรคประจำตัวหรือปัญหาสุขภาพหรือไม่ :</label>
+        <SfMultiSelect TValue="string[]" TItem="congenital_diseaseDropdown" en AllowFiltering="true" Placeholder="" @bind-Value="personAdd.congenital_disease" Mode="@VisualMode.CheckBox" DataSource="@congenital" ShowSelectAll="false" EnableSelectionOrder="@EnableSelectionOrders" ShowDropDownIcon="@EnableDropDownIcon" FilterBarPlaceholder="ค้นหา" PopupHeight="350px">
+            <MultiSelectFieldSettings Text="Name" Value="Code"></MultiSelectFieldSettings>
+        </SfMultiSelect>
+    </div>
+    <div class="form-group">
+        <label>สิทธิการรักษาพยาบาล</label>
+        <SfMultiSelect TValue="string[]" TItem="medical_permisDropdown" en AllowFiltering="true" Placeholder="" @bind-Value="personAdd.medical_permis" Mode="@VisualMode.CheckBox" DataSource="@medical" ShowSelectAll="false" EnableSelectionOrder="@EnableSelectionOrders" ShowDropDownIcon="@EnableDropDownIcon" FilterBarPlaceholder="ค้นหา" PopupHeight="350px">
+            <MultiSelectFieldSettings Text="Name" Value="Code"></MultiSelectFieldSettings>
+        </SfMultiSelect>
+    </div>
+
+    <div class="form-group">
+        <label for="medical_permis_office">สถานที่รักษา</label>
+        <SfTextBox ID="medical_permis_office" @bind-Value="personAdd.medical_permis_office">
+        </SfTextBox>
+    </div>
+    <div class="form-group">
+        <label for="vaccination_id">การรับวัคซีน</label>
+        <SfDropDownList ID="vaccination_id" TItem="const_vaccination" @bind-Value="personAdd.vaccination_id" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_vaccination1">
+            <DropDownListEvents TItem="const_vaccination" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="vaccination_nme" Value="vaccination_id"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+    <div class="form-group">
+        <label for="num_covid">รท่านเคยติดโรคโควิด (COVID-19) กี่ครั้ง</label>
+        <SfNumericTextBox ID="num_covid" @bind-Value="personAdd.num_covid">
+        </SfNumericTextBox>
+    </div>
+    <br />
+    <h3> ข้อมูลกลุ่มเปราะบาง</h3>
     
+    @*<h3> ข้อมูลกลุ่มเปราะบาง</h3>
+    <InputText id="pertypid" class="form-control" placeholder="ประเภทกลุ่มเปราะบาง" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
+    <InputText id="elderly_grpid" class="form-control" placeholder="ผู้สูงอายุจัดอยู่ในกลุ่ม" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
+    <InputText id="distypid" class="form-control" placeholder="ประเภทความพิการและลักษณะความพิการ (ที่ระบุในบัตรประจำตัวคนพิการ)" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
+    <br />
+    <h3> ข้อมูลผู้ดูแล</h3>
+    <MatRadioGroup @bind-Value="@Val1" TValue="string">
+        <MatRadioButton Value="@string.Empty" TValue="string">Default</MatRadioButton>
+        <MatRadioButton Value="@("f")" Label="ไม่มีผู้ดูแล" TValue="string"></MatRadioButton>
+        <MatRadioButton Value="@("f")" Label="มีผู้ดูแล-สมาชิกครอบครัว" TValue="string"></MatRadioButton>
+        <MatRadioButton Value="@("f")" Label="มีผู้ดูแล-จ้างคนนอกครอบครัวมาดูแล" TValue="string"></MatRadioButton>
+    </MatRadioGroup>
+    <InputText id="main_attendant_nme" class="form-control" placeholder="ชื่อผู้ดูแลหลัก" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
+    <InputText id="main_attendant_surnme" class="form-control" placeholder="ชื่อสกุลผู้ดูแลหลัก" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
+    <InputText id="main_attendant_brtdte" class="form-control" placeholder="วันเดือนปีเกิดผู้ดูแลหลัก" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
+    <InputText id="main_attendant_rel" class="form-control" placeholder="ความสัมพันธ์ เกี่ยวข้องกับกลุ่มเปราะบาง" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
+    <InputText id="main_attendant_occid" class="form-control" placeholder="อาชีพ" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
+    <InputText id="main_attendant_sal" class="form-control" placeholder="รายได้ต่อเดือน (บาท)" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
+    <InputText id="main_attendant_tel" class="form-control" placeholder="โทรศัพท์" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />*@
 
 </EditForm>
+
+@code{
+    public bool ShowSelectAllCheckBox { get; set; } = true;
+    public bool EnableSelectionOrders { get; set; } = true;
+    public bool EnableDropDownIcon { get; set; } = true;
+    private bool CheckSelectAll { get; set; } = true;
+    private bool DropDownButton { get; set; } = true;
+    private bool SelectionReorder { get; set; } = true;
+    public void OnSelectAllChange(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args)
+    {
+        // this.ShowSelectAllCheckBox = args.Checked;
+    }
+    public void OnDropDownButtonChange(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args)
+    {
+        //this.EnableDropDownIcon = args.Checked;
+    }
+    public void OnSeletionReorder(Syncfusion.Blazor.Buttons.ChangeEventArgs<bool> args)
+    {
+        //this.EnableSelectionOrders = args.Checked;
+    }
+    public class congenital_diseaseDropdown
+    {
+        public string Name { get; set; }
+        public string Code { get; set; }
+    }
+    public class medical_permisDropdown
+    {
+        public string Name { get; set; }
+        public string Code { get; set; }
+    }
+    List<congenital_diseaseDropdown> congenital = new List<congenital_diseaseDropdown>
+{
+        new congenital_diseaseDropdown() { Name = "1.ความดันโลหิตสูง", Code = "1" },
+        new congenital_diseaseDropdown() { Name = "2.เบาหวาน", Code = "2" },
+        new congenital_diseaseDropdown() { Name = "3.โรคหัวใจ", Code = "3" },
+        new congenital_diseaseDropdown() { Name = "4.อัมพฤกษ์/อัมพาต", Code = "4" },
+        new congenital_diseaseDropdown() { Name = "5.โรคปอด/หอบหืด", Code = "5" },
+        new congenital_diseaseDropdown() { Name = "6.โรคมะเร็ง", Code = "6" },
+        new congenital_diseaseDropdown() { Name = "7.เก๊าท์/ข้อเสื่อม", Code = "7" },
+        new congenital_diseaseDropdown() { Name = "8.อัลไซเมอร์/สมองเสื่อม", Code = "8" },
+        new congenital_diseaseDropdown() { Name = "9.มีอาการทางจิตเวช", Code = "9" },
+        new congenital_diseaseDropdown() { Name = "10.โรคอ้วน", Code = "10" },
+        new congenital_diseaseDropdown() { Name = "11.โรคสมองและหลอดเลือด", Code = "11" },
+        new congenital_diseaseDropdown() { Name = "12.อื่นๆ ระบุ", Code = "12" },
+
+    };
+
+    List<medical_permisDropdown> medical = new List<medical_permisDropdown>
+{
+        new medical_permisDropdown() { Name = "1.บัตรทอง             ", Code = "1" },
+        new medical_permisDropdown() { Name = "2.ประกันชีวิต   ", Code = "2" },
+        new medical_permisDropdown() { Name = "3.ประกันสังคม  ", Code = "3" },
+        new medical_permisDropdown() { Name = "4.เบิกต้นสังกัด      ", Code = "4" },
+        new medical_permisDropdown() { Name = "5.จ่ายเอง         ", Code = "5" },
+        new medical_permisDropdown() { Name = "6.อื่นๆ ระบุ    ", Code = "6" },
+
+    };
+}
+<style>
+    .control-wrapper {
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 50px 0px 0px;
+    }
+
+    .example-label {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .property-panel-content {
+        padding: 0px 0px 15px 0px;
+    }
+
+        .property-panel-content:last-child {
+            padding: 0px 0px 40px 0px;
+        }
+</style>
 <EditForm Model="@recordSurveyProfile" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <input type='hidden' name='next' value='1'>
@@ -278,11 +444,6 @@
                 <MatCheckbox @bind-Value="@checked1" Label="10.โรคอ้วน"></MatCheckbox>
                 <MatCheckbox @bind-Value="@checked1" Label="11.โรคสมองและหลอดเลือด"></MatCheckbox>
                 <MatCheckbox @bind-Value="@checked1" Label=" 12.อื่นๆ ระบุ"></MatCheckbox>
-                <MatCheckbox @bind-Value="@checked1" Label="7.เก๊าท์/ข้อเสื่อม"></MatCheckbox>
-                <MatCheckbox @bind-Value="@checked1" Label="7.เก๊าท์/ข้อเสื่อม"></MatCheckbox>
-                <MatCheckbox @bind-Value="@checked1" Label="7.เก๊าท์/ข้อเสื่อม"></MatCheckbox>
-                <MatCheckbox @bind-Value="@checked1" Label="7.เก๊าท์/ข้อเสื่อม"></MatCheckbox>
-                <MatCheckbox @bind-Value="@checked1" Label="7.เก๊าท์/ข้อเสื่อม"></MatCheckbox>
                 <h3> สิทธิการรักษาพยาบาล</h3>
 
                 <MatCheckbox @bind-Value="@checked1" Label=" 1.บัตรทอง"></MatCheckbox>
