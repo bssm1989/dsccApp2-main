@@ -261,6 +261,7 @@ namespace FirstBlazorApp.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            this.VisibleProperty = true;
             await DBContext.OpenIndexedDb();
             provinces1 = await DBContext.GetAll<province>("province");
             districts1 = await DBContext.GetAll<district>("district");
@@ -310,6 +311,7 @@ namespace FirstBlazorApp.Pages
             }
 
             provinces1 = await DBContext.GetAll<province>("province");
+            this.VisibleProperty = false;
         }
 
 

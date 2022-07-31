@@ -6,7 +6,30 @@
 @inject NavigationManager NavigationManager
 
 @inject NavigationManager UriHelper
-<h3>Component1</h3>
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Spinner
+@using Syncfusion.Blazor.Buttons
+<div>
+    
+    <div id="container">
+        <SfSpinner @bind-Visible="@VisibleProperty">
+        </SfSpinner>
+    </div>
+</div>
+<style>
+
+    element.style {
+    }
+
+    .e-spinner-pane .e-spinner-inner {
+        top: 5%;
+    }
+</style>
+@code{
+    private bool VisibleProperty { get; set; } = false;
+
+   
+}
 <EditForm Model="@recordSurveyProfile" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
 
@@ -17,7 +40,7 @@
     </div>
     <div class="form-group">
         <label for="preid">คำนำหน้าชื่อ*</label>
-
+        <InputText @bind-Value="recordSurveyProfile.preid" />
         <MatSelect Label="คำนำหน้าชื่อ*" @bind-Value="@recordSurveyProfile.preid" TValue="string" Outlined="true" FullWidth>
             @foreach (var item in const_prenme1)
             {
@@ -283,7 +306,7 @@
 
             <MatButton Raised="true" type="submit">บันทึก @complete</MatButton>
             @*@{var txtLink = "surveya1/" + @HC;}
-            <MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>*@
+                <MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>*@
 
 
         </div>
