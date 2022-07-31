@@ -84,6 +84,8 @@
     <Content Remove="Pages\Surveyf1.razor" />
     <Content Remove="Pages\Surveyf.razor" />
     <Content Remove="Pages\Surveyf2.razor" />
+    <Content Remove="Pages\profile1.razor" />
+    <Content Remove="Pages\profile1.razor" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Pages\Component.razor.cs" />

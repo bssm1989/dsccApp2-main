@@ -391,26 +391,27 @@ namespace FirstBlazorApp.Pages
 			//$log="insert into log_file ( id,username,time1,detail) values('','$username','".date("U") ."','เพิ่ม $HC')";
 			complete = "เรียบร้อย";
 		}
-		private async Task gotoPage(string HC_nextPage)
+		private Task gotoPage(string HC_nextPage)
         {
-			NavigationManager.NavigateTo("/surveya1/"+ HC_nextPage);
+            NavigationManager.NavigateTo("/surveya1/"+ HC_nextPage);
+            return Task.CompletedTask;
+        }
 
-		}
-		public async Task gotoSelAsync()
-		{
-			//{
-			//	await DBContext.OpenIndexedDb();
-			//	districts = await DBContext.GetByIndex<int?, district>("district", Convert.ToInt32(recordSurveyProfile.JUN), 0, "province_id", false);
-			//	tambons = await DBContext.GetByIndex<string, tambon>("tambon", "9402", null, "district_id", false);
+        public Task gotoSelAsync()
+        {
+            //{
+            //	await DBContext.OpenIndexedDb();
+            //	districts = await DBContext.GetByIndex<int?, district>("district", Convert.ToInt32(recordSurveyProfile.JUN), 0, "province_id", false);
+            //	tambons = await DBContext.GetByIndex<string, tambon>("tambon", "9402", null, "district_id", false);
 
-			SelectProvinceId = "94";
+            SelectProvinceId = "94";
 			//	//SelectDistrictId = recordSurveyProfile.AMP;
 			recordSurveyProfile.TMP = "940109";
 			recordSurveyProfile.AGRI_NO = "sdsdsdsdsdsdsds";
-			//	recordSurveyProfile.AMP = "9603";
-		}
+            return Task.CompletedTask;
+        }
 
-		public MatTheme theme = new MatTheme { Primary = "#AAAA00", Secondary = "#00AAAA", OnSecondary = "#FAFAAA" };
+        public MatTheme theme = new MatTheme { Primary = "#AAAA00", Secondary = "#00AAAA", OnSecondary = "#FAFAAA" };
 		void Navigate(string HC_nextPage)
 		{
 			UriHelper.NavigateTo("/surveya1/" + HC_nextPage);
@@ -454,23 +455,23 @@ namespace FirstBlazorApp.Pages
 }
 public class EmailDomainValidator : ValidationAttribute
 {
-	public string AllowedDomain { get; set; }
-	
-	protected override ValidationResult IsValid(object value,
+    public string AllowedDomain { get; set; }
+
+    protected override ValidationResult IsValid(object value,
 ValidationContext validationContext)
-	{
-		
-		String code = Globals.HC_globla ;
+    {
+
+        String code = Globals.HC_globla;
         //if (strings[1].ToUpper() == AllowedDomain.ToUpper())
         //{
         //	return null;
         //}
 
-        if (value.ToString()  != code)
+        if (value.ToString() != code)
         {
-			return null;
+            return null;
         }
-		return new ValidationResult($"เลข",
-		new[] { validationContext.MemberName });
-	}
+        return new ValidationResult($"เลข",
+        new[] { validationContext.MemberName });
+    }
 }

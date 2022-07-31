@@ -1625,6 +1625,11 @@ namespace FirstBlazorApp.Models
     public class person
     {
         [IndexDbKey(AutoIncrement = true)]
+        public string id { get; set; }
+        public string HC { get; set; }
+        public string JUN { get; set; }
+        public string AMP { get; set; }
+        public string TMP { get; set; }
         public int perid { get; set; }
         public string pid { get; set; }
         public string preid { get; set; }
@@ -1678,7 +1683,7 @@ namespace FirstBlazorApp.Models
         public int savofc { get; set; }
         public string savdte { get; set; }
         public int updofc { get; set; }
-        public string upddte { get; set; }
+        public int upddte { get; set; }
     }
 }
 

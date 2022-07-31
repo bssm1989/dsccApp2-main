@@ -8,7 +8,7 @@ using static  FirstBlazorApp.Models.EmployeeContext ;
 
 namespace FirstBlazorApp.Models
 {
-    public class EmailDomainValidator : ValidationAttribute
+    public class EmailDomainValidator: ValidationAttribute
     {
         public string AllowedDomain { get; set; }
 

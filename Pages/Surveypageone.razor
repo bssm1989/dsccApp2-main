@@ -658,7 +658,7 @@
          new city() { CityName= "Townsville", StateId= "104", CityId= "210" }
     };
 }
-<!--<EditForm Model="@recordSurveyProfile" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@recordSurveyProfile" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <input type='hidden' name='next' value='1'>
 
@@ -667,8 +667,8 @@
         <InputText id="preid" class="form-control" placeholder="คำนำหน้าชื่อ*" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />-->
 
 
-        @*<SfTextBox Value="@nme"></SfTextBox>*@
-        @*<InputText id="nme" class="form-control" placeholder="ชื่อ*" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
+       
+        <InputText id="nme" class="form-control" placeholder="ชื่อ*" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
         <InputText id="surnme" class="form-control" placeholder="นามสกุล*" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
         <InputText id="brtdte" class="form-control" placeholder="วันที่เกิด (วัน/เดือน/ปี)" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
         <InputText id="age" class="form-control" placeholder="อายุ (ปี)" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
@@ -686,11 +686,11 @@
         <InputText id="roladr" class="form-control" placeholder="บ้านเลขที่" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
         <InputText id="rolvllsoi" class="form-control" placeholder="ถนน ตรอก ซอย" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
         <div class="row" style='border-style: dotted;border-width: 1px'>
-            <div class="col-lg-12  mb-3">*@
-                <!--<label for="province2">จังหวัด<a href='index.php?curr=edit'>เปลี่ยนจังหวัดเริ่มต้น</a></label>-->
+            <div class="col-lg-12  mb-3">
+           <label for="province2">จังหวัด<a href='index.php?curr=edit'>เปลี่ยนจังหวัดเริ่มต้น</a></label>
 
 
-                @*<MatSelect Label="จังหวัด" @bind-Value="@SelectProvinceId" TValue="string" Outlined="true" FullWidth>
+              <MatSelect Label="จังหวัด" @bind-Value="@SelectProvinceId" TValue="string" Outlined="true" FullWidth>
 
                     @foreach (var item in provinces1)
                     {
@@ -706,11 +706,11 @@
                     {
 
                         <MatOption TValue="string" Value="@item.preid">@item.prenme</MatOption>
-                    }*@
+                    }
 
 
                 
-@*</MatSelect>
+</MatSelect>
 
                 <div class="invalid-feedback">
                     กรุณาเลือกตำบล
@@ -725,7 +725,7 @@
 
 
 
-            <!--<div class="col-lg-12  mb-3">
+        <div class="col-lg-12  mb-3">
                 <label for="district2">อำเภอ</label>
                 <MatSelect Label="เลือกอำเภอ" @bind-Value="@SelectDistrictId" TValue="string" Outlined="true" FullWidth>
 
@@ -755,9 +755,9 @@
 
             <div class="col-lg-12  mb-3">
                 <label for="subdist2">ตำบล </label>
-                <!--input type="text" class="form-control" id="TMP" name="TMP" placeholder="--ตำบล--" value='<?php echo $row1->TMP?>'-->
+                <input type="text" class="form-control" id="TMP" name="TMP" placeholder="--ตำบล--" value='<?php echo $row1->TMP?>'>
 
-                <!--<MatSelect Label="เลือกอำเภอ" @bind-Value="@SelectTambonId" TValue="string" Outlined="true" FullWidth>
+                <MatSelect Label="เลือกอำเภอ" @bind-Value="@SelectTambonId" TValue="string" Outlined="true" FullWidth>
 
 
 
@@ -866,8 +866,8 @@
         </div>
     </div>
 
-    <br>-->
-    <!--<div class="row" style='border-style: dotted;border-width: 1px'>
+    <br>
+    <div class="row" style='border-style: dotted;border-width: 1px'>
                 <div class="col-lg-12  mb-3">
                     <label for="state">จังหวัด<a href='index.php?curr=edit'>เปลี่ยนจังหวัดเริ่มต้น</a></label>
                        <MatSelect Label="จังหวัด" @bind-Value="@SelectProvinceId" TValue="string"Outlined="true" FullWidth>
@@ -914,8 +914,8 @@
 
                 <div class="col-lg-12  mb-3">
                     <label for="country">ตำบล </label>-->
-    <!--input type="text" class="form-control" id="TMP" name="TMP" placeholder="--ตำบล--" value='<?php echo $row1->TMP?>'-->
-    <!--<MatSelect Label="เลือกอำเภอ"  @bind-Value="@SelectTambonId" TValue="string"  Outlined="true" FullWidth>
+    <input type="text" class="form-control" id="TMP" name="TMP" placeholder="--ตำบล--" value='<?php echo $row1->TMP?>'>
+    <MatSelect Label="เลือกอำเภอ"  @bind-Value="@SelectTambonId" TValue="string"  Outlined="true" FullWidth>
 
 
 
@@ -957,7 +957,7 @@
                 </div>
             </div>-->
 
-    <!--<br>
+    <br>
     <div class="row" style='border-style: dotted;border-width: 1px'>
         <div class="col-lg-12  mb-3">
             <label for="PERSON">ชื่อผู้ให้ข้อมูล</label>
@@ -1017,23 +1017,23 @@
 				">
             <MatRadioGroup @bind-Value="@recordSurveyProfile.PERSON_PREFIX" TValue="string">
                 <div class="custom-control custom-radio">
-                    <MatRadioButton Value="@("1")" TValue="string">นาย</MatRadioButton>-->
+                    <MatRadioButton Value="@("1")" TValue="string">นาย</MatRadioButton>
                     @*<MatRadioGroup @bind-Value="@recordSurveyProfile.PERSON_PREFIX" TValue="string">*@
-                <!--</div>
+                </div>
                 <div class="custom-control custom-radio">
-                    <MatRadioButton Value="@("2")" TValue="string">นาง</MatRadioButton>-->
-                    @*<MatRadioGroup @bind-Value="@recordSurveyProfile.PERSON_PREFIX" TValue="string">*@
-                <!--</div>
+                    <MatRadioButton Value="@("2")" TValue="string">นาง</MatRadioButton>
+                   
+                </div>
                 <div class="custom-control custom-radio">
-                    <MatRadioButton Value="@("3")" TValue="string">นางสาว</MatRadioButton>-->
-                    @*<MatRadioGroup @bind-Value="@recordSurveyProfile.PERSON_PREFIX" TValue="string">*@
-                <!--</div>-->
-                <!--div class="custom-control custom-radio">
-                                    <MatRadioButton Value="@("4")" TValue="string"   >อื่น ๆ</MatRadioButton>-->
-                @*<MatRadioGroup @bind-Value="@recordSurveyProfile.PERSON_PREFIX" TValue="string">*@
-                                <!--</div-->
-            <!--</MatRadioGroup>
-        </div>
+                    <MatRadioButton Value="@("3")" TValue="string">นางสาว</MatRadioButton>
+                    
+                </div>
+                div class="custom-control custom-radio">
+                <MatRadioButton Value="@("4")" TValue="string">อื่น ๆ</MatRadioButton>
+               
+    
+        </MatRadioGroup>
+    </div>
 
         <div class="col-lg-12  mb-3">
             <label for="PERSON_NAME">ชื่อผู้ให้ข้อมูล <font color='red'>(ต้องเป็นบุคคลที่อาศัยอยู่ในครัวเรือน หรือได้รับความยินยอมจากบุคคลในครัวเรือนให้เป็นผู้ให้ข้อมูล)</font></label>
@@ -1063,15 +1063,15 @@
         <div class="col-lg-12  mb-3">
             <label for="NO1">จำนวนสมาชิก<font color='red'>ทั้งหมดในครัวเรือนตามทะเบียนบ้าน</font>  </label>
             <input type='text' name='NO1' id='NO1' size='5' @bind-value="@recordSurveyProfile.NO1" placeholder="--จำนวนสมาชิกทั้งหมดในครัวเรือนตามทะเบียนบ้าน--" class="form-control" required />
-        </div>-->
+        </div>
 
-        <!--div class="col-lg-12  mb-3">
+        <div class="col-lg-12  mb-3">
             <label for="NO2">จำนวนสมาชิก<font color='red'>ทั้งหมดที่อาศัยอยู่จริง</font>ในครัวเรือน </label>
             <input type='text' name='NO2' id='NO2' size='5' placeholder="--จำนวนสมาชิกทั้งหมดที่อาศัยอยู่จริงในครัวเรือน--"  class="form-control" required  onKeyPress=" if (-->@*event.keyCode < 48 || event.keyCode>57){event.returnValue = false}"*@<!-->
      
                                                                                                                                                                                                                                                            -->
--->
-        <!--<div class="col-lg-12  mb-3">
+
+   <div class="col-lg-12  mb-3">
             <label for="NO3">จำนวนสมาชิก<font color='red'>ที่อาศัยและมีชื่อในทะเบียนบ้าน</font> </label>
             <input type='text' name='NO3' id='NO3' size='5' @bind-value="@recordSurveyProfile.NO3" placeholder="--จำนวนสมาชิกที่อาศัยและมีชื่อในทะเบียนบ้าน--" class="form-control" required>
         </div>
@@ -1099,24 +1099,20 @@
 				">
             <MatRadioGroup @bind-Value="@recordSurveyProfile.SURVEYER_PREFIX" TValue="string">
                 <div class="custom-control custom-radio">
-                    <MatRadioButton Value="@("1")" TValue="string">นาย</MatRadioButton>-->
-                    @*<MatRadioGroup @bind-Value="@recordSurveyProfile.SURVEYER_PREFIX" TValue="string">*@
-                <!--</div>
+                    <MatRadioButton Value="@("1")" TValue="string">นาย</MatRadioButton>
+            </div>
                 <div class="custom-control custom-radio">
-                    <MatRadioButton Value="@("2")" TValue="string">นาง</MatRadioButton>-->
-                    @*<MatRadioGroup @bind-Value="@recordSurveyProfile.SURVEYER_PREFIX" TValue="string">*@
-                <!--</div>
+                    <MatRadioButton Value="@("2")" TValue="string">นาง</MatRadioButton>
+                </div>
                 <div class="custom-control custom-radio">
-                    <MatRadioButton Value="@("3")" TValue="string">นางสาว</MatRadioButton>-->
-                    @*<MatRadioGroup @bind-Value="@recordSurveyProfile.SURVEYER_PREFIX" TValue="string">*@
-                <!--</div>-->
-                <!--div class="custom-control custom-radio">
-                                    <MatRadioButton Value="@("4")" TValue="string"   >อื่น ๆ</MatRadioButton>-->
-                @*<MatRadioGroup @bind-Value="@recordSurveyProfile.SURVEYER_PREFIX" TValue="string">*@
-                                    <!--<label class="custom-control-label" for="PREFIX_SURVEYER4"> อื่น ๆ  </label>
-                                </div-->
-            <!--</MatRadioGroup>
-        </div>
+                    <MatRadioButton Value="@("3")" TValue="string">นางสาว</MatRadioButton>
+                </div>
+                <div class="custom-control custom-radio">
+                                    <MatRadioButton Value="@("4")" TValue="string"   >อื่น ๆ</MatRadioButton>
+                                    <label class="custom-control-label" for="PREFIX_SURVEYER4"> อื่น ๆ  </label>
+                                </div>
+            </MatRadioGroup>
+     </div>
 
         <div class="col-lg-12  mb-3">
             <label for="SURVEYER_NAME">ชื่อผู้ทำแบบสำรวจ </label>
@@ -1162,8 +1158,8 @@
         <br>
 
     </div>
-    <br />-->
-    @*<div class="image-list">
+    <br />
+   @*<div class="image-list">
             <table class="table table-bordered">
                 <tr>
                     @foreach(var imageDataUrl in imageDataUrls){
@@ -1173,18 +1169,19 @@
                     }
                 </tr>
             </table>
-        </div>    *@
-    @*<br>
+        </div>*@   
+  <br>
     <div class="row">
         <div class="col-lg-12  mb-3">
 
-            <MatButton Raised="true" type="submit">บันทึก @complete</MatButton>*@
-            @*@{var txtLink = "surveya1/" + @HC;}<MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>*@
+            <MatButton Raised="true" type="submit">บันทึก @complete</MatButton>
+           @{var txtLink = "surveya1/" + @HC;}
+            <MatButtonLink Href='@txtLink' Raised="true" Style="Default">ถัดไป</MatButtonLink>
 
 
-        @*</div>
+       </div>
     </div>
-</EditForm>-->*@
+</EditForm>
 
 
 @code {

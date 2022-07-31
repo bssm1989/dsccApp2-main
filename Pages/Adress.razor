@@ -10,7 +10,7 @@
 <div class="row" style='border-style: dotted;border-width: 1px'>
     <div class="col-lg-12  mb-3">
 
-        <label for="province2">จังหวัด<a href='index.php?curr=edit'>เปลี่ยนจังหวัดเริ่มต้น</a></label>-->
+        <label for="province2">จังหวัด</label>
         <MatSelect Label="จังหวัด" @bind-Value="@SelectProvinceId" TValue="string" Outlined="true" FullWidth>
 
             @foreach (var item in provinces1)
@@ -66,8 +66,7 @@
 
     <div class="col-lg-12  mb-3">
         <label for="subdist2">ตำบล </label>
-        <input type="text" class="form-control" id="TMP" name="TMP" placeholder="--ตำบล--" value='<?php echo $row1->TMP?>' -->
-
+        
         <MatSelect Label="เลือกอำเภอ" @bind-Value="@SelectTambonId" TValue="string" Outlined="true" FullWidth>
 
 
