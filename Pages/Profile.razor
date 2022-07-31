@@ -12,12 +12,12 @@
 
 @using AspNetMonsters.Blazor.Geolocation
 @inject LocationService  LocationService
-<h3>You are here</h3>
+@*<h3>You are here</h3>
 <div>
     Lat: @location?.Latitude <br />
     Long: @location?.Longitude <br />
     Accuracy: @location?.Accuracy <br />
-</div>
+</div>*@
 <SfButton @onclick="@ClickHandler">Show/Hide Spinner</SfButton>
 @code
 {
