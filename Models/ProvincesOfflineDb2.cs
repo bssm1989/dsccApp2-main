@@ -1675,7 +1675,7 @@ namespace FirstBlazorApp.Models
         public DateTime? main_attendant_brtdte { get; set; }
         public string main_attendant_rel { get; set; }
         public string main_attendant_occid { get; set; }
-        public float main_attendant_sal { get; set; }
+        public int main_attendant_sal { get; set; }
         public string main_attendant_tel { get; set; }
         public string optid { get; set; }
         public string alive { get; set; }

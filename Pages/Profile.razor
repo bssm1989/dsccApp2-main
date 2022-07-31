@@ -17,11 +17,10 @@
     </div>
     <div class="form-group">
         <label for="preid">คำนำหน้าชื่อ*</label>
-        <InputText id="preid" class="form-control" placeholder="คำนำหน้าชื่อ*" @bind-Value=" recordSurveyProfile.preid" />
         
-        <MatSelect Label="เลือกอำเภอ" @bind-Value="@personAdd.preid" TValue="string" Outlined="true" FullWidth>
+        <MatSelect Label="คำนำหน้าชื่อ*" @bind-Value="@recordSurveyProfile.preid" TValue="string" Outlined="true" FullWidth>
             @foreach (var item in const_prenme1)
-            {                
+            {
                 <MatOption TValue="string" Value="@item.preid">@item.prenme</MatOption>
             }
         </MatSelect>
@@ -48,11 +47,19 @@
     </div>
     <div class="form-group">
         <label for="reg">ศาสนา</label>
-        <InputText id="reg" class="form-control" placeholder="ศาสนา" @bind-Value=" recordSurveyProfile.reg" />
+        
+        <MatSelect Label="ศาสนา" @bind-Value="@recordSurveyProfile.reg" TValue="string" Outlined="true" FullWidth>
+            @foreach (var item in const_reg1)
+            {<MatOption TValue="string" Value="@item.regid">@item.regnme</MatOption>}
+        </MatSelect>
     </div>
     <div class="form-group">
         <label for="stsmar">สถานภาพ</label>
-        <InputText id="stsmar" class="form-control" placeholder="สถานภาพ" @bind-Value=" recordSurveyProfile.stsmar" />
+        
+        <MatSelect Label="สถานภาพ" @bind-Value="@recordSurveyProfile.stsmar" TValue="string" Outlined="true" FullWidth>
+            @foreach (var item in const_stsmar1)
+            {<MatOption TValue="string" Value="@item.stsmar">@item.stsmarnme</MatOption>}
+        </MatSelect>
     </div>
     <div class="form-group">
         <label for="numchi">จำนวนบุตรที่มีชีวิตอยู่</label>
@@ -64,11 +71,18 @@
     </div>
     <div class="form-group">
         <label for="edulev">ระดับการศึกษาสูงสุด</label>
-        <InputText id="edulev" class="form-control" placeholder="ระดับการศึกษาสูงสุด" @bind-Value=" recordSurveyProfile.edulev" />
+        
+        <MatSelect Label="ระดับการศึกษาสูงสุด" @bind-Value="@recordSurveyProfile.edulev" TValue="string" Outlined="true" FullWidth>
+            @foreach (var item in const_edulev1)
+            {<MatOption TValue="string" Value="@item.edulevid">@item.edulevnme</MatOption>}
+        </MatSelect>
     </div>
     <div class="form-group">
         <label for="currlevid">ระดับชั้นการศึกษาปัจจุบัน</label>
-        <InputText id="currlevid" class="form-control" placeholder="ระดับชั้นการศึกษาปัจจุบัน" @bind-Value=" recordSurveyProfile.currlevid" />
+        <MatSelect Label="ระดับชั้นการศึกษาปัจจุบัน" @bind-Value="@recordSurveyProfile.currlevid" TValue="string" Outlined="true" FullWidth>
+            @foreach (var item in const_currlev1)
+            {<MatOption TValue="string" Value="@item.currlevid">@item.currlevnme</MatOption>}
+        </MatSelect>
     </div>
     <div class="form-group">
         <label for="blood_type">กรุ๊ปเลือด</label>
@@ -76,11 +90,17 @@
     </div>
     <div class="form-group">
         <label for="occid">อาชีพ</label>
-        <InputText id="occid" class="form-control" placeholder="อาชีพ" @bind-Value=" recordSurveyProfile.occid" />
+        <MatSelect Label="อาชีพ" @bind-Value="@recordSurveyProfile.edulev" TValue="string" Outlined="true" FullWidth>
+            @foreach (var item in const_occ1)
+            {<MatOption TValue="string" Value="@item.occid">@item.occnme</MatOption>}
+        </MatSelect>
     </div>
     <div class="form-group">
         <label for="add_occid">อาชีพเสริม(ถ้ามี)</label>
-        <InputText id="add_occid" class="form-control" placeholder="อาชีพเสริม (ถ้ามี)" @bind-Value=" recordSurveyProfile.add_occid" />
+         <MatSelect Label="อาชีพเสริม(ถ้ามี)" @bind-Value="@recordSurveyProfile.add_occid" TValue="string" Outlined="true" FullWidth>
+            @foreach (var item in const_occ1)
+            {<MatOption TValue="string" Value="@item.occid">@item.occnme</MatOption>}
+        </MatSelect>
     </div>
     <div class="form-group">
         <label for="sal">รายได้ต่อเดือน(บาท)</label>
@@ -100,64 +120,33 @@
 
                 @foreach (var item in provinces1)
                 {
-
                     <MatOption TValue="string" Value="@item.province_id">@item.province_name_thai</MatOption>
                 }
-
-
             </MatSelect>
-
         </div>
-
-
-
-
-
-
-
-
-
         <div class="col-lg-12  mb-3">
             <label for="district2">อำเภอ</label>
             <MatSelect Label="เลือกอำเภอ" @bind-Value="@SelectDistrictId" TValue="string" Outlined="true" FullWidth>
-
-
-
                 @foreach (var item in districts)
                 {
                     if (item.district_id == recordSurveyProfile.AMP)
                     {
                         districtId = item.district_id;
                     }
-
-
                     <MatOption TValue="string" Value="@item.district_id">@item.district_name_thai</MatOption>
-
                 }
-
             </MatSelect>
             <div class="invalid-feedback">
 
                 กรุณาเลือกอำเภอ
             </div>
         </div>
-
-
-
-
         <div class="col-lg-12  mb-3">
             <label for="subdist2">ตำบล </label>
-
-
-            <MatSelect Label="เลือกอำเภอ" @bind-Value="@SelectTambonId" TValue="string" Outlined="true" FullWidth>
-
-
-
+            <MatSelect Label="เลือกตำบล" @bind-Value="@SelectTambonId" TValue="string" Outlined="true" FullWidth>
                 @foreach (var item in tambons)
                 {
-
                     <MatOption TValue="string" Value="@item.tambon_id">@item.tambon_name_thai</MatOption>
-
                 }
 
             </MatSelect>
@@ -168,7 +157,7 @@
     </div>
     <div class="form-group"><label for="vll2">หมู่บ้าน</label><InputText id="vll2" class="form-control" placeholder="หมู่บ้าน" @bind-Value=" recordSurveyProfile.HC" />                             </div>
     <div class="form-group"><label for="tel">เบอร์โทรศัพท์</label><InputText id="tel" class="form-control" placeholder="เบอร์โทรศัพท์" @bind-Value=" recordSurveyProfile.tel" />                        </div>
-    br><h3>ข้อมูลเชิงพื้นที่</h3>
+    <br><h3>ข้อมูลเชิงพื้นที่</h3>
     <div class="form-group"><label for="lat">พิกัดบ้านละติจูด</label><InputText id="lat" class="form-control" placeholder="พิกัดบ้าน ละติจูด" @bind-Value=" recordSurveyProfile.lat" />                      </div>
     <div class="form-group"><label for="lon">พิกัดบ้านลองจิจูด</label><InputText id="lon" class="form-control" placeholder="พิกัดบ้าน ลองจิจูด" @bind-Value=" recordSurveyProfile.lon" />                     </div>
     <div class="form-group"><label for="house_conid">สภาพบ้าน</label><InputText id="house_conid" class="form-control" placeholder="สภาพบ้าน" @bind-Value=" recordSurveyProfile.house_conid" />           </div>
@@ -202,14 +191,44 @@
             <MatCheckbox @bind-Value="@checkedCongenital_disease_oth6" Label="6.อื่นๆ ระบุ"></MatCheckbox>
         </div>
     </div>
-    <div class="form-group"><label for="medical_permis_office">สถานที่รักษา</label><InputText id="medical_permis_office" class="form-control" placeholder="สถานที่รักษา" @bind-Value=" recordSurveyProfile.medical_permis_office" />      </div>
-    <div class="form-group"><label for="vaccination_id">การรับวัคซีน</label><InputText id="vaccination_id" class="form-control" placeholder="การรับวัคซีน" @bind-Value=" recordSurveyProfile.vaccination_id" />                    </div>
-    <div class="form-group"><label for="num_covid">ท่านเคยติดโรคโควิด(COVID-19)กี่ครั้ง</label><InputText id="num_covid" class="form-control" placeholder="ท่านเคยติดโรคโควิด (COVID-19) กี่ครั้ง" @bind-Value=" recordSurveyProfile.num_covid" />        </div>
+    <div class="form-group">
+        <label for="medical_permis_office">สถานที่รักษา</label>
+        <InputText id="medical_permis_office" class="form-control" placeholder="สถานที่รักษา" @bind-Value=" recordSurveyProfile.medical_permis_office" />
+    </div>
+    <div class="form-group">
+        <label for="vaccination_id">การรับวัคซีน</label>
+        <MatSelect Label="การรับวัคซีน" @bind-Value="@recordSurveyProfile.edulev" TValue="string" Outlined="true" FullWidth>
+            @foreach (var item in const_vaccination1)
+            {<MatOption TValue="string" Value="@item.vaccination_id">@item.vaccination_nme</MatOption>}
+        </MatSelect>
+    </div>
+    <div class="form-group">
+        <label for="num_covid">ท่านเคยติดโรคโควิด(COVID-19)กี่ครั้ง</label>
+        <InputText id="num_covid" class="form-control" placeholder="ท่านเคยติดโรคโควิด (COVID-19) กี่ครั้ง" @bind-Value=" recordSurveyProfile.num_covid" />
+    </div>
     <br />
     <h3> ข้อมูลกลุ่มเปราะบาง</h3>
-    <div class="form-group"><label for="pertypid">ประเภทกลุ่มเปราะบาง</label><InputText id="pertypid" class="form-control" placeholder="ประเภทกลุ่มเปราะบาง" @bind-Value=" recordSurveyProfile.pertypid" />                                            </div>
-    <div class="form-group"><label for="elderly_grpid">ท่ผู้สูงอายุจัดอยู่ในกลุ่ม</label><InputText id="elderly_grpid" class="form-control" placeholder="ผู้สูงอายุจัดอยู่ในกลุ่ม" @bind-Value=" recordSurveyProfile.elderly_grpid" />                                    </div>
-    <div class="form-group"><label for="distypid">ประเภทความพิการและลักษณะความพิการ (ที่ระบุในบัตร)</label><InputText id="distypid" class="form-control" placeholder="ประเภทความพิการและลักษณะความพิการ (ที่ระบุในบัตรประจำตัวคนพิการ)" @bind-Value=" recordSurveyProfile.distypid" />      </div>
+    <div class="form-group">
+        <label for="pertypid">ประเภทกลุ่มเปราะบาง</label>
+        <MatSelect Label="อาชีพ" @bind-Value="@recordSurveyProfile.pertypid" TValue="string" Outlined="true" FullWidth>
+            @foreach (var item in const_pertyp1)
+            {<MatOption TValue="string" Value="@item.pertypid">@item.pertypnme</MatOption>}
+        </MatSelect>
+    </div>
+    <div class="form-group">
+        <label for="elderly_grpid">ท่ผู้สูงอายุจัดอยู่ในกลุ่ม</label>
+        <MatSelect Label="อาชีพ" @bind-Value="@recordSurveyProfile.edulev" TValue="string" Outlined="true" FullWidth>
+            @foreach (var item in const_elderly_grp1)
+            {<MatOption TValue="string" Value="@item.elderly_grpid">@item.elderly_grpid</MatOption>}
+        </MatSelect>
+    </div>
+    <div class="form-group">
+        <label for="distypid">ประเภทความพิการและลักษณะความพิการ (ที่ระบุในบัตร)</label>
+        <MatSelect Label="อาชีพ" @bind-Value="@recordSurveyProfile.edulev" TValue="string" Outlined="true" FullWidth>
+            @foreach (var item in const_disability_type1)
+            {<MatOption TValue="string" Value="@item.distypid">@item.distypnme</MatOption>}
+        </MatSelect>
+    </div>
     <br />
     <h3> ข้อมูลผู้ดูแล</h3>
     <MatRadioGroup @bind-Value="@Val1" TValue="string">
@@ -218,23 +237,46 @@
         <MatRadioButton Value="@("f")" Label="มีผู้ดูแล-สมาชิกครอบครัว" TValue="string"></MatRadioButton>
         <MatRadioButton Value="@("f")" Label="มีผู้ดูแล-จ้างคนนอกครอบครัวมาดูแล" TValue="string"></MatRadioButton>
     </MatRadioGroup>
-    <div class="form-group"><label for="main_attendant_nme">ชื่อผู้ดูแลหลัก</label><InputText id="main_attendant_nme" class="form-control" placeholder="ชื่อผู้ดูแลหลัก" @bind-Value=" recordSurveyProfile.HC" />                                 </div>
-    <div class="form-group"><label for="main_attendant_surnme">ชื่อสกุลผู้ดูแลหลัก</label><InputText id="main_attendant_surnme" class="form-control" placeholder="ชื่อสกุลผู้ดูแลหลัก" @bind-Value=" recordSurveyProfile.HC" />                           </div>
-    <div class="form-group"><label for="main_attendant_brtdte">วันเดือนปีเกิดผู้ดูแลหลัก</label><InputText id="main_attendant_brtdte" class="form-control" placeholder="วันเดือนปีเกิดผู้ดูแลหลัก" @bind-Value=" recordSurveyProfile.HC" />                      </div>
-    <div class="form-group"><label for="main_attendant_rel">ความสัมพันธ์เกี่ยวข้องกับกลุ่มเปราะบาง</label><InputText id="main_attendant_rel" class="form-control" placeholder="ความสัมพันธ์ เกี่ยวข้องกับกลุ่มเปราะบาง" @bind-Value=" recordSurveyProfile.HC" />            </div>
-    <div class="form-group"><label for="main_attendant_occid">อาชีพ</label><InputText id="main_attendant_occid" class="form-control" placeholder="อาชีพ" @bind-Value=" recordSurveyProfile.HC" />                                    </div>
-    <div class="form-group"><label for="main_attendant_sal">รายได้ต่อเดือน(บาท)</label><InputText id="main_attendant_sal" class="form-control" placeholder="รายได้ต่อเดือน (บาท)" @bind-Value=" recordSurveyProfile.HC" />                         </div>
-    <div class="form-group"><label for="main_attendant_tel">โทรศัพท์</label><InputText id="main_attendant_tel" class="form-control" placeholder="โทรศัพท์" @bind-Value=" recordSurveyProfile.HC" />                                    </div>
-    <br />
+    <div class="form-group">
+        <label for="main_attendant_nme">ชื่อผู้ดูแลหลัก</label>
+        <InputText id="main_attendant_nme" class="form-control" placeholder="ชื่อผู้ดูแลหลัก" @bind-Value=" recordSurveyProfile.HC" />
+    </div>
+    <div class="form-group">
+        <label for="main_attendant_surnme">ชื่อสกุลผู้ดูแลหลัก</label>
+        <InputText id="main_attendant_surnme" class="form-control" placeholder="ชื่อสกุลผู้ดูแลหลัก" @bind-Value=" recordSurveyProfile.HC" />
+    </div>
+    <div class="form-group">
+        <label for="main_attendant_brtdte">วันเดือนปีเกิดผู้ดูแลหลัก</label>
+        <InputText id="main_attendant_brtdte" class="form-control" placeholder="วันเดือนปีเกิดผู้ดูแลหลัก" @bind-Value=" recordSurveyProfile.HC" />
+    </div>
+    <div class="form-group">
+        <label for="main_attendant_rel">ความสัมพันธ์เกี่ยวข้องกับกลุ่มเปราะบาง</label>
+        <InputText id="main_attendant_rel" class="form-control" placeholder="ความสัมพันธ์ เกี่ยวข้องกับกลุ่มเปราะบาง" @bind-Value=" recordSurveyProfile.HC" />
+    </div>
+    <div class="form-group">
+        <label for="main_attendant_occid">อาชีพ</label>
+        <MatSelect Label="อาชีพ" @bind-Value="@recordSurveyProfile.main_attendant_occid" TValue="string" Outlined="true" FullWidth>
+            @foreach (var item in const_occ1)
+            {<MatOption TValue="string" Value="@item.occid">@item.occnme</MatOption>}
+        </MatSelect>
+    </div>
+    <div class="form-group">
+        <label for="main_attendant_sal">รายได้ต่อเดือน(บาท)</label>
+        <InputNumber id="main_attendant_sal" class="form-control" placeholder="รายได้ต่อเดือน (บาท)" @bind-Value="recordSurveyProfile.main_attendant_sal" />
+    </div>
+    <div class="form-group">
+        <label for="main_attendant_tel">โทรศัพท์</label>
+        <InputText id="main_attendant_tel" class="form-control" placeholder="โทรศัพท์" @bind-Value=" recordSurveyProfile.main_attendant_tel" />
+    </div> <br />
     <h3> ข้อมูลผู้ดูแล</h3>
-    <InputText id="idcard" class="form-control" placeholder="แหล่งข้อมูล สังกัด อปท." @bind-Value=" recordSurveyProfile.HC" />
+    <InputText id="optid" class="form-control" placeholder="แหล่งข้อมูล สังกัด อปท." @bind-Value=" recordSurveyProfile.optid" />
     <MatRadioGroup @bind-Value="@Val1" TValue="string">
         <MatRadioButton Value="@("f")" Label="ระบุไม่ได้" TValue="string"></MatRadioButton>
         <MatRadioButton Value="@("f")" Label="มีชีวิตอยู่" TValue="string"></MatRadioButton>
         <MatRadioButton Value="@("f")" Label="เสียชีวิตแล้ว" TValue="string"></MatRadioButton>
     </MatRadioGroup>
     <InputText id="idcard" class="form-control" placeholder="หมายเหตุ    " @bind-Value=" recordSurveyProfile.HC" />
-    <InputText id="idcard" class="form-control" placeholder="โทรศัพท์" @bind-Value=" recordSurveyProfile.HC" />
+    <InputText id="percmm" class="form-control" placeholder="โทรศัพท์" @bind-Value=" recordSurveyProfile.percmm" />
 
 </EditForm>
 @code {
