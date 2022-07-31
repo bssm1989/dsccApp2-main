@@ -191,7 +191,7 @@ private IndexedDbStore _tableFieldStore91 => new TStore<const_vaccination>();
 
 
 
-                var response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=district");
+                var response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=district");
 
                 var openResult = await this.OpenIndexedDb();
                 var contents = await response.Content.ReadAsStringAsync();
@@ -202,7 +202,7 @@ private IndexedDbStore _tableFieldStore91 => new TStore<const_vaccination>();
                 var db1Result2 = await this.AddItems<district>("district", DeserializedObjList);
 
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=tambon");
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=tambon");
 
 
                 contents = await response.Content.ReadAsStringAsync();
@@ -213,7 +213,7 @@ private IndexedDbStore _tableFieldStore91 => new TStore<const_vaccination>();
                 var db1Result4 = await this.AddItems<tambon>("tambon", DeserializedObjList2);
 
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=province");
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=province");
 
 
                 contents = await response.Content.ReadAsStringAsync();
@@ -223,85 +223,85 @@ private IndexedDbStore _tableFieldStore91 => new TStore<const_vaccination>();
                 var db1Result5 = await this.DeleteAll("province");
                 var db1Result6 = await this.AddItems<province>("province", DeserializedObjList3);
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_prenme");contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_prenme");contents = await response.Content.ReadAsStringAsync();
                 List<const_prenme> DeserializedObjList5 = (List<const_prenme>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_prenme>));
                 var db1Result7 = await this.DeleteAll("const_prenme");
                 var db1Result8 = await this.AddItems<const_prenme>("const_prenme", DeserializedObjList5);
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_currlev"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_currlev"); contents = await response.Content.ReadAsStringAsync();
                 List<const_currlev> DeserializedObjList6 = (List<const_currlev>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_currlev>));
                 var db1Result9 = await this.DeleteAll("const_currlev");
                 var db1Result10 = await this.AddItems<const_currlev>("const_currlev", DeserializedObjList6);
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_disability_type");
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_disability_type");
                 contents = await response.Content.ReadAsStringAsync();
                 List<const_disability_type> DeserializedObjList7 = (List<const_disability_type>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_disability_type>));
                 var db1Result11 = await this.DeleteAll("const_disability_type");
                 var db1Result12 = await this.AddItems<const_disability_type>("const_disability_type", DeserializedObjList7);
 
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_disability_type");
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_disability_type");
                 contents = await response.Content.ReadAsStringAsync();
                 List<const_disability_type> DeserializedObjList8 = (List<const_disability_type>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_disability_type>));
                 var db1Result13 = await this.DeleteAll("const_disability_type");
                 var db1Result14 = await this.AddItems<const_disability_type>("const_disability_type", DeserializedObjList8);
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_edulev"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_edulev"); contents = await response.Content.ReadAsStringAsync();
                 List<const_edulev> DeserializedObjList9 = (List<const_edulev>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_edulev>));
                 var db1Result15 = await this.DeleteAll("const_edulev");
                 var db1Result16 = await this.AddItems<const_edulev>("const_edulev", DeserializedObjList9);
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_elderly_grp"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_elderly_grp"); contents = await response.Content.ReadAsStringAsync();
                 List<const_elderly_grp> DeserializedObjList10 = (List<const_elderly_grp>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_elderly_grp>));
                 var db1Result17 = await this.DeleteAll("const_elderly_grp");
                 var db1Result18 = await this.AddItems<const_elderly_grp>("const_elderly_grp", DeserializedObjList10);
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_house_conditions"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_house_conditions"); contents = await response.Content.ReadAsStringAsync();
                 List<const_house_conditions> DeserializedObjList11 = (List<const_house_conditions>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_house_conditions>));
                 var db1Result19 = await this.DeleteAll("const_house_conditions");
                 var db1Result20 = await this.AddItems<const_house_conditions>("const_house_conditions", DeserializedObjList11);
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_occ"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_occ"); contents = await response.Content.ReadAsStringAsync();
                 List<const_occ> DeserializedObjList12 = (List<const_occ>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_occ>));
                 var db1Result21 = await this.DeleteAll("const_occ");
                 var db1Result22 = await this.AddItems<const_occ>("const_occ", DeserializedObjList12);
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_pertyp"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_pertyp"); contents = await response.Content.ReadAsStringAsync();
                 List<const_pertyp> DeserializedObjList13 = (List<const_pertyp>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_pertyp>));
                 var db1Result23 = await this.DeleteAll("const_pertyp");
                 var db1Result24 = await this.AddItems<const_pertyp>("const_pertyp", DeserializedObjList13);
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_plc"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_plc"); contents = await response.Content.ReadAsStringAsync();
                 List<const_plc> DeserializedObjList14 = (List<const_plc>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_plc>));
                 var db1Result25 = await this.DeleteAll("const_plc");
                 var db1Result26 = await this.AddItems<const_plc>("const_plc", DeserializedObjList14);
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_plcnmegen"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_plcnmegen"); contents = await response.Content.ReadAsStringAsync();
                 List<const_plcnmegen> DeserializedObjList15 = (List<const_plcnmegen>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_plcnmegen>));
                 var db1Result27 = await this.DeleteAll("const_plcnmegen");
                 var db1Result28 = await this.AddItems<const_plcnmegen>("const_plcnmegen", DeserializedObjList15);
               
 
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_reltyp"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_reltyp"); contents = await response.Content.ReadAsStringAsync();
                 List<const_reltyp> DeserializedObjList17 = (List<const_reltyp>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_reltyp>));
                 var db1Result31 = await this.DeleteAll("const_reltyp");
                 var db1Result32 = await this.AddItems<const_reltyp>("const_reltyp", DeserializedObjList17);
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_school"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_school"); contents = await response.Content.ReadAsStringAsync();
                 List<const_school> DeserializedObjList18 = (List<const_school>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_school>));
                 var db1Result33 = await this.DeleteAll("const_school");
                 var db1Result34 = await this.AddItems<const_school>("const_school", DeserializedObjList18);
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_sex"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_sex"); contents = await response.Content.ReadAsStringAsync();
                 List<const_sex> DeserializedObjList19 = (List<const_sex>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_sex>));
                 var db1Result35 = await this.DeleteAll("const_sex");
                 var db1Result36 = await this.AddItems<const_sex>("const_sex", DeserializedObjList19);
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_stsmar"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_stsmar"); contents = await response.Content.ReadAsStringAsync();
                 List<const_stsmar> DeserializedObjList20 = (List<const_stsmar>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_stsmar>));
                 var db1Result37 = await this.DeleteAll("const_stsmar");
                 var db1Result38 = await this.AddItems<const_stsmar>("const_stsmar", DeserializedObjList20);
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_vaccination"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_vaccination"); contents = await response.Content.ReadAsStringAsync();
                 List<const_vaccination> DeserializedObjList21 = (List<const_vaccination>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_vaccination>));
                 var db1Result39 = await this.DeleteAll("const_vaccination");
                 var db1Result40 = await this.AddItems<const_vaccination>("const_vaccination", DeserializedObjList21);
 
-                response = await httpClient.GetAsync("http://localhost/dscc/blazorLoadDb.php?table=const_reg"); contents = await response.Content.ReadAsStringAsync();
+                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_reg"); contents = await response.Content.ReadAsStringAsync();
                 List<const_reg> DeserializedObjList22 = (List<const_reg>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_reg>));
                 var db1Result41 = await this.DeleteAll("const_reg");
                 var db1Result42 = await this.AddItems<const_reg>("const_reg", DeserializedObjList22);
