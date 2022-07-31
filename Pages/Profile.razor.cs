@@ -262,6 +262,8 @@ namespace FirstBlazorApp.Pages
         protected override async Task OnInitializedAsync()
         {
             this.VisibleProperty = true;
+            
+            //CurrentPositionResult = await GeolocationService.GetCurrentPosition();
             await DBContext.OpenIndexedDb();
             provinces1 = await DBContext.GetAll<province>("province");
             districts1 = await DBContext.GetAll<district>("district");
@@ -277,8 +279,8 @@ namespace FirstBlazorApp.Pages
             const_house_conditions1 = await DBContext.GetAll<const_house_conditions>("const_house_conditions");
             const_occ1 = await DBContext.GetAll<const_occ>("const_occ");
             const_pertyp1 = await DBContext.GetAll<const_pertyp>("const_pertyp");
-            const_plc1 = await DBContext.GetAll<const_plc>("const_plc");
-            const_plcnmegen1 = await DBContext.GetAll<const_plcnmegen>("const_plcnmegen");
+            //const_plc1 = await DBContext.GetAll<const_plc>("const_plc");
+            //const_plcnmegen1 = await DBContext.GetAll<const_plcnmegen>("const_plcnmegen");
             const_reg1 = await DBContext.GetAll<const_reg>("const_reg");
             const_reltyp1 = await DBContext.GetAll<const_reltyp>("const_reltyp");
             const_school1 = await DBContext.GetAll<const_school>("const_school");

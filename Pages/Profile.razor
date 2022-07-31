@@ -9,8 +9,27 @@
 @using Syncfusion.Blazor
 @using Syncfusion.Blazor.Spinner
 @using Syncfusion.Blazor.Buttons
+
+@using AspNetMonsters.Blazor.Geolocation
+@inject LocationService  LocationService
+<h3>You are here</h3>
 <div>
-    
+    Lat: @location?.Latitude <br />
+    Long: @location?.Longitude <br />
+    Accuracy: @location?.Accuracy <br />
+</div>
+<SfButton @onclick="@ClickHandler">Show/Hide Spinner</SfButton>
+@code
+{
+    Location location;
+    private async Task ClickHandler()
+    {
+        location = await LocationService.GetLocationAsync();
+    }
+
+}
+<div>
+
     <div id="container">
         <SfSpinner @bind-Visible="@VisibleProperty">
         </SfSpinner>
@@ -28,7 +47,7 @@
 @code{
     private bool VisibleProperty { get; set; } = false;
 
-   
+
 }
 <EditForm Model="@recordSurveyProfile" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
@@ -40,7 +59,7 @@
     </div>
     <div class="form-group">
         <label for="preid">คำนำหน้าชื่อ*</label>
-        <InputText @bind-Value="recordSurveyProfile.preid" />
+
         <MatSelect Label="คำนำหน้าชื่อ*" @bind-Value="@recordSurveyProfile.preid" TValue="string" Outlined="true" FullWidth>
             @foreach (var item in const_prenme1)
             {
@@ -184,8 +203,28 @@
     <div class="form-group"><label for="lat">พิกัดบ้านละติจูด</label><InputText id="lat" class="form-control" placeholder="พิกัดบ้าน ละติจูด" @bind-Value=" recordSurveyProfile.lat" />                      </div>
     <div class="form-group"><label for="lon">พิกัดบ้านลองจิจูด</label><InputText id="lon" class="form-control" placeholder="พิกัดบ้าน ลองจิจูด" @bind-Value=" recordSurveyProfile.lon" />                     </div>
     <div class="form-group"><label for="house_conid">สภาพบ้าน</label><InputText id="house_conid" class="form-control" placeholder="สภาพบ้าน" @bind-Value=" recordSurveyProfile.house_conid" />           </div>
-    <div class="form-group"><label for="picname1">รูปภาพบ้าน</label><InputText id="picname1" class="form-control" placeholder="รูปภาพบ้าน" @bind-Value=" recordSurveyProfile.picname1" />                </div>
-    <div class="form-group"><label for="picname2">รูปภาพบ้าน</label><InputText id="picname2" class="form-control" placeholder="รูปภาพบ้าน" @bind-Value=" recordSurveyProfile.picname2" />                </div>
+    @*<div class="form-group"><label for="picname1">รูปภาพบ้าน</label><InputText id="picname1" class="form-control" placeholder="รูปภาพบ้าน" @bind-Value=" recordSurveyProfile.picname1" />                </div>
+        <div class="form-group"><label for="picname2">รูปภาพบ้าน</label><InputText id="picname2" class="form-control" placeholder="รูปภาพบ้าน" @bind-Value=" recordSurveyProfile.picname2" />                </div>*@
+    <div class="row" style='border-style: dotted;border-width: 1px'>
+        <div class="col-lg-12  mb-3">
+            <label for="pic">รูป (ขนาดรูปห้ามเกิน 400K)</label>
+            <InputFile OnChange="OnInputFileChange"></InputFile>
+        </div><div class="col-lg-12  mb-3">
+            <div style='display:table-cell' align='right'>คำอธิบายรูป : </div>
+            <div style='display:table-cell'><textarea name='detail' class="form-control"></textarea></div>
+        </div>
+
+
+        <br><br>
+
+        <img src="@imageDataurl" />
+
+
+
+
+        <br>
+
+    </div>
     <br><h3>ข้อมูลด้านสุขภาพ</h3>
     <div class="row" style="border-style: dotted;border-width: 1px;">
 
@@ -298,8 +337,8 @@
         <MatRadioButton Value="@("f")" Label="มีชีวิตอยู่" TValue="string"></MatRadioButton>
         <MatRadioButton Value="@("f")" Label="เสียชีวิตแล้ว" TValue="string"></MatRadioButton>
     </MatRadioGroup>
-    <InputText id="idcard" class="form-control" placeholder="หมายเหตุ    " @bind-Value=" recordSurveyProfile.HC" />
-    <InputText id="percmm" class="form-control" placeholder="โทรศัพท์" @bind-Value=" recordSurveyProfile.percmm" />
+    <InputText id="percmm" class="form-control" placeholder="หมายเหตุ    " @bind-Value=" recordSurveyProfile.medical_permis_oth" />
+    <InputText id="main_attendant_tel" class="form-control" placeholder="โทรศัพท์" @bind-Value=" recordSurveyProfile.main_attendant_tel" />
     <br>
     <div class="row">
         <div class="col-lg-12  mb-3">

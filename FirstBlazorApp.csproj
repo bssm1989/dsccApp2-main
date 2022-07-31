@@ -34,6 +34,7 @@
     <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="20.2.0.40" />
     <PackageReference Include="Syncfusion.Blazor.Data" Version="20.2.0.40" />
     <PackageReference Include="Syncfusion.Blazor.Inputs" Version="20.2.0.40" />
+    <PackageReference Include="AspNetMonsters.Blazor.Geolocation" Version="0.4.0.1017" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +54,7 @@
     <None Remove="Syncfusion.Blazor.DropDowns" />
     <None Remove="Syncfusion.Blazor.Data" />
     <None Remove="Syncfusion.Blazor.Inputs" />
+    <None Remove="AspNetMonsters.Blazor.Geolocation" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Pages\Addemp.razor" />
