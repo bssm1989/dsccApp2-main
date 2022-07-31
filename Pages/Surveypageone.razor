@@ -11,6 +11,7 @@
 @using Syncfusion.Blazor.Inputs
 @using Syncfusion.Blazor.Calendars
 @using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Data
 
 <EditForm Model="@personAdd">
     <DataAnnotationsValidator />
@@ -196,32 +197,95 @@
         </SfDropDownList>
     </div>
     <div class="form-group">
-        <label for="num_covid">รท่านเคยติดโรคโควิด (COVID-19) กี่ครั้ง</label>
+        <label for="num_covid">ท่านเคยติดโรคโควิด (COVID-19) กี่ครั้ง</label>
         <SfNumericTextBox ID="num_covid" @bind-Value="personAdd.num_covid">
         </SfNumericTextBox>
     </div>
     <br />
     <h3> ข้อมูลกลุ่มเปราะบาง</h3>
-    
-    @*<h3> ข้อมูลกลุ่มเปราะบาง</h3>
-    <InputText id="pertypid" class="form-control" placeholder="ประเภทกลุ่มเปราะบาง" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
-    <InputText id="elderly_grpid" class="form-control" placeholder="ผู้สูงอายุจัดอยู่ในกลุ่ม" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
-    <InputText id="distypid" class="form-control" placeholder="ประเภทความพิการและลักษณะความพิการ (ที่ระบุในบัตรประจำตัวคนพิการ)" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
-    <br />
+    <div class="form-group">
+        <label for="pertypid">ประเภทกลุ่มเปราะบาง</label>
+        <SfDropDownList ID="pertypid" TItem="const_pertyp" @bind-Value="personAdd.pertypid" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_pertyp1">
+            <DropDownListEvents TItem="const_pertyp" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="pertypnme" Value="pertypid"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+    <div class="form-group">
+        <label for="elderly_grpid">ผู้สูงอายุจัดอยู่ในกลุ่ม</label>
+        <SfDropDownList ID="elderly_grpid" TItem="const_elderly_grp" @bind-Value="personAdd.elderly_grpid" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_elderly_grp1">
+            <DropDownListEvents TItem="const_elderly_grp" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="elderly_grpnme" Value="elderly_grpid"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+
+    <div class="form-group">
+        <label for="distypid">ประเภทความพิการและลักษณะความพิการ (ที่ระบุในบัตรประจำตัวคนพิการ)</label>
+        <SfDropDownList ID="distypid" TItem="const_disability_type" @bind-Value="personAdd.distypid" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_disability_type1">
+            <DropDownListEvents TItem="const_disability_type" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="distypnme" Value="distypid"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+
     <h3> ข้อมูลผู้ดูแล</h3>
-    <MatRadioGroup @bind-Value="@Val1" TValue="string">
-        <MatRadioButton Value="@string.Empty" TValue="string">Default</MatRadioButton>
-        <MatRadioButton Value="@("f")" Label="ไม่มีผู้ดูแล" TValue="string"></MatRadioButton>
-        <MatRadioButton Value="@("f")" Label="มีผู้ดูแล-สมาชิกครอบครัว" TValue="string"></MatRadioButton>
-        <MatRadioButton Value="@("f")" Label="มีผู้ดูแล-จ้างคนนอกครอบครัวมาดูแล" TValue="string"></MatRadioButton>
-    </MatRadioGroup>
-    <InputText id="main_attendant_nme" class="form-control" placeholder="ชื่อผู้ดูแลหลัก" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
-    <InputText id="main_attendant_surnme" class="form-control" placeholder="ชื่อสกุลผู้ดูแลหลัก" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
-    <InputText id="main_attendant_brtdte" class="form-control" placeholder="วันเดือนปีเกิดผู้ดูแลหลัก" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
-    <InputText id="main_attendant_rel" class="form-control" placeholder="ความสัมพันธ์ เกี่ยวข้องกับกลุ่มเปราะบาง" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
-    <InputText id="main_attendant_occid" class="form-control" placeholder="อาชีพ" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
-    <InputText id="main_attendant_sal" class="form-control" placeholder="รายได้ต่อเดือน (บาท)" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />
-    <InputText id="main_attendant_tel" class="form-control" placeholder="โทรศัพท์" onkeyup="autoTab(this,3)" onkeypress="autoTab(this,3)" maxlength='13' @oninput="(EventArgs) => {SetValue(EventArgs.Value.ToString());}" @bind-Value=" recordSurveyProfile.HC" />*@
+    <div class="form-group">
+        <label>
+            ท่านมีผู้ดูแลหรือไม่
+        </label>
+        <SfRadioButton Label="ไม่มีผู้ดูแล" Name="hav_attendant" Value="1" @bind-Checked="@personAdd.hav_attendant"></SfRadioButton>
+        <SfRadioButton Label="มีผู้ดูแล-สมาชิกครอบครัว" Name="hav_attendant" Value="2 " @bind-Checked="@personAdd.hav_attendant"></SfRadioButton>
+        <SfRadioButton Label="มีผู้ดูแล-จ้างคนนอกครอบครัวมาดูแล" Name="hav_attendant" Value="3" @bind-Checked="@personAdd.hav_attendant"></SfRadioButton>
+    </div>
+    <div class="form-group">
+        <label for="main_attendant_nme">ชื่อผู้ดูแลหลัก</label>
+        <SfTextBox ID="main_attendant_nme" @bind-Value="personAdd.main_attendant_nme">
+        </SfTextBox>
+    </div>
+    <div class="form-group">
+        <label for="main_attendant_surnme">นามสกุลผู้ดูแลหลัก</label>
+        <SfTextBox ID="main_attendant_surnme" @bind-Value="personAdd.main_attendant_surnme">
+        </SfTextBox>
+    </div>
+    <div class="form-group">
+        <label for="main_attendant_brtdte">วันเดือนปีเกิดผู้ดูแลหลัก</label>
+        <SfDatePicker TValue="DateTime?" @bind-Value="personAdd.main_attendant_brtdte" Locale="th"></SfDatePicker>
+    </div>
+    <div class="form-group">
+        <label for="occid">อาชีพ</label>
+        <SfDropDownList ID="main_attendant_occid" TItem="const_occ" @bind-Value="personAdd.main_attendant_occid" TValue="string" Placeholder="" PopupHeight="auto" DataSource="@const_occ1">
+            <DropDownListEvents TItem="const_occ" TValue="string"></DropDownListEvents>
+            <DropDownListFieldSettings Text="occnme" Value="occid"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+    <div class="form-group">
+        <label for="main_attendant_sal">รายได้ต่อเดือน (บาท)</label>
+        <SfNumericTextBox ID="main_attendant_sal" @bind-Value="personAdd.main_attendant_sal">
+        </SfNumericTextBox>
+    </div>
+    <div class="form-group">
+        <label for="main_attendant_tel">โทรศัพท์</label>
+        <SfTextBox ID="main_attendant_tel" @bind-Value="personAdd.main_attendant_tel">
+        </SfTextBox>
+    </div>
+
+    <h3> ข้อมูลผู้ดูแล</h3>
+    <div class="form-group">
+        <label for="optid">แหล่งข้อมูล สังกัด อปท.</label>
+        <SfTextBox ID="optid" @bind-Value="personAdd.optid">
+        </SfTextBox>
+    </div>
+    <div class="form-group">
+        <label>
+            สถานภาพการมีชีวิต ของกลุ่มเปราะบาง
+        </label>
+        <SfRadioButton Label="ระบุไม่ได้" Name="alive" Value="1" @bind-Checked="@personAdd.alive"></SfRadioButton>
+        <SfRadioButton Label="มีชีวิตอยู่" Name="alive" Value="2 " @bind-Checked="@personAdd.alive"></SfRadioButton>
+        <SfRadioButton Label="เสียชีวิตแล้ว" Name="alive" Value="3" @bind-Checked="@personAdd.alive"></SfRadioButton>
+    </div>
+    <div class="form-group">
+        <label for="percmm">หมายเหตุ</label>
+        <SfTextBox ID="percmm" @bind-Value="personAdd.percmm">
+        </SfTextBox>
+    </div>
 
 </EditForm>
 
@@ -302,6 +366,118 @@
             padding: 0px 0px 40px 0px;
         }
 </style>
+<div class="col-lg-12 control-section">
+    <div class="control-wrapper">
+        <div class="cascading">
+            <label class="example-label">Country</label>
+            <SfDropDownList TItem="province" TValue="string" Placeholder="Select a country" PopupHeight="auto" DataSource="@provinces1">
+                <DropDownListEvents TItem="province" TValue="string" ValueChange="ChangeCountry"></DropDownListEvents>
+                <DropDownListFieldSettings Text="CountryName" Value="CountryId"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+        <div class="cascading">
+            <label class="example-label">State</label>
+            <SfDropDownList Enabled="@EnableStateDropDown" TValue="string" TItem="State" @bind-Value="@StateValue" Placeholder="Select a state" Query="@StateQuery" PopupHeight="auto" DataSource="@States">
+                <DropDownListEvents TItem="State" TValue="string" ValueChange="ChangeState"></DropDownListEvents>
+                <DropDownListFieldSettings Text="StateName" Value="StateId"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+        <div class="cascading">
+            <label class="example-label">City</label>
+            <SfDropDownList Enabled="@EnableCitytDropDown" TValue="string" TItem="city" @bind-Value="@CityValue" Placeholder="Select a city" Query="@CityQuery" PopupHeight="auto" DataSource="@cites">
+                <DropDownListFieldSettings Text="CityName" Value="CityId"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+</div>
+<style>
+    .control-wrapper {
+        max-width: 250px;
+        margin: 0 auto;
+        padding: 10px 0px 0px;
+    }
+
+    .example-label {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .control-wrapper .cascading {
+        padding: 30px 0px 0px;
+    }
+</style>
+@code {
+    public bool EnableStateDropDown = false;
+    public bool EnableCitytDropDown = false;
+    public string StateValue { get; set; } = null;
+    public Query StateQuery { get; set; } = null;
+    public string CityValue { get; set; } = null;
+    public Query CityQuery { get; set; } = null;
+    public void ChangeCountry(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string, province> args)
+    {
+        this.EnableStateDropDown = !string.IsNullOrEmpty(args.Value);
+        this.EnableCitytDropDown = false;
+        this.StateQuery = new Query().Where(new WhereFilter() { Field = "CountryId", Operator = "equal", value = args.Value, IgnoreCase = false, IgnoreAccent = false });
+        this.StateValue = null;
+        this.CityValue = null;
+    }
+    public void ChangeState(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string, State> args)
+    {
+        this.EnableCitytDropDown = !string.IsNullOrEmpty(args.Value);
+        this.CityQuery = new Query().Where(new WhereFilter() { Field = "StateId", Operator = "equal", value = args.Value, IgnoreCase = false, IgnoreAccent = false });
+        this.CityValue = null;
+    }
+    public class State
+    {
+        public string StateName { get; set; }
+        public string CountryId { get; set; }
+        public string StateId { get; set; }
+    }
+    public class Countries
+    {
+        public string CountryName { get; set; }
+        public string CountryId { get; set; }
+    }
+    public class city
+    {
+        public string CityName { get; set; }
+        public string StateId { get; set; }
+        public string CityId { get; set; }
+    }
+    public List<Countries> Country = new List<Countries>() {
+        new Countries(){ CountryName= "Australia", CountryId= "2" },
+        new Countries(){ CountryName= "United States", CountryId= "1" }
+    };
+    public List<State> States = new List<State>() {
+        new State() { StateName= "New York", CountryId= "1", StateId= "101" },
+        new State() { StateName= "Queensland", CountryId= "2", StateId= "104" },
+        new State() { StateName= "Tasmania ", CountryId= "2", StateId= "105" },
+        new State() { StateName= "Victoria", CountryId= "2", StateId= "106" },
+        new State() { StateName= "Virginia", CountryId= "1", StateId= "102" },
+        new State() { StateName= "Washington", CountryId= "1", StateId= "103" }
+    };
+    public List<city> cites = new List<city>()
+{
+         new city() { CityName = "Aberdeen", StateId= "103", CityId= "207" },
+         new city() { CityName = "Albany", StateId= "101", CityId= "201" },
+         new city() { CityName = "Brisbane ", StateId="104", CityId= "211" },
+         new city() { CityName = "Colville ", StateId= "103", CityId= "208" },
+         new city() { CityName ="Emporia", StateId= "102", CityId= "206" },
+         new city() { CityName = "Hampton ", StateId= "102", CityId= "205" },
+         new city() { CityName ="Hobart", StateId= "105", CityId= "213" },
+         new city() { CityName ="Lockport", StateId= "101", CityId= "203" },
+         new city() { CityName =  "Pasco", StateId= "103", CityId= "209" },
+         new city() { CityName= "Alexandria", StateId= "102", CityId= "204" },
+         new city() { CityName= "Beacon ", StateId= "101", CityId= "202" },
+         new city() { CityName= "Cairns", StateId= "104", CityId= "212" },
+         new city() { CityName= "Devonport", StateId= "105", CityId= "215" },
+         new city() { CityName= "Geelong", StateId= "106", CityId= "218" },
+         new city() { CityName= "Healesville ", StateId="106", CityId= "217" },
+         new city() { CityName= "Launceston ", StateId= "105", CityId= "214" },
+         new city() { CityName= "Melbourne", StateId= "106", CityId="216" },
+         new city() { CityName= "Townsville", StateId= "104", CityId= "210" }
+    };
+}
 <EditForm Model="@recordSurveyProfile" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <input type='hidden' name='next' value='1'>
