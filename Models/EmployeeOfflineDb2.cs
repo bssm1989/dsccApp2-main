@@ -19,7 +19,7 @@ namespace FirstBlazorApp.Models
             Version = 64;
             Stores = _stores;
         }
-        private IndexedDbStore _tableFieldStore => new TStore<Employee2345>();
+        private IndexedDbStore _tableFieldStore => new TStore<person>();
         //private IndexedDbStore _tableFieldStore2 => new TStore<province_2>();
         //private IndexedDbStore _tableFieldStore3 => new TStore<tambon_2>();
         //private IndexedDbStore _tableFieldStore4 => new TStore<district_2>();

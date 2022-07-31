@@ -8,201 +8,7 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 @*test deploy   id test<h1>Hello, Bassam</h1>*@
-<SfCalendar TValue="DateTime" />
-<div>
-    <div class="container content">
-        <div class="row" style='border-style: dotted;border-width: 1px'>
-            <div class="col-lg-12">
-                <label><b>ระบบสารสนเทศ</b></label>
-                <label>โครงการพัฒนาระบบสนับสนุนการทำงานเชิงพื้นที่เพื่อการแก้ไขปัญหาความยากจนแบบเบ็ดเสร็จและแม่นยำ หน่วยบริหารและจัดการทุนด้านการพัฒนาระดับพื้นที่ (บพท.)</label>
-            </div>
-        </div>
 
-        <!--label><b><font color='red' size='6'>ประกาศ วันที่ 25 สิงหาคม 2563 เวลา 23.00-1.00 น. ทางระบบขอปิดระบบเพื่ออัพเดตระบบชั่วคราวครับ</font></b></label-->
-        @*<?php
-            $username=$_COOKIE[username_log];
-
-            $mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
-
-            $name1="select name from volunteer where username='$username'";
-            $result_name=$mysqli->query($name1);
-            $row_name=$result_name->fetch_object();
-
-            if($_COOKIE[username_log]){
-            ?>
-            <br>
-            <div class="row" style='border-style: dotted;border-width: 1px'>
-                <div class="col-lg-12">
-                    <label>ผู้สำรวจ <?php echo$_COOKIE[username_log]?></label> |
-                    <label><a href='index.php'>หน้าแรก</a> | </label>
-                    <label>&nbsp&nbsp;<a href='index.php?curr=edit'>แก้ไขข้อมูลส่วนตัว</a> | </label>
-                    <label>&nbsp&nbsp;<a href='index.php?curr=list_staff1'>แบบสำรวจของฉัน</a> | </label>
-            <?php
-            $query0="select JUN from staff_jun where username='$username'";
-            $result0=$mysqli->query($query0);
-            //$row0=$result0->fetch_object();
-
-            if($result0->num_rows){
-            echo"
-                    <label><a href='/survey/index.php?curr=list_staff_jun'>แบบสำรวจของจังหวัด</a></label> |
-            ";
-            }
-
-            $mysqli->close();
-            ?>*@
-
-        <label>&nbsp&nbsp;ผู้ใช้สำรวจ @user| </label>
-        <label><a href='https://www.facebook.com/groups/livingonnewpace/' target="_blank">แจ้งปัญหา</a> | </label>
-
-        <label><a href='/gis' target="fberror">GIS</a></label>
-    </div>
-</div>
-
-
-
-<hr />
-@*********************************  แบบสำรวจของฉัน ***************************@
-@*<?php
-    session_start();
-    $_SESSION["HC"]=null;
-    if($_COOKIE[username_log]){
-
-    $mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
-
-    $username=$_COOKIE[username_log];
-    $HC_search=trim(str_replace("'","\'",$_POST[HC_search]));
-
-    $qu_ce="
-        select
-            JUN
-        from
-            staff_jun
-        where
-            username='$username'
-    ";
-    $re_ce=$mysqli->query($qu_ce);
-    //$row_ce=$re_ce->fetch_object();
-
-    if(!$re_ce->num_rows){
-        echo"<script>location=\"/survey/\"</script>";
-        exit();
-    }
-
-
-
-    $name1="select name from volunteer where username='$username'";
-    $result_name=$mysqli->query($name1);
-    $row_name=$result_name->fetch_object();
-    ?>*@
-<br>
-@*
-    <div class="row">
-        <div class="col-lg-12  mb-3">
-            <label for="JUN">จังหวัด </label>
-    <?php
-    $query="
-        select
-            a.province_name_thai
-            ,a.province_id
-        from
-            province as a
-            ,staff_jun as b
-        where
-            a.province_id=b.JUN
-            and b.username='$username'
-        group by
-            b.JUN
-        order by
-            CONVERT(a.province_name_thai USING tis620)
-    ";
-    $result=$mysqli->query($query);
-
-    $row=$result->fetch_object();
-    echo"<a href='/survey/index.php?curr=list_staff_jun&JUN=$row->province_id'>$row->province_name_thai</a> | ";
-    $ii=0;
-    $jun1[$ii]=$row->province_id;
-    $ii++;
-    if($_GET[JUN]){
-        $JUN=($_GET[JUN])?str_replace("'","\'",$_GET[JUN]):$row->province_id;
-    }else{
-        $JUN=($_POST[JUN])?str_replace("'","\'",$_POST[JUN]):$row->province_id;
-    }
-
-    while($row=$result->fetch_object()){
-        echo"<a href='/survey/index.php?curr=list_staff_jun&JUN=$row->province_id'>$row->province_name_thai</a> | ";
-        $jun1[$ii]=$row->province_id;
-        $ii++;
-    }
-        if(in_array($JUN,$jun1)){
-        }else{
-    ?>
-    <script>
-        alert('คุณไม่มีสิทธิตรวจสอบจังหวัดนี้')
-        location='/survey/index.php?curr=list_staff_jun'
-    </script>
-    <?php
-        }
-    ?>
-        </div>
-    </div>
-*@
-@*<div class="row">
-    <div class="col-lg-12">
-
-            @*<input type='text' name='HC_search' id='HC_search' @bind-value="searchHc.txt" placeholder='--กรอก HC ที่ต้องการค้นหา----' class="form-control" value='<?php echo$HC_search?>'>*@
-@*<input type='text'  @bind-value="@searchHc" placeholder='--กรอก HC ที่ต้องการค้นหา----' class="form-control" >
-                <input type='submit'  @onclick="searchHcList"value='ค้น' class="form-control">
-
-
-        </div>
-    </div>
-*@
-@*
-    <?php
-    $mysqli=mcon($mysql["host"], $mysql["user"], $mysql["pass"], $mysql["dbname"],$mysql["charset"]);
-
-    $page=($_POST[page_select]?$_POST[page_select]:1);
-    $start_show=($page-1)*$show_limit;
-    //echo"<br>";
-
-    $HC_search=str_replace("'","\'",$_POST[HC_search]);
-
-    $query_count="select count(HC) as CHC from survey_staff where survey_year='$survey_year' and survey_no='$survey_no' and staff='$username' and HC like '%$HC_search%'";
-    $result_count=$mysqli->query($query_count);
-    $row_count=$result_count->fetch_object();
-
-    $CHC=$row_count->CHC;
-    echo"
-    <br>*@
-@*<div class="container content">
-            <div class="row" style='border-style: dotted;border-width: 1px'>
-    <div class=\"row\">
-        <div class=\"col-lg-12\">
-            <form action='index.php?curr=list_staff1' method='POST'>
-                <input type='text' name='HC_search' id='HC_search' placeholder='--กรอก HC ที่ต้องการค้นหา----' class=\"form-control\" value='$HC_search'>
-                <input type='submit' value='ค้น' class=\"form-control\">
-            </form>
-        </div>
-    </div>
-    </div>
-    </div>>*@
-@*
-    ";
-    $query0="select JUN from staff_jun where username='$username'";
-    $result0=$mysqli->query($query0);
-    $row0=$result0->fetch_object();
-    if($row0->JUN){
-    echo"
-    <div class=\"row\">
-        <div class=\"col-lg-12\">
-            <label><a href='/survey/index.php?curr=list_staff1'>แบบสำรวจของฉัน</a></label> |
-            <label><a href='/survey/index.php?curr=list_staff1'>แบบสำรวจของจังหวัด</a></label>
-        </div>
-    </div>
-    ";
-    }
-    echo"
-*@
 <br>
 <div class="container content">
     <div class="row">
@@ -216,30 +22,7 @@
 *@
 
 <br>
-@*<div class="container content">
-    <div class=\"row\">
-        <div class=\"col-lg-12\">
-            <label><a href='index.php?curr=list_staff1'>รายการทั้งหมด</a> ||</label>
-            <label><a href='index.php?curr=list_staff4'>รายการที่กรอกสมบูรณ์</a> ||</label>
-            <label><a href='index.php?curr=list_staff5'>รายการที่ไม่สมบูรณ์ (มีข้อมูลพื้นฐาน)</a> ||</label>
-            <label><a href='index.php?curr=list_staff3'>รายการที่ไม่มีข้อมูลพื้นฐาน</a></label>
-        </div>
-    </div>
-    </div>*@
-@*
-    ";
 
-    $page_count=($CHC- ($CHC % $show_limit))/ $show_limit+1;
-    $all=$_GET[all];
-    if($all){
-        $query="select HC,staff,ch1_st,ch1_sp,ch2_st,ch2_sp,ch3_st,ch3_sp,ch4_st,ch4_sp,ch5_st,ch5_sp from survey_staff where survey_year='$survey_year' and survey_no='$survey_no'  and staff='$username' and HC like '%$HC_search%' order by ch1_st desc ";
-    }else{
-        $query="select HC,staff,ch1_st,ch1_sp,ch2_st,ch2_sp,ch3_st,ch3_sp,ch4_st,ch4_sp,ch5_st,ch5_sp from survey_staff where survey_year='$survey_year' and survey_no='$survey_no'  and staff='$username' and HC like '%$HC_search%' order by ch1_st desc limit $start_show,$show_limit";
-    }
-    $result=$mysqli->query($query);
-    //	<td rowspan='2' align='center'>Profile</td>
-    echo"
-*@
 <div class="container">
     <div class="row">
         <div class="col-lg-12 col-md-12">
@@ -274,66 +57,47 @@
                 {
 
 
-                    @*";
-                        @
-                        while($row=$result->fetch_object()){
-                            $query_p="select HC,JUN from survey_profile where HC='$row->HC'";
-                        //echo"<br>";
-                            $result_p=$mysqli->query($query_p);
-                            $row_p=$result_p->fetch_object();
+            <tr>
+                <td><a href='profile/@item.HC'>@item.HC</a></td>
+                <td>@item.userName</td>
+                <td>@item.nameProvince </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                    @*/<td>@UnixTimeStampToDateTime(item.survey_staff.ch1_st)</td>
+            <td>@UnixTimeStampToDateTime(item.survey_staff.ch1_sp)</td>
+            <td>@UnixTimeStampToDateTime(item.survey_staff.ch2_st)</td>
+            <td>@UnixTimeStampToDateTime(item.survey_staff.ch2_sp)</td>
+            <td>@UnixTimeStampToDateTime(item.survey_staff.ch3_st)</td>
+            <td>@UnixTimeStampToDateTime(item.survey_staff.ch3_sp)</td>
+            <td>@UnixTimeStampToDateTime(item.survey_staff.ch4_st)</td>
+            <td>@UnixTimeStampToDateTime(item.survey_staff.ch4_sp)</td>
+            <td>@UnixTimeStampToDateTime(item.survey_staff.ch5_st)</td>
+            <td>@UnixTimeStampToDateTime(item.survey_staff.ch5_sp)</td>*@
+                <td>
+                    <input type="button" class="btn btn-danger btn-sm" @onclick="@(e => DeleteSurvey_profile(item.id))" value="ลบ" />
+                    @{
+                        var isDisable = false;
+                        if (!String.IsNullOrEmpty(item.status))
+                        {
 
-                            $query_st="select name from volunteer where username='$row->staff'";
-                            $result_st=$mysqli->query($query_st);
-                            $row_st=$result_st->fetch_object();
-
-                            $query_j="select province_name_thai from province where province_id='$row_p->JUN'";
-                            $result_j=$mysqli->query($query_j);
-                            $row_j=$result_j->fetch_object();
-
-                            $qcheck="select username from survey_check where HC='$row->HC' and survey_year='$survey_year' and survey_no='$survey_no'";
-                            $recheck=$mysqli->query($qcheck);
-                            $rocheck=$recheck->fetch_object();
-
-                            if($rocheck->username){
-                                echo"
-                                    <tr bgcolor='green'>
-                                        <td><a href='survey_edit.php?HC=$row->HC'>$row->HC </a></td>
-                                        <td>$row_st->name </td>
-                                        <td>$row_j->province_name_thai </td>
-                    *@@*		";
-                        }else{<br/>	<img src="@item.imageFormData"/>
-                            echo"*@
-                    <tr>
-                        <td><a href='surveypageone/@item.HC'>@item.HC</a></td>
-                        <td>@item.userName</td>
-                        <td>@item.nameProvince </td>
-                        <td>@UnixTimeStampToDateTime(item.survey_staff.ch1_st)</td>
-                        <td>@UnixTimeStampToDateTime(item.survey_staff.ch1_sp)</td>
-                        <td>@UnixTimeStampToDateTime(item.survey_staff.ch2_st)</td>
-                        <td>@UnixTimeStampToDateTime(item.survey_staff.ch2_sp)</td>
-                        <td>@UnixTimeStampToDateTime(item.survey_staff.ch3_st)</td>
-                        <td>@UnixTimeStampToDateTime(item.survey_staff.ch3_sp)</td>
-                        <td>@UnixTimeStampToDateTime(item.survey_staff.ch4_st)</td>
-                        <td>@UnixTimeStampToDateTime(item.survey_staff.ch4_sp)</td>
-                        <td>@UnixTimeStampToDateTime(item.survey_staff.ch5_st)</td>
-                        <td>@UnixTimeStampToDateTime(item.survey_staff.ch5_sp)</td>
-                        <td>
-                            <input type="button" class="btn btn-danger btn-sm" @onclick="@(e => DeleteSurvey_profile(item.id))" value="ลบ" />
-                            @{
-                                var isDisable = false;
-                                if (!String.IsNullOrEmpty(item.status))
-                                {
-
-                                    isDisable = item.status.Equals("1") ? true : false;
-                                }
+                            isDisable = item.status.Equals("1") ? true : false;
+                        }
 
 
 
-                            }
+                    }
 
-                            <input type="button" class="btn  @(item.spinning?"btn-dark":"btn-primary") " @onclick="@(e => syndatabyHc(item.id,item.index))" value="ส่งข้อมูล" disabled=@isDisable />
-                        </td>
-                    </tr>
+                    <input type="button" class="btn  @(item.spinning?"btn-dark":"btn-primary") " @onclick="@(e => syndatabyHc(item.id,item.index))" value="ส่งข้อมูล" disabled=@isDisable />
+                </td>
+            </tr>
 
 
 
@@ -348,269 +112,3 @@
         </div>
     </div>
 </div>
-
-
-@*br />
-    <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-
-    ก่อนหน้า
-    &nbsp;&nbsp;<input type="button" value="ไป" onclick="NextPage(this.form,this.form.page_select1.value)">
-    <input type="text" name="page_select1" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57" value="1" size="2" style="text-align: center;"> / 1
-     ถัดไป
-    <input type="hidden" name="page_select" value="2">
-    <input type="hidden" name="HC_search" value="">
-
-        </div>xz
-    </div>
-        </div>
-
-
-                    <h1>Counter</h1>
-
-    <p>Current count:
-       @currentCount
-    </p>
-
-    <button class="btn btn-primary"
-             @onclick="@runBuild">Click me</button>
-
-             <button class="btn btn-primary"
-             @onclick="@DeleteData">Click me</button>
-
-    <button class="btn  @(spinning?"btn-dark":"btn-primary") "
-            @onclick="@AsyncLongFunc">Click me Async</button>
-
-
-            <MatFileUpload OnChange="@FilesReadyForContent"></MatFileUpload>
-            <textarea style="width: 100%; max-height: 300px; height: 300px;">@fileContent</textarea>*@
-@*
-    <form action='index.php?curr=list_staff1' method='POST' name='frm_select_page'>
-    <br>
-*@
-@*<InputFile OnChange="OnInputFileChange" ></InputFile>
-
-    <br />
-    <div class="image-list">
-        <table class="table table-bordered">
-            <tr>
-                @foreach(var imageDataUrl in imageDataUrls){
-                    <td>
-                        <img src="@imageDataUrl"/>
-                    </td>
-                }
-            </tr>
-        </table>
-    </div>*@
-@*
-
-    <div class=\"row\">
-        <div class=\"col-lg-12\">
-*@
-
-
-
-
-
-
-
-
-@*";
-    if($page=='1'){
-        echo"\nก่อนหน้า";
-    }else{
-        $page_select1=$page-1;
-        echo"\n&nbsp;&nbsp;<a style='cursor:pointer;color:blue' onclick='NextPage(document.frm_select_page,$page_select1)'>ก่อนหน้า</a>";
-    }
-*@
-@*//.echo"&nbsp;&nbsp;<input type='button' value='ไป' onclick=\"location='index.php?curr=list&page_select='+document.page_select.value\">
-    echo"\n&nbsp;&nbsp;<input type='button' value='ไป' onclick='NextPage(this.form,this.form.page_select1.value)'>*@
-
-
-
-
-@*<input type='text' name='page_select1' onkeypress='return event.charCode >= 48 && event.charCode <= 57' value='$page' size='2' style='text-align: center;' > / $page_count";*@
-
-
-
-
-
-
-
-
-
-
-@*if($page==$page_count){
-        echo"\n ถัดไป";
-    }else{
-        $page_select1=$page+1;
-        echo"\n&nbsp;&nbsp;<a style='cursor:pointer;color:blue' onclick='NextPage(document.frm_select_page,$page_select1)'>ถัดไป</a>";
-    }*@
-
-@*echo"\n<input type='hidden' name='page_select' value='2'>";
-    echo"\n<input type='hidden' name='HC_search' value='$HC_search'>";
-
-    <script>
-        function NextPage(obj,value){
-            obj.page_select.value=value;
-            obj.submit();
-        }
-    </script>
-    ";echo"
-    echo"*@
-@*</div>
-    </div>
-    </form>*@
-
-
-@*<div class="form-group row">
-        <button class="btn btn-info float-right" @onclick="GetSavedEmployees">List All Employees</button>
-    </div>*@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*
-
-
-        @if (survey_profile_list != null)
-    {
-        <div class="row">
-            <div class="col-md-12">
-         <table class="table-bordered">
-            <thead>
-                <tr>
-                        <th>id</th>
-                        <th>HC</th>
-                        <th>survey_year</th>
-                        <th>create_survey</th>
-                        <th>survey_no</th>
-                        <th>AGRI</th>
-                        <th>AGRI_NO</th>
-                        <th>MBNO</th>
-                        <th>MB</th>
-                        <th>MM</th>
-                        <th>TMP</th>
-                        <th>AMP</th>
-                        <th>JUN</th>
-                        <th>POSTCODE</th>
-                        <th>PERSON</th>
-                        <th>popid</th>
-                        <th>PREFIX</th>
-                        <th>TEL</th>
-                        <th>HHM</th>
-                        <th>PP</th>
-                        <th>PPP</th>
-                </tr>
-            </thead>
-            <tbody>
-                <Virtualize Context="survey_profile" Items="@survey_profile_list">
-                    <tr>
-                        <td>@survey_profile.id</td>
-                        <td> <a href='surveypageone/@survey_profile.HC' >@survey_profile.HC</a><br>
-
-                        <a href='surveya1/@survey_profile.HC' >a1</a>,
-                        <a href='surveya2/@survey_profile.HC' >a2</a>,
-                        <a href='surveya3/@survey_profile.HC' >a3</a>,
-                        <a href='surveya4/@survey_profile.HC' >a4</a>,
-                        <a href='surveya5/@survey_profile.HC' >a5</a>,
-                        <a href='surveyb1/@survey_profile.HC' >b1</a>,
-                        <a href='surveyb2/@survey_profile.HC' >b2</a>,
-                        <a href='surveyb3/@survey_profile.HC' >b3</a>,
-                        <a href='surveyb4/@survey_profile.HC' >b4</a>,
-                        <a href='surveyc1/@survey_profile.HC' >c1</a>,
-                        <a href='surveyc2/@survey_profile.HC' >c2</a>,
-                        <a href='surveyc3/@survey_profile.HC' >c3</a>,
-                        <a href='surveyc4/@survey_profile.HC' >c4</a>,
-                        <a href='surveyd1/@survey_profile.HC' >d1</a>,
-                        <a href='surveyd2/@survey_profile.HC' >d2</a>,
-                        <a href='surveyd3/@survey_profile.HC' >d3</a>,
-                        <a href='surveye1/@survey_profile.HC' >e1</a>,
-                        <a href='surveye2/@survey_profile.HC' >e2</a>,
-                        <a href='surveye3/@survey_profile.HC' >e3</a>,
-                        </td>
-                        <td>@survey_profile.survey_year</td>
-                        <td>@survey_profile.survey_no</td>
-                        <td>@survey_profile.create_survey</td>
-                        <td>@survey_profile.AGRI</td>
-                        <td>@survey_profile.AGRI_NO</td>
-                        <td>@survey_profile.MBNO</td>
-                        <td>@survey_profile.MB</td>
-                        <td>@survey_profile.MM</td>
-                        <td>@survey_profile.TMP</td>
-                        <td>@survey_profile.AMP</td>
-                        <td>@survey_profile.JUN</td>
-                        <td>@survey_profile.POSTCODE</td>
-                        <td>@survey_profile.PERSON</td>
-                        <td>@survey_profile.popid</td>
-                        <td>@survey_profile.PREFIX</td>
-                        <td>@survey_profile.TEL</td>
-                        <td>@survey_profile.HHM</td>
-                        <td>@survey_profile.PP</td>
-                        <td>@survey_profile.PPP</td>
-
-                        <td>
-                            <input type="button" class="btn btn-danger" @onclick="@(e => DeleteSurvey_profile(survey_profile.id))" value="Delete" />
-                            <a href='editemployee/@survey_profile.id' class="btn btn-block">Edit</a>
-                        </td>
-
-                    </tr>
-                </Virtualize>
-            </tbody>
-        </table>
-        </div>
-        </div>
-        }*@
-
-
-
-
-
-
-
-@*@if (employees != null)
-    {
-        <table class="table-bordered">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>E-mail</th>
-                    <th>Mobile number</th>
-                    <th>Server update</th>
-                    <th>Local update</th>
-                    <th>User</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <Virtualize Context="employee" Items="@employees">
-                    <tr>
-                        <td>@employee.Id</td>
-                        <td>@employee.Fullname</td>
-                        <td>@employee.Email</td>
-                        <td>@employee.MobileNumber</td>
-                        <td>@employee.ServerUpdate</td>
-                        <td>@employee.localUpdate</td>
-                        <td>@employee.User</td>
-                        <td>
-                            <input type="button" class="btn btn-danger" @onclick="@(e => DeleteEmployee(employee.Id))" value="ลบ" />
-                             <input type="button" class="btn btn-defual" value="ส่งข้อมูล" />
-
-                    </tr>
-                </Virtualize>
-            </tbody>
-        </table>
-    }*@

@@ -21,7 +21,7 @@ namespace FirstBlazorApp.Pages
     {
         Employee emp = new Employee();
         private List<Models.Employee> employees = new List<Employee>();
-        private List<Models.survey_profile> survey_profile_list = new List<survey_profile>();
+        private List<Models.person> survey_profile_list = new List<person>();
         bool displayValidationErrorMessages = false;
         bool displayUserAddedToDB = false;
 
@@ -237,7 +237,7 @@ namespace FirstBlazorApp.Pages
             var openResult = await DBContext.OpenIndexedDb();
 
             await DBContext.DeleteByKey<int?>("survey_profile", id);
-            survey_profile_list = await DBContext.GetAll<survey_profile>("survey_profile");
+            survey_profile_list = await DBContext.GetAll<person>("person");
             //var updateSurPro=await DBContext.GetByIndex<string, survey_profile>("survey_profile", "1", null, "hc", false);
             var itemToRemove = tableListSurveys.Single(r => r.id == id);
             tableListSurveys.Remove(itemToRemove);
@@ -308,7 +308,10 @@ namespace FirstBlazorApp.Pages
 
 
 
-            survey_profile_list = (await DBContext.GetAll<survey_profile>("survey_profile")).OrderBy(x => x.create_survey).ToList();
+
+
+
+            survey_profile_list = (await DBContext.GetAll<person>("person")).OrderBy(x => x.upddte).ToList();
 
             employees = await DBContext.GetAll();
             //************  syn data *********
@@ -324,20 +327,26 @@ namespace FirstBlazorApp.Pages
             //198: 	$query_st = "select name from   volunteer where username='$row->staff'";
             //202: 	$query_j = "select              province_name_thai from province where province_id='$row_p->JUN'";
             //206: 	$qcheck = "select username from survey_check where HC='$row->HC' and survey_year='$survey_year' and survey_no='$survey_no'";
-            var survey_profiles = await DBContext.GetAll<survey_profile>("survey_profile");
+            var survey_profiles = await DBContext.GetAll<person>("person");
             var provinces = await DBContext.GetAll<province>("province");
             var survey_staffs = await DBContext.GetAll<survey_staff>("survey_staff");
             var volunteer = await DBContext.GetAll<volunteer>("volunteer");
-            var listProfileStaff = from sp in survey_profiles
-                                   join st in survey_staffs  on sp.HC equals st.HC
-                                   join us in volunteer  on st.staff equals us.username
-                                   select new { sp, st,us };
-            var listByhc = listProfileStaff.ToList();
+            //var listProfileStaff = from sp in survey_profiles
+            //                       join st in survey_staffs on sp.HC equals st.HC
+            //                       join us in volunteer on st.staff equals us.username
+            //                       select new { sp, st, us };
+            //var listByhc = listProfileStaff.ToList();
+            //var listProfileStaff = from sp in survey_profiles
+            //                       join st in survey_staffs on sp.HC equals st.HC
+            //                       join us in volunteer on st.staff equals us.username
+            //                       select new { sp, st, us };
+            var listByhc = survey_profiles.ToList();
             int index = 0;
-            foreach (var item in listByhc.OrderBy(x=>x.sp.create_survey))
+            foreach (var item in listByhc.OrderBy(x=>x.upddte))
             {
                 var provinceName = "";
-                var getTxtProvince = await DBContext.GetByIndex<string, province>("province",string.IsNullOrEmpty( item.sp.JUN)?"":item.sp.JUN,"","province_id", false);
+                var getTxtProvince = await DBContext.GetByIndex<string, province>("province",string.IsNullOrEmpty( item.JUN)?"":item.JUN,"","province_id", false);
+                //var getTxtProvince = await DBContext.GetByIndex<string, province>("province",string.IsNullOrEmpty( item.sp.JUN)?"":item.sp.JUN,"","province_id", false);
                if(getTxtProvince.Count == 0)
                 {
                     provinceName = "";
@@ -348,16 +357,20 @@ namespace FirstBlazorApp.Pages
                 }
                 tableListSurveys.Add(new tableListSurvey
                 {
-                    survey_staff = item.st,
-                    UserName = item.st.staff,
-                    nameProvince =provinceName,
-                    HC = item.sp.HC,
-                    id=item.sp.id,
-                    status=item.sp.status,
+                    //survey_staff = item.st,
+                    //UserName = item.st.staff,
+                    //nameProvince =provinceName,
+                    //HC = item.sp.HC,
+                    HC = item.HC,
+                    id=111,
+                    //id=item.sp.id,
+                    status="sdsds",
+                    //status=item.sp.status,
                     spinning=false,
                     index=index,
-                    imageFormData = $"data:{"image/png"}; base64, {item.sp.PP}",
-                    userName=item.us.name
+                    imageFormData = $"data:{"image/png"}; base64, {item.picname1}",
+                    //imageFormData = $"data:{"image/png"}; base64, {item.sp.picname1}",
+                    //userName=item.us.name
 
 
                 });

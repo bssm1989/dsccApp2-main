@@ -285,31 +285,31 @@ namespace FirstBlazorApp.Pages
             const_stsmar1 = await DBContext.GetAll<const_stsmar>("const_stsmar");
             const_vaccination1 = await DBContext.GetAll<const_vaccination>("const_vaccination");
             //################
-            //          await JSRuntime.InvokeVoidAsync("localStorage.setItem", "HC", HC);
-            //	_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./script/callFunction.js");
-            //	if(HC!= null)
-            //          {
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "HC", HC);
+            //_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./script/callFunction.js");
+            if (HC != null)
+            {
 
-            //List<person>getAllSurPro= await DBContext.GetByIndex<string, person>("person", HC, null, "hc", false);
-            //	recordSurveyProfile = getAllSurPro.First();
-            ////	semaphonSlim.Wait();
-            //	//SelectThreatValueChanged(recordSurveyProfile.JUN);
-            //	//SelectDistrictValueChanged(recordSurveyProfile.AMP);
-            //	SelectProvinceId	="sel"+ recordSurveyProfile.JUN;
-            //	SelectDistrictId	="sel"+	recordSurveyProfile.AMP;
-            //	SelectTambonId		=recordSurveyProfile.TMP;
-            //          }
-            //          if (recordSurveyProfile.AMP != null &&recordSurveyProfile.AMP!="")
-            //          {
-            //              int amp = Convert.ToInt32(recordSurveyProfile.JUN);
-            //              districts = await DBContext.GetByIndex<int?, district>("district", amp, 0, "province_id", false);
+                List<person> getAllSurPro = await DBContext.GetByIndex<string, person>("person", HC, null, "hc", false);
+                recordSurveyProfile = getAllSurPro.First();
+                //	semaphonSlim.Wait();
+                //SelectThreatValueChanged(recordSurveyProfile.JUN);
+                //SelectDistrictValueChanged(recordSurveyProfile.AMP);
+                SelectProvinceId = "sel" + recordSurveyProfile.JUN;
+                SelectDistrictId = "sel" + recordSurveyProfile.AMP;
+                SelectTambonId = recordSurveyProfile.TMP;
+            }
+            if (recordSurveyProfile.AMP != null && recordSurveyProfile.AMP != "")
+            {
+                int amp = Convert.ToInt32(recordSurveyProfile.JUN);
+                districts = await DBContext.GetByIndex<int?, district>("district", amp, 0, "province_id", false);
 
-            //              tambons = await DBContext.GetByIndex<string, tambon>("tambon", recordSurveyProfile.AMP, null, "district_id", false);
-            //              StateHasChanged();
+                tambons = await DBContext.GetByIndex<string, tambon>("tambon", recordSurveyProfile.AMP, null, "district_id", false);
+                StateHasChanged();
 
-            //	}
+            }
 
-            //provinces1 = await DBContext.GetAll<province>("province");
+            provinces1 = await DBContext.GetAll<province>("province");
         }
 
 
@@ -344,7 +344,7 @@ namespace FirstBlazorApp.Pages
             await DBContext.OpenIndexedDb();
             Random r = new Random();
             int num = r.Next();
-
+            recordSurveyProfile.HC = num.ToString();
             int updateStamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             recordSurveyProfile.JUN = SelectProvinceId;
             recordSurveyProfile.AMP = SelectDistrictId;
