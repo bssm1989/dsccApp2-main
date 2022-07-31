@@ -1,4 +1,4 @@
-/*.page {
+.page {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -67,10 +67,4 @@
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
     }
-}
-*/
-.mudblazor-logo {
-    width: 80px;
-    margin-left: auto;
-    margin-right: auto;
 }

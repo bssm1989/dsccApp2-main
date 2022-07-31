@@ -1,22 +1,144 @@
-﻿
-<MudNavMenu Class="mudblazor-navmenu">
-    <div class="docs-nav-fader"></div>
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">แบบสำรวจ</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
 
-    <MudNavGroup Title="Getting Started"
-                 Icon="@Icons.Material.Filled.School"
-                 ExpandIcon="@Icons.Material.Filled.ExpandMore" Style="margin-top: 40px;">
-        <MudNavLink Href="/">Home</MudNavLink>
-        <MudNavLink Href="/Adress">Adress</MudNavLink>
-        <MudNavLink Href="/FetchData">Fetch Data</MudNavLink>
-    </MudNavGroup>
-    <MudNavGroup Title="Demo Pages"
-                 Icon="@Icons.Material.Filled.Pages"
-                 ExpandIcon="@Icons.Material.Filled.ExpandMore">
-        <MudNavLink Href="/Login">Login</MudNavLink>
-    </MudNavGroup>
-</MudNavMenu>
-
-
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> หน้าหลัก
+            </NavLink>
+        </li>
+    @*    <li class="nav-item px-3">
+            <NavLink class="nav-link" href="staff">
+                <span class="oi oi-plus" aria-hidden="true"></span> ข้อมูลเจ้าหน้าที่
+            </NavLink>
+        </li>*@
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="surveypageone">
+                <span class="oi oi-plus" aria-hidden="true"></span> ทำแบบสำรวจ
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="adress">
+                <span class="oi oi-plus" aria-hidden="true"></span> adress
+            </NavLink>
+        </li>
+        @*<li class="nav-item px-3">
+            <NavLink class="nav-link" href="surveya2">
+                <span class="oi oi-plus" aria-hidden="true"></span> Surveya2
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="/survey1">
+                <span class="oi oi-plus" aria-hidden="true"></span>survey1  
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveya1">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveya1 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveya2">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveya2 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveya3">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveya3 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveya4">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveya4 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveya5">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveya5 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveyb1">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveyb1 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveyb2">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveyb2 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveyb3">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveyb3 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveyb4">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveyb4 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveyc1">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveyc1 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveyc2">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveyc2 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveyc3">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveyc3 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveyd1">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveyd1 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveyd2">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveyd2 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveyd3">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveyd3 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+           <NavLink class="nav-link" href="/surveye1">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveye1 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveye2">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveye2 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveye3">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveye3 
+            </NavLink>
+        </li>
+<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/surveyf">
+                <span class="oi oi-plus" aria-hidden="true"></span>surveyf  
+            </NavLink>
+        </li>*@
+       @* <li class="nav-item px-3">
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            </NavLink>
+        </li>*@
+    </ul>
+</div>
 
 @code {
     private bool collapseNavMenu = true;
