@@ -370,29 +370,28 @@
     <div class="control-wrapper">
         <div class="cascading">
             <label class="example-label">Country</label>
-            <SfDropDownList TItem="province" TValue="string" Placeholder="Select a country" PopupHeight="auto" DataSource="@provinces1">
+            <SfDropDownList TItem="province" TValue="string" PopupHeight="130px" Placeholder="Select a country" DataSource="@provinces1">
                 <DropDownListEvents TItem="province" TValue="string" ValueChange="ChangeCountry"></DropDownListEvents>
-                <DropDownListFieldSettings Text="CountryName" Value="CountryId"></DropDownListFieldSettings>
+                <DropDownListFieldSettings Text="province_name_thai" Value="province_id"></DropDownListFieldSettings>
             </SfDropDownList>
         </div>
         <div class="cascading">
             <label class="example-label">State</label>
-            <SfDropDownList Enabled="@EnableStateDropDown" TValue="string" TItem="State" @bind-Value="@StateValue" Placeholder="Select a state" Query="@StateQuery" PopupHeight="auto" DataSource="@States">
-                <DropDownListEvents TItem="State" TValue="string" ValueChange="ChangeState"></DropDownListEvents>
-                <DropDownListFieldSettings Text="StateName" Value="StateId"></DropDownListFieldSettings>
+            <SfDropDownList Enabled="@EnableStateDropDown" TValue="string" TItem="district" @bind-Value="@StateValue" Placeholder="Select a state" Query="@StateQuery" PopupHeight="130px"  DataSource="@districts1">
+                <DropDownListEvents TItem="district" TValue="string" ValueChange="ChangeState"></DropDownListEvents>
+                <DropDownListFieldSettings Text="district_name_thai" Value="district_id"></DropDownListFieldSettings>
             </SfDropDownList>
         </div>
         <div class="cascading">
             <label class="example-label">City</label>
-            <SfDropDownList Enabled="@EnableCitytDropDown" TValue="string" TItem="city" @bind-Value="@CityValue" Placeholder="Select a city" Query="@CityQuery" PopupHeight="auto" DataSource="@cites">
-                <DropDownListFieldSettings Text="CityName" Value="CityId"></DropDownListFieldSettings>
+            <SfDropDownList Enabled="@EnableCitytDropDown" TValue="string" TItem="tambon"  Height="250px" @bind-Value="@CityValue" Placeholder="Select a city" Query="@CityQuery" PopupHeight="130px"  DataSource="@tambons1">
+                <DropDownListFieldSettings Text="tambon_name_thai" Value="tambon_id"></DropDownListFieldSettings>
             </SfDropDownList>
         </div>
     </div>
 </div>
 <style>
     .control-wrapper {
-        max-width: 250px;
         margin: 0 auto;
         padding: 10px 0px 0px;
     }
@@ -417,11 +416,11 @@
     {
         this.EnableStateDropDown = !string.IsNullOrEmpty(args.Value);
         this.EnableCitytDropDown = false;
-        this.StateQuery = new Query().Where(new WhereFilter() { Field = "CountryId", Operator = "equal", value = args.Value, IgnoreCase = false, IgnoreAccent = false });
+        this.StateQuery = new Query().Where(new WhereFilter() { Field = "province_id", Operator = "equal", value = args.Value, IgnoreCase = false, IgnoreAccent = false });
         this.StateValue = null;
         this.CityValue = null;
     }
-    public void ChangeState(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string, State> args)
+    public void ChangeState(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string, district> args)
     {
         this.EnableCitytDropDown = !string.IsNullOrEmpty(args.Value);
         this.CityQuery = new Query().Where(new WhereFilter() { Field = "StateId", Operator = "equal", value = args.Value, IgnoreCase = false, IgnoreAccent = false });

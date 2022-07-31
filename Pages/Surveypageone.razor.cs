@@ -27,9 +27,11 @@ namespace FirstBlazorApp.Pages
         survey_profile recordSurveyProfile = new survey_profile();
 		person personAdd = new person();
 		List<province> provinces1 = new List<province>();
+		List<district> districts1 = new List<district>();
 		List<district> districts = new List<district>();
 		List<district> districts2 = new List<district>();
 		List<tambon> tambons = new List<tambon>();
+		List<tambon> tambons1 = new List<tambon>();
         List<const_prenme> const_prenme1 = new List<const_prenme>();
         List<const_sex> const_sex1 = new List<const_sex>();
         List<person> person1 = new List<person  >();
@@ -244,6 +246,8 @@ namespace FirstBlazorApp.Pages
 		{
 			await DBContext.OpenIndexedDb();
 			provinces1 = await DBContext.GetAll<province>("province");
+            districts1 = await DBContext.GetAll<district>("district");
+            tambons1 = await DBContext.GetAll<tambon>("tambon");
             const_prenme1 = await DBContext.GetAll<const_prenme>("const_prenme");
             const_sex1 = await DBContext.GetAll<const_sex>("const_sex");
             //person1 = await DBContext.GetAll<person>("person");
