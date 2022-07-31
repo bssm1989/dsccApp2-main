@@ -7,6 +7,7 @@
 @using Syncfusion.Blazor.Data
 <h3>Component1</h3>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <div class="row" style='border-style: dotted;border-width: 1px'>
     <div class="col-lg-12  mb-3">
 
@@ -114,11 +115,32 @@
                 <DropDownListFieldSettings Text="district_name_thai" Value="district_id"></DropDownListFieldSettings>
             </SfDropDownList>
         </div>
+=======
+<div class="col-lg-12 control-section">
+    <div class="control-wrapper">
+        <div class="cascading">
+            <label class="example-label">Country</label>
+            <SfDropDownList TItem="province" TValue="string" PopupHeight="130px" Placeholder="Select a country" DataSource="@provinces1">
+                <DropDownListEvents TItem="province" TValue="string" ValueChange="ChangeCountry"></DropDownListEvents>
+                <DropDownListFieldSettings Text="province_name_thai" Value="province_id"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+        <div class="cascading">
+            <label class="example-label">State</label>
+            <SfDropDownList Enabled="@EnableStateDropDown" TValue="string" TItem="district" @bind-Value="@StateValue" Placeholder="Select a state" Query="@StateQuery" PopupHeight="130px" DataSource="@districts1">
+                <DropDownListEvents TItem="district" TValue="string" ValueChange="ChangeState"></DropDownListEvents>
+                <DropDownListFieldSettings Text="district_name_thai" Value="district_id"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+>>>>>>> parent of 8f479ef (change dropdown)
         <div class="cascading">
             <label class="example-label">City</label>
             <SfDropDownList Enabled="@EnableCitytDropDown" TValue="string" TItem="tambon" Height="250px" @bind-Value="@CityValue" Placeholder="Select a city" Query="@CityQuery" PopupHeight="130px" DataSource="@tambons1">
                 <DropDownListFieldSettings Text="tambon_name_thai" Value="tambon_id"></DropDownListFieldSettings>
             </SfDropDownList>
+<<<<<<< HEAD
+>>>>>>> parent of 8f479ef (change dropdown)
+=======
 >>>>>>> parent of 8f479ef (change dropdown)
         </div>
     </div>
