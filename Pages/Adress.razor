@@ -1,0 +1,72 @@
+﻿@page "/adress"
+
+@inject Models.EmployeeContext DBContext
+@inject NavigationManager UriHelper
+@using FirstBlazorApp.Models
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Data
+<h3>Component1</h3>
+<div class="col-lg-12 control-section">
+    <div class="control-wrapper">
+        <div class="cascading">
+            <label class="example-label">Country</label>
+            <SfDropDownList TItem="province" TValue="string" PopupHeight="130px" Placeholder="Select a country" DataSource="@provinces1">
+                <DropDownListEvents TItem="province" TValue="string" ValueChange="ChangeCountry"></DropDownListEvents>
+                <DropDownListFieldSettings Text="province_name_thai" Value="province_id"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+        <div class="cascading">
+            <label class="example-label">State</label>
+            <SfDropDownList Enabled="@EnableStateDropDown" TValue="string" TItem="district" @bind-Value="@StateValue" Placeholder="Select a state" Query="@StateQuery" PopupHeight="130px" DataSource="@districts1">
+                <DropDownListEvents TItem="district" TValue="string" ValueChange="ChangeState"></DropDownListEvents>
+                <DropDownListFieldSettings Text="district_name_thai" Value="district_id"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+        <div class="cascading">
+            <label class="example-label">City</label>
+            <SfDropDownList Enabled="@EnableCitytDropDown" TValue="string" TItem="tambon" Height="250px" @bind-Value="@CityValue" Placeholder="Select a city" Query="@CityQuery" PopupHeight="130px" DataSource="@tambons1">
+                <DropDownListFieldSettings Text="tambon_name_thai" Value="tambon_id"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </div>
+</div>
+
+<style>
+    .control-wrapper {
+        margin: 0 auto;
+        padding: 10px 0px 0px;
+    }
+
+    .example-label {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .control-wrapper .cascading {
+        padding: 30px 0px 0px;
+    }
+</style>
+@code {
+    public bool EnableStateDropDown = false;
+    public bool EnableCitytDropDown = false;
+    public string StateValue { get; set; } = null;
+    public Query StateQuery { get; set; } = null;
+    public string CityValue { get; set; } = null;
+    public Query CityQuery { get; set; } = null;
+    public void ChangeCountry(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string, province> args)
+    {
+        this.EnableStateDropDown = !string.IsNullOrEmpty(args.Value);
+        this.EnableCitytDropDown = false;
+        this.StateQuery = new Query().Where(new WhereFilter() { Field = "province_id", Operator = "equal", value = args.Value, IgnoreCase = false, IgnoreAccent = false });
+        this.StateValue = null;
+        this.CityValue = null;
+    }
+    public void ChangeState(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string, district> args)
+    {
+        this.EnableCitytDropDown = !string.IsNullOrEmpty(args.Value);
+        this.CityQuery = new Query().Where(new WhereFilter() { Field = "StateId", Operator = "equal", value = args.Value, IgnoreCase = false, IgnoreAccent = false });
+        this.CityValue = null;
+    }
+
+}
+
