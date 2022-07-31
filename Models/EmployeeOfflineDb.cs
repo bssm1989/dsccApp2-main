@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using DnetIndexedDb;
 using DnetIndexedDb.Models;
 using Microsoft.JSInterop;
-using static FirstBlazorApp.Models.compute_hc4;
+//using static FirstBlazorApp.Models.compute_hc4;
 
 namespace FirstBlazorApp.Models
 {
@@ -16,7 +16,7 @@ namespace FirstBlazorApp.Models
         public EmployeeOfflineDb()
         {
             Name = "EmployeeData";
-            Version =70;
+            Version =71;
             Stores = _stores;
         }
         private IndexedDbStore _tableFieldStore => new TStore<Employee>();
@@ -24,73 +24,73 @@ namespace FirstBlazorApp.Models
         private IndexedDbStore _tableFieldStore3 => new TStore<tambon>();
         private IndexedDbStore _tableFieldStore4 => new TStore<district>();
         private IndexedDbStore _tableFieldStore71 => new TStore<ch2_gis>();
-        private IndexedDbStore _tableFieldStore5 => new TStore<ch2_gis2>();
-        private IndexedDbStore _tableFieldStore6 => new TStore<compute_hc1>();
-        private IndexedDbStore _tableFieldStore7 => new TStore<compute_hc2>();
-        private IndexedDbStore _tableFieldStore8 => new TStore<compute_hc3>();
-        private IndexedDbStore _tableFieldStore9 => new TStore<compute_hc4>();
-        private IndexedDbStore _tableFieldStore11 => new TStore<employee>();
-        private IndexedDbStore _tableFieldStore12 => new TStore<hc_result>();
-        private IndexedDbStore _tableFieldStore13 => new TStore<hc_sum>();
-        private IndexedDbStore _tableFieldStore14 => new TStore<hc_sum1>();
-        private IndexedDbStore _tableFieldStore15 => new TStore<hc_sum2>();
-        private IndexedDbStore _tableFieldStore16 => new TStore<hc_sum3>();
-        private IndexedDbStore _tableFieldStore17 => new TStore<hc_sum4>();
-        private IndexedDbStore _tableFieldStore18 => new TStore<hc_sum5>();
-        private IndexedDbStore _tableFieldStore19 => new TStore<hc_sum6>();
-        private IndexedDbStore _tableFieldStore20 => new TStore<hc_sum_check1>();
-        private IndexedDbStore _tableFieldStore21 => new TStore<hc_sum_check2>();
-        private IndexedDbStore _tableFieldStore22 => new TStore<income>();
-        private IndexedDbStore _tableFieldStore23 => new TStore<income_edit>();
-        private IndexedDbStore _tableFieldStore24 => new TStore<income_eef>();
-        private IndexedDbStore _tableFieldStore25 => new TStore<insert_hc>();
-        private IndexedDbStore _tableFieldStore26 => new TStore<jun_finish>();
-        private IndexedDbStore _tableFieldStore27 => new TStore<jun_level_detail>();
-        private IndexedDbStore _tableFieldStore28 => new TStore<jun_location>();
-        private IndexedDbStore _tableFieldStore29 => new TStore<line_poor_rich>();
-        private IndexedDbStore _tableFieldStore30 => new TStore<livingon_tpmap>();
-        private IndexedDbStore _tableFieldStore31 => new TStore<livingon_tpmap2>();
-        private IndexedDbStore _tableFieldStore32 => new TStore<livingon_tpmap3>();
-        private IndexedDbStore _tableFieldStore33 => new TStore<livingon_tpmap4>();
+        //private IndexedDbStore _tableFieldStore5 => new TStore<ch2_gis2>();
+        //private IndexedDbStore _tableFieldStore6 => new TStore<compute_hc1>();
+        //private IndexedDbStore _tableFieldStore7 => new TStore<compute_hc2>();
+        //private IndexedDbStore _tableFieldStore8 => new TStore<compute_hc3>();
+        //private IndexedDbStore _tableFieldStore9 => new TStore<compute_hc4>();
+        //private IndexedDbStore _tableFieldStore11 => new TStore<employee>();
+        //private IndexedDbStore _tableFieldStore12 => new TStore<hc_result>();
+        //private IndexedDbStore _tableFieldStore13 => new TStore<hc_sum>();
+        //private IndexedDbStore _tableFieldStore14 => new TStore<hc_sum1>();
+        //private IndexedDbStore _tableFieldStore15 => new TStore<hc_sum2>();
+        //private IndexedDbStore _tableFieldStore16 => new TStore<hc_sum3>();
+        //private IndexedDbStore _tableFieldStore17 => new TStore<hc_sum4>();
+        //private IndexedDbStore _tableFieldStore18 => new TStore<hc_sum5>();
+        //private IndexedDbStore _tableFieldStore19 => new TStore<hc_sum6>();
+        //private IndexedDbStore _tableFieldStore20 => new TStore<hc_sum_check1>();
+        //private IndexedDbStore _tableFieldStore21 => new TStore<hc_sum_check2>();
+        //private IndexedDbStore _tableFieldStore22 => new TStore<income>();
+        //private IndexedDbStore _tableFieldStore23 => new TStore<income_edit>();
+        //private IndexedDbStore _tableFieldStore24 => new TStore<income_eef>();
+        //private IndexedDbStore _tableFieldStore25 => new TStore<insert_hc>();
+        //private IndexedDbStore _tableFieldStore26 => new TStore<jun_finish>();
+        //private IndexedDbStore _tableFieldStore27 => new TStore<jun_level_detail>();
+        //private IndexedDbStore _tableFieldStore28 => new TStore<jun_location>();
+        //private IndexedDbStore _tableFieldStore29 => new TStore<line_poor_rich>();
+        //private IndexedDbStore _tableFieldStore30 => new TStore<livingon_tpmap>();
+        //private IndexedDbStore _tableFieldStore31 => new TStore<livingon_tpmap2>();
+        //private IndexedDbStore _tableFieldStore32 => new TStore<livingon_tpmap3>();
+        //private IndexedDbStore _tableFieldStore33 => new TStore<livingon_tpmap4>();
         private IndexedDbStore _tableFieldStore34 => new TStore<log_file>();
-        private IndexedDbStore _tableFieldStore35 => new TStore<log_file_2>();
-        private IndexedDbStore _tableFieldStore36 => new TStore<mm>();
-        private IndexedDbStore _tableFieldStore37 => new TStore<poverty>();
-        private IndexedDbStore _tableFieldStore38 => new TStore<poverty_pattani>();
+        //private IndexedDbStore _tableFieldStore35 => new TStore<log_file_2>();
+        //private IndexedDbStore _tableFieldStore36 => new TStore<mm>();
+        //private IndexedDbStore _tableFieldStore37 => new TStore<poverty>();
+        //private IndexedDbStore _tableFieldStore38 => new TStore<poverty_pattani>();
         private IndexedDbStore _tableFieldStore39 => new TStore<province>();
-        private IndexedDbStore _tableFieldStore40 => new TStore<region>();
-        private IndexedDbStore _tableFieldStore41 => new TStore<snapshot>();
-        private IndexedDbStore _tableFieldStore42 => new TStore<staff_jun>();
-        private IndexedDbStore _tableFieldStore43 => new TStore<survey_a1>();
-        private IndexedDbStore _tableFieldStore44 => new TStore<survey_a2>();
-        private IndexedDbStore _tableFieldStore45 => new TStore<survey_b1>();
-        private IndexedDbStore _tableFieldStore46 => new TStore<survey_b2>();
-        private IndexedDbStore _tableFieldStore47 => new TStore<survey_b3>();
-        private IndexedDbStore _tableFieldStore48 => new TStore<survey_c1>();
-        private IndexedDbStore _tableFieldStore49 => new TStore<survey_c2>();
-        private IndexedDbStore _tableFieldStore50 => new TStore<survey_check>();
-        private IndexedDbStore _tableFieldStore51 => new TStore<survey_d1>();
-        private IndexedDbStore _tableFieldStore52 => new TStore<survey_d2>();
-        private IndexedDbStore _tableFieldStore53 => new TStore<survey_d3>();
-        private IndexedDbStore _tableFieldStore54 => new TStore<survey_e1>();
-        private IndexedDbStore _tableFieldStore55 => new TStore<survey_e2>();
-        private IndexedDbStore _tableFieldStore56 => new TStore<survey_e3>();
-        private IndexedDbStore _tableFieldStore57 => new TStore<survey_f1>();
+        //private IndexedDbStore _tableFieldStore40 => new TStore<region>();
+        //private IndexedDbStore _tableFieldStore41 => new TStore<snapshot>();
+        //private IndexedDbStore _tableFieldStore42 => new TStore<staff_jun>();
+        //private IndexedDbStore _tableFieldStore43 => new TStore<survey_a1>();
+        //private IndexedDbStore _tableFieldStore44 => new TStore<survey_a2>();
+        //private IndexedDbStore _tableFieldStore45 => new TStore<survey_b1>();
+        //private IndexedDbStore _tableFieldStore46 => new TStore<survey_b2>();
+        //private IndexedDbStore _tableFieldStore47 => new TStore<survey_b3>();
+        //private IndexedDbStore _tableFieldStore48 => new TStore<survey_c1>();
+        //private IndexedDbStore _tableFieldStore49 => new TStore<survey_c2>();
+        //private IndexedDbStore _tableFieldStore50 => new TStore<survey_check>();
+        //private IndexedDbStore _tableFieldStore51 => new TStore<survey_d1>();
+        //private IndexedDbStore _tableFieldStore52 => new TStore<survey_d2>();
+        //private IndexedDbStore _tableFieldStore53 => new TStore<survey_d3>();
+        //private IndexedDbStore _tableFieldStore54 => new TStore<survey_e1>();
+        //private IndexedDbStore _tableFieldStore55 => new TStore<survey_e2>();
+        //private IndexedDbStore _tableFieldStore56 => new TStore<survey_e3>();
+        //private IndexedDbStore _tableFieldStore57 => new TStore<survey_f1>();
         private IndexedDbStore _tableFieldStore58 => new TStore<survey_profile>();
         private IndexedDbStore _tableFieldStore59 => new TStore<survey_staff>();
-        private IndexedDbStore _tableFieldStore60 => new TStore<surwaya_tmp>();
+        //private IndexedDbStore _tableFieldStore60 => new TStore<surwaya_tmp>();
         private IndexedDbStore _tableFieldStore61 => new TStore<tambon>();
-        private IndexedDbStore _tableFieldStore62 => new TStore<tasaban>();
-        private IndexedDbStore _tableFieldStore63 => new TStore<tpmap>();
-        private IndexedDbStore _tableFieldStore64 => new TStore<tpmap_pattani>();
-        private IndexedDbStore _tableFieldStore65 => new TStore<tpmap_pattani2>();
-        private IndexedDbStore _tableFieldStore66 => new TStore<t_tambon>();
-        private IndexedDbStore _tableFieldStore67 => new TStore<update_hc>();
+        //private IndexedDbStore _tableFieldStore62 => new TStore<tasaban>();
+        //private IndexedDbStore _tableFieldStore63 => new TStore<tpmap>();
+        //private IndexedDbStore _tableFieldStore64 => new TStore<tpmap_pattani>();
+        //private IndexedDbStore _tableFieldStore65 => new TStore<tpmap_pattani2>();
+        //private IndexedDbStore _tableFieldStore66 => new TStore<t_tambon>();
+        //private IndexedDbStore _tableFieldStore67 => new TStore<update_hc>();
         private IndexedDbStore _tableFieldStore68 => new TStore<upload_pic>();
         private IndexedDbStore _tableFieldStore69 => new TStore<users>();
         private IndexedDbStore _tableFieldStore70 => new TStore<volunteer>();
 
-        private IndexedDbStore _tableFieldStore72 => new TStore<survey_f>();
+        //private IndexedDbStore _tableFieldStore72 => new TStore<survey_f>();
         private IndexedDbStore _tableFieldStore73 => new TStore<const_prenme>();
 
         private IndexedDbStore _tableFieldStore74 => new TStore<person>();
@@ -111,18 +111,26 @@ private IndexedDbStore _tableFieldStore90 => new TStore<const_stsmar    >();
 private IndexedDbStore _tableFieldStore91 => new TStore<const_vaccination>();
         private List<IndexedDbStore> _stores => new List<IndexedDbStore>
         {
-            _tableFieldStore,_tableFieldStore2,_tableFieldStore4,_tableFieldStore3,_tableFieldStore5,
-            _tableFieldStore6,_tableFieldStore7,_tableFieldStore8,_tableFieldStore9,_tableFieldStore11,
-            _tableFieldStore12,_tableFieldStore13,_tableFieldStore14,_tableFieldStore15,_tableFieldStore16,_tableFieldStore17,
-            _tableFieldStore18,_tableFieldStore19,_tableFieldStore20,_tableFieldStore21,_tableFieldStore22,_tableFieldStore23,
-            _tableFieldStore24,_tableFieldStore25,_tableFieldStore26,_tableFieldStore27,_tableFieldStore28,_tableFieldStore29,
-            _tableFieldStore30,_tableFieldStore31,_tableFieldStore32,_tableFieldStore33,_tableFieldStore34,_tableFieldStore35,
-            _tableFieldStore36,_tableFieldStore37,_tableFieldStore38,_tableFieldStore40,_tableFieldStore41,
-            _tableFieldStore42,_tableFieldStore43,_tableFieldStore44,_tableFieldStore45,_tableFieldStore46,_tableFieldStore47,
-            _tableFieldStore48,_tableFieldStore49,_tableFieldStore50,_tableFieldStore51,_tableFieldStore52,_tableFieldStore53,
-            _tableFieldStore54,_tableFieldStore55,_tableFieldStore56,_tableFieldStore57,_tableFieldStore58,_tableFieldStore59,
-            _tableFieldStore60,_tableFieldStore62,_tableFieldStore63,_tableFieldStore64,_tableFieldStore65,
-            _tableFieldStore66,_tableFieldStore67,_tableFieldStore68,_tableFieldStore69,_tableFieldStore70,_tableFieldStore71,_tableFieldStore72,
+            _tableFieldStore,_tableFieldStore2,_tableFieldStore4,_tableFieldStore3,
+            //_tableFieldStore5,
+            //_tableFieldStore6,_tableFieldStore7,_tableFieldStore8,_tableFieldStore9,_tableFieldStore11,
+            //_tableFieldStore12,_tableFieldStore13,_tableFieldStore14,_tableFieldStore15,_tableFieldStore16,_tableFieldStore17,
+            //_tableFieldStore18,_tableFieldStore19,_tableFieldStore20,_tableFieldStore21,_tableFieldStore22,_tableFieldStore23,
+            //_tableFieldStore24,_tableFieldStore25,_tableFieldStore26,_tableFieldStore27,_tableFieldStore28,_tableFieldStore29,
+            //_tableFieldStore30,_tableFieldStore31,_tableFieldStore32,_tableFieldStore33,
+            _tableFieldStore34,
+            //_tableFieldStore35,
+            //_tableFieldStore36,_tableFieldStore37,_tableFieldStore38,_tableFieldStore40,_tableFieldStore41,
+            //_tableFieldStore42,_tableFieldStore43,_tableFieldStore44,_tableFieldStore45,_tableFieldStore46,_tableFieldStore47,
+            //_tableFieldStore48,_tableFieldStore49,_tableFieldStore50,_tableFieldStore51,_tableFieldStore52,_tableFieldStore53,
+            //_tableFieldStore54,_tableFieldStore55,_tableFieldStore56,_tableFieldStore57,
+            _tableFieldStore58,
+            _tableFieldStore59,
+            //_tableFieldStore60,_tableFieldStore62,_tableFieldStore63,_tableFieldStore64,_tableFieldStore65,
+            //_tableFieldStore66,_tableFieldStore67,
+            _tableFieldStore68,_tableFieldStore69,_tableFieldStore70,
+            _tableFieldStore71,
+            //_tableFieldStore72,
             _tableFieldStore73,_tableFieldStore74,_tableFieldStore76,
                                                   _tableFieldStore77,
                                                   _tableFieldStore78,

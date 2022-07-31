@@ -263,26 +263,27 @@ namespace FirstBlazorApp.Pages
         {
             await DBContext.OpenIndexedDb();
             provinces1 = await DBContext.GetAll<province>("province");
-            //districts1 = await DBContext.GetAll<district>("district");
-            //tambons1 = await DBContext.GetAll<tambon>("tambon");
-            //const_prenme1 = await DBContext.GetAll<const_prenme>("const_prenme");
-            //const_sex1 = await DBContext.GetAll<const_sex>("const_sex");
-            ////person1 = await DBContext.GetAll<person>("person");
-            //const_currlev1 = await DBContext.GetAll<const_currlev>("const_currlev");
-            //const_disability_type1 = await DBContext.GetAll<const_disability_type>("const_disability_type");
-            //const_edulev1 = await DBContext.GetAll<const_edulev>("const_edulev");
-            //const_elderly_grp1 = await DBContext.GetAll<const_elderly_grp>("const_elderly_grp");
-            ////const_house_conditions1 = await DBContext.GetAll<const_house_conditions>("const_house_conditions");
-            //const_occ1 = await DBContext.GetAll<const_occ>("const_occ");
-            //const_pertyp1 = await DBContext.GetAll<const_pertyp>("const_pertyp");
-            ////const_plc1 = await DBContext.GetAll<const_plc>("const_plc");
-            ////const_plcnmegen1 = await DBContext.GetAll<const_plcnmegen>("const_plcnmegen ");
-            //const_reg1 = await DBContext.GetAll<const_reg>("const_reg");
-            ////const_reltyp1 = await DBContext.GetAll<const_reltyp>("const_reltyp");
-            ////const_school1 = await DBContext.GetAll<const_school>("const_school");
-            ////const_sex1 = await DBContext.GetAll<const_sex>("const_sex");
-            //const_stsmar1 = await DBContext.GetAll<const_stsmar>("const_stsmar");
-            //const_vaccination1 = await DBContext.GetAll<const_vaccination>("const_vaccination");
+            districts1 = await DBContext.GetAll<district>("district");
+            tambons1 = await DBContext.GetAll<tambon>("tambon");
+            const_prenme1 = await DBContext.GetAll<const_prenme>("const_prenme");
+            const_sex1 = await DBContext.GetAll<const_sex>("const_sex");
+            //person1
+            //= await DBContext.GetAll<person>("person");
+            const_currlev1 = await DBContext.GetAll<const_currlev>("const_currlev");
+            const_disability_type1 = await DBContext.GetAll<const_disability_type>("const_disability_type");
+            const_edulev1 = await DBContext.GetAll<const_edulev>("const_edulev");
+            const_elderly_grp1 = await DBContext.GetAll<const_elderly_grp>("const_elderly_grp");
+            const_house_conditions1 = await DBContext.GetAll<const_house_conditions>("const_house_conditions");
+            const_occ1 = await DBContext.GetAll<const_occ>("const_occ");
+            const_pertyp1 = await DBContext.GetAll<const_pertyp>("const_pertyp");
+            const_plc1 = await DBContext.GetAll<const_plc>("const_plc");
+            const_plcnmegen1 = await DBContext.GetAll<const_plcnmegen>("const_plcnmegen");
+            const_reg1 = await DBContext.GetAll<const_reg>("const_reg");
+            const_reltyp1 = await DBContext.GetAll<const_reltyp>("const_reltyp");
+            const_school1 = await DBContext.GetAll<const_school>("const_school");
+            const_sex1 = await DBContext.GetAll<const_sex>("const_sex");
+            const_stsmar1 = await DBContext.GetAll<const_stsmar>("const_stsmar");
+            const_vaccination1 = await DBContext.GetAll<const_vaccination>("const_vaccination");
             //################
             //          await JSRuntime.InvokeVoidAsync("localStorage.setItem", "HC", HC);
             //	_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./script/callFunction.js");

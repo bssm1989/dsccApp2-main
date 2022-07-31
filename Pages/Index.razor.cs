@@ -26,7 +26,7 @@ namespace FirstBlazorApp.Pages
         bool displayUserAddedToDB = false;
 
         //**************แบบสำรวจ***********
-        private List<Models.staff_jun> re_ce = new List<Models.staff_jun>();
+        //private List<Models.staff_jun> re_ce = new List<Models.staff_jun>();
         private List<survey_staff> SurveyStaff= new List<survey_staff>();
         private List<Models.volunteer> name1 = new List<Models.volunteer>();
         private int num_total = 0;
