@@ -13,6 +13,8 @@
 <div class="container content">
     <div class="row">
         <div class="col-lg-12">
+            <h3>ยินดีตอนรับเข้าสู่ระบบ</h3>
+            <h4>ฐานข้อมูลพัฒนากลไกชุมชนเพื่อการดูแลสุขภาวะกลุ่มเปราะบางจังหวัดชายแดนใต้</h4>
             <label>ขณะนี้มีแบบสำรวจทั้งหมด&nbsp; @tableListSurveys.Count() &nbsp;ชุด&nbsp;&nbsp;<a href='index.php?curr=list_staff1&all=1'>ดูทั้งหมด</a></label>
         </div>
     </div>
@@ -22,13 +24,37 @@
 *@
 
 <br>
+<MatTable Items="tableListSurveys" class="mat-elevation-z5" >
+    <MatTableHeader>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+    </MatTableHeader>
+    <MatTableRow>
+        <td><a href='profile/@context.id'>@context.id</a></td>
+        <td>@context.UserName</td>
+        <td>
+            <input type="button" class="btn btn-danger btn-sm" @onclick="@(e => DeleteSurvey_profile(context.id))" value="ลบ" />
+            @{
+                var isDisable = false;
+                if (!String.IsNullOrEmpty(context.status))
+                {
 
-<div class="container">
+                    isDisable = context.status.Equals("1") ? true : false;
+                }
+
+            }
+
+            <input type="button" class="btn  @(context.spinning?"btn-dark":"btn-primary") " @onclick="@(e => syndatabyHc(context.id,context.index))" value="ส่งข้อมูล" disabled=@isDisable />
+        </td>
+    </MatTableRow>
+</MatTable>
+@*<div class="container">
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <table border=1>
                 <tr>
-                    <td rowspan='2' align='center'>HC</td>
+                    <td rowspan='2' align='center'>id</td>
                     <td rowspan='2' align='center'>อาสาสมัคร</td>
                     <td rowspan='2' align='center'>จังหวัด</td>
                     <td colspan='2' align='center'>ตอนที่ 1</td>
@@ -57,47 +83,47 @@
                 {
 
 
-            <tr>
-                <td><a href='profile/@item.HC'>@item.HC</a></td>
-                <td>@item.userName</td>
-                <td>@item.nameProvince </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                    @*/<td>@UnixTimeStampToDateTime(item.survey_staff.ch1_st)</td>
-            <td>@UnixTimeStampToDateTime(item.survey_staff.ch1_sp)</td>
-            <td>@UnixTimeStampToDateTime(item.survey_staff.ch2_st)</td>
-            <td>@UnixTimeStampToDateTime(item.survey_staff.ch2_sp)</td>
-            <td>@UnixTimeStampToDateTime(item.survey_staff.ch3_st)</td>
-            <td>@UnixTimeStampToDateTime(item.survey_staff.ch3_sp)</td>
-            <td>@UnixTimeStampToDateTime(item.survey_staff.ch4_st)</td>
-            <td>@UnixTimeStampToDateTime(item.survey_staff.ch4_sp)</td>
-            <td>@UnixTimeStampToDateTime(item.survey_staff.ch5_st)</td>
-            <td>@UnixTimeStampToDateTime(item.survey_staff.ch5_sp)</td>*@
-                <td>
-                    <input type="button" class="btn btn-danger btn-sm" @onclick="@(e => DeleteSurvey_profile(item.id))" value="ลบ" />
-                    @{
-                        var isDisable = false;
-                        if (!String.IsNullOrEmpty(item.status))
-                        {
+                    <tr>
+                        <td><a href='profile/@item.HC'>@item.HC</a></td>
+                        <td>@item.UserName</td>
+                        <td>@item.nameProvince </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>-->
+                        @*/<td>@UnixTimeStampToDateTime(item.survey_staff.ch1_st)</td>
+                            <td>@UnixTimeStampToDateTime(item.survey_staff.ch1_sp)</td>
+                            <td>@UnixTimeStampToDateTime(item.survey_staff.ch2_st)</td>
+                            <td>@UnixTimeStampToDateTime(item.survey_staff.ch2_sp)</td>
+                            <td>@UnixTimeStampToDateTime(item.survey_staff.ch3_st)</td>
+                            <td>@UnixTimeStampToDateTime(item.survey_staff.ch3_sp)</td>
+                            <td>@UnixTimeStampToDateTime(item.survey_staff.ch4_st)</td>
+                            <td>@UnixTimeStampToDateTime(item.survey_staff.ch4_sp)</td>
+                            <td>@UnixTimeStampToDateTime(item.survey_staff.ch5_st)</td>
+                            <td>@UnixTimeStampToDateTime(item.survey_staff.ch5_sp)</td>*@
+                        <!--<td>
+                            <input type="button" class="btn btn-danger btn-sm" @onclick="@(e => DeleteSurvey_profile(item.id))" value="ลบ" />
+                            @{
+                                var isDisable = false;
+                                if (!String.IsNullOrEmpty(item.status))
+                                {
 
-                            isDisable = item.status.Equals("1") ? true : false;
-                        }
+                                    isDisable = item.status.Equals("1") ? true : false;
+                                }
 
 
 
-                    }
+                            }
 
-                    <input type="button" class="btn  @(item.spinning?"btn-dark":"btn-primary") " @onclick="@(e => syndatabyHc(item.id,item.index))" value="ส่งข้อมูล" disabled=@isDisable />
-                </td>
-            </tr>
+                            <input type="button" class="btn  @(item.spinning?"btn-dark":"btn-primary") " @onclick="@(e => syndatabyHc(item.id,item.index))" value="ส่งข้อมูล" disabled=@isDisable />
+                        </td>
+                    </tr>-->
 
 
 
@@ -107,8 +133,8 @@
                         echo"</table>";
                         if(!$all){
                         echo"*@
-                }
+                <!--}
             </table>
         </div>
     </div>
-</div>
+</div>-->

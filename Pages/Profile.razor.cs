@@ -346,7 +346,12 @@ namespace FirstBlazorApp.Pages
             await DBContext.OpenIndexedDb();
             Random r = new Random();
             int num = r.Next();
-            recordSurveyProfile.HC = num.ToString();
+            if (recordSurveyProfile.HC == null || recordSurveyProfile.id==null)
+            {
+                recordSurveyProfile.HC = num.ToString();
+                recordSurveyProfile.id = num.ToString();
+            }
+            
             int updateStamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             recordSurveyProfile.JUN = SelectProvinceId;
             recordSurveyProfile.AMP = SelectDistrictId;

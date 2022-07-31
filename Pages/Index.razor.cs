@@ -362,7 +362,9 @@ namespace FirstBlazorApp.Pages
                     //nameProvince =provinceName,
                     //HC = item.sp.HC,
                     HC = item.HC,
-                    id=111,
+
+                    UserName=item.nme+" "+item.surnme,
+                    id =Int32.Parse( item.id),
                     //id=item.sp.id,
                     status="sdsds",
                     //status=item.sp.status,
