@@ -246,49 +246,50 @@ namespace FirstBlazorApp.Pages
 		{
 			await DBContext.OpenIndexedDb();
 			provinces1 = await DBContext.GetAll<province>("province");
-            //districts1 = await DBContext.GetAll<district>("district");
-            //tambons1 = await DBContext.GetAll<tambon>("tambon");
-            //const_prenme1 = await DBContext.GetAll<const_prenme>("const_prenme");
-            //const_sex1 = await DBContext.GetAll<const_sex>("const_sex");
-            ////person1 = await DBContext.GetAll<person>("person");
-            //const_currlev1 = await DBContext.GetAll<const_currlev>("const_currlev");
-            //const_disability_type1 = await DBContext.GetAll<const_disability_type>("const_disability_type");
-            //const_edulev1 = await DBContext.GetAll<const_edulev>("const_edulev");
-            //const_elderly_grp1 = await DBContext.GetAll<const_elderly_grp>("const_elderly_grp");
-            ////const_house_conditions1 = await DBContext.GetAll<const_house_conditions>("const_house_conditions");
-            //const_occ1 = await DBContext.GetAll<const_occ>("const_occ");
-            //const_pertyp1 = await DBContext.GetAll<const_pertyp>("const_pertyp");
-            ////const_plc1 = await DBContext.GetAll<const_plc>("const_plc");
-            ////const_plcnmegen1 = await DBContext.GetAll<const_plcnmegen>("const_plcnmegen ");
-            //const_reg1 = await DBContext.GetAll<const_reg>("const_reg");
-            ////const_reltyp1 = await DBContext.GetAll<const_reltyp>("const_reltyp");
-            ////const_school1 = await DBContext.GetAll<const_school>("const_school");
-            ////const_sex1 = await DBContext.GetAll<const_sex>("const_sex");
-            //const_stsmar1 = await DBContext.GetAll<const_stsmar>("const_stsmar");
-            //const_vaccination1 = await DBContext.GetAll<const_vaccination>("const_vaccination");
-            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "HC", HC);
-			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./script/callFunction.js");
-			if(HC!= null)
-            {
+			//districts1 = await DBContext.GetAll<district>("district");
+			//tambons1 = await DBContext.GetAll<tambon>("tambon");
+			//const_prenme1 = await DBContext.GetAll<const_prenme>("const_prenme");
+			//const_sex1 = await DBContext.GetAll<const_sex>("const_sex");
+			////person1 = await DBContext.GetAll<person>("person");
+			//const_currlev1 = await DBContext.GetAll<const_currlev>("const_currlev");
+			//const_disability_type1 = await DBContext.GetAll<const_disability_type>("const_disability_type");
+			//const_edulev1 = await DBContext.GetAll<const_edulev>("const_edulev");
+			//const_elderly_grp1 = await DBContext.GetAll<const_elderly_grp>("const_elderly_grp");
+			////const_house_conditions1 = await DBContext.GetAll<const_house_conditions>("const_house_conditions");
+			//const_occ1 = await DBContext.GetAll<const_occ>("const_occ");
+			//const_pertyp1 = await DBContext.GetAll<const_pertyp>("const_pertyp");
+			////const_plc1 = await DBContext.GetAll<const_plc>("const_plc");
+			////const_plcnmegen1 = await DBContext.GetAll<const_plcnmegen>("const_plcnmegen ");
+			//const_reg1 = await DBContext.GetAll<const_reg>("const_reg");
+			////const_reltyp1 = await DBContext.GetAll<const_reltyp>("const_reltyp");
+			////const_school1 = await DBContext.GetAll<const_school>("const_school");
+			////const_sex1 = await DBContext.GetAll<const_sex>("const_sex");
+			//const_stsmar1 = await DBContext.GetAll<const_stsmar>("const_stsmar");
+			//const_vaccination1 = await DBContext.GetAll<const_vaccination>("const_vaccination");
+//################
+			//          await JSRuntime.InvokeVoidAsync("localStorage.setItem", "HC", HC);
+			//	_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./script/callFunction.js");
+			//	if(HC!= null)
+			//          {
 
-		List<survey_profile>getAllSurPro= await DBContext.GetByIndex<string, survey_profile>("survey_profile", HC, null, "hc", false);
-			recordSurveyProfile = getAllSurPro.First();
-		//	semaphonSlim.Wait();
-			//SelectThreatValueChanged(recordSurveyProfile.JUN);
-			//SelectDistrictValueChanged(recordSurveyProfile.AMP);
-			SelectProvinceId	="sel"+ recordSurveyProfile.JUN;
-			SelectDistrictId	="sel"+	recordSurveyProfile.AMP;
-			SelectTambonId		=recordSurveyProfile.TMP;
-            }
-            if (recordSurveyProfile.AMP != null &&recordSurveyProfile.AMP!="")
-            {
-                int amp = Convert.ToInt32(recordSurveyProfile.JUN);
-                districts = await DBContext.GetByIndex<int?, district>("district", amp, 0, "province_id", false);
+			//List<survey_profile>getAllSurPro= await DBContext.GetByIndex<string, survey_profile>("survey_profile", HC, null, "hc", false);
+			//	recordSurveyProfile = getAllSurPro.First();
+			////	semaphonSlim.Wait();
+			//	//SelectThreatValueChanged(recordSurveyProfile.JUN);
+			//	//SelectDistrictValueChanged(recordSurveyProfile.AMP);
+			//	SelectProvinceId	="sel"+ recordSurveyProfile.JUN;
+			//	SelectDistrictId	="sel"+	recordSurveyProfile.AMP;
+			//	SelectTambonId		=recordSurveyProfile.TMP;
+			//          }
+			//          if (recordSurveyProfile.AMP != null &&recordSurveyProfile.AMP!="")
+			//          {
+			//              int amp = Convert.ToInt32(recordSurveyProfile.JUN);
+			//              districts = await DBContext.GetByIndex<int?, district>("district", amp, 0, "province_id", false);
 
-                tambons = await DBContext.GetByIndex<string, tambon>("tambon", recordSurveyProfile.AMP, null, "district_id", false);
-                StateHasChanged();
+			//              tambons = await DBContext.GetByIndex<string, tambon>("tambon", recordSurveyProfile.AMP, null, "district_id", false);
+			//              StateHasChanged();
 
-			}
+			//	}
 
 			//provinces1 = await DBContext.GetAll<province>("province");
 		}
