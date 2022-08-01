@@ -294,6 +294,7 @@ namespace FirstBlazorApp.Pages
         }
         protected override async Task OnInitializedAsync()
         {
+            this.VisibleProperty1 = true;
             var openResult = await DBContext.OpenIndexedDb();
              await DBContext2.OpenIndexedDb();
             var test = await DBContext2.GetAll<ch2_gis_2>("ch2_gis_2");
@@ -315,10 +316,9 @@ namespace FirstBlazorApp.Pages
 
             employees = await DBContext.GetAll();
             //************  syn data *********
-            var getProvince = await DBContext.GetAll<province>("province");
-            if (getProvince.Count == 0)
+            var const_reg = await DBContext.GetAll<const_reg>("const_reg");
+            if (const_reg.Count == 0)
             {
-
                 await DBContext.loadDbFromServer();
             }
 
@@ -381,7 +381,7 @@ namespace FirstBlazorApp.Pages
 
             num_total =survey_profile_list.Count();
             user = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "name");
-
+            this.VisibleProperty1 = false;
 
         }
         private string user ="";

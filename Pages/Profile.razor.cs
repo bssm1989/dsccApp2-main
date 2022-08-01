@@ -108,7 +108,8 @@ namespace FirstBlazorApp.Pages
 
 
             CurrentPositionResult = await GeolocationService.GetCurrentPosition();
-
+            recordSurveyProfile.lat = CurrentLatitude;
+            recordSurveyProfile.lon = CurrentLongitude;
             StateHasChanged();
         }
         public static class configSurvey

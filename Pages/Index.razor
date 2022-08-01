@@ -4,11 +4,33 @@
 @inject Models.EmployeeContext2 DBContext2
 
 
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Spinner
+@using Syncfusion.Blazor.Buttons
 
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 @*test deploy   id test<h1>Hello, Bassam</h1>*@
+<div>
+    <div id="container">
+        <SfSpinner @bind-Visible="@VisibleProperty1">
+        </SfSpinner>
+    </div>
+</div>
+<style>
 
+    element.style {
+    }
+
+    .e-spinner-pane .e-spinner-inner {
+        top: 5%;
+    }
+</style>
+@code{
+    private bool VisibleProperty1 { get; set; } = false;
+
+
+}
 <br>
 <div class="container content">
     <div class="row">
@@ -24,7 +46,7 @@
 *@
 
 <br>
-<MatTable Items="tableListSurveys" class="mat-elevation-z5" >
+<MatTable Items="tableListSurveys" class="mat-elevation-z5">
     <MatTableHeader>
         <th>Id</th>
         <th>Name</th>
@@ -107,33 +129,30 @@
                             <td>@UnixTimeStampToDateTime(item.survey_staff.ch4_sp)</td>
                             <td>@UnixTimeStampToDateTime(item.survey_staff.ch5_st)</td>
                             <td>@UnixTimeStampToDateTime(item.survey_staff.ch5_sp)</td>*@
-                        <!--<td>
-                            <input type="button" class="btn btn-danger btn-sm" @onclick="@(e => DeleteSurvey_profile(item.id))" value="ลบ" />
-                            @{
-                                var isDisable = false;
-                                if (!String.IsNullOrEmpty(item.status))
-                                {
+<!--<td>
+        <input type="button" class="btn btn-danger btn-sm" @onclick="@(e => DeleteSurvey_profile(item.id))" value="ลบ" />
+        @{
+            var isDisable = false;
+            if (!String.IsNullOrEmpty(item.status))
+            {
 
-                                    isDisable = item.status.Equals("1") ? true : false;
-                                }
-
-
-
-                            }
-
-                            <input type="button" class="btn  @(item.spinning?"btn-dark":"btn-primary") " @onclick="@(e => syndatabyHc(item.id,item.index))" value="ส่งข้อมูล" disabled=@isDisable />
-                        </td>
-                    </tr>-->
+                isDisable = item.status.Equals("1") ? true : false;
+            }
 
 
 
-                    @*
-                        }
+        }
 
-                        echo"</table>";
-                        if(!$all){
-                        echo"*@
-                <!--}
+        <input type="button" class="btn  @(item.spinning?"btn-dark":"btn-primary") " @onclick="@(e => syndatabyHc(item.id,item.index))" value="ส่งข้อมูล" disabled=@isDisable />
+    </td>
+</tr>-->
+@*
+    }
+
+    echo"</table>";
+    if(!$all){
+    echo"*@
+<!--}
             </table>
         </div>
     </div>

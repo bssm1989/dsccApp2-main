@@ -273,14 +273,14 @@ private IndexedDbStore _tableFieldStore91 => new TStore<const_vaccination>();
                 List<const_pertyp> DeserializedObjList13 = (List<const_pertyp>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_pertyp>));
                 var db1Result23 = await this.DeleteAll("const_pertyp");
                 var db1Result24 = await this.AddItems<const_pertyp>("const_pertyp", DeserializedObjList13);
-                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_plc"); contents = await response.Content.ReadAsStringAsync();
-                List<const_plc> DeserializedObjList14 = (List<const_plc>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_plc>));
-                var db1Result25 = await this.DeleteAll("const_plc");
-                var db1Result26 = await this.AddItems<const_plc>("const_plc", DeserializedObjList14);
-                response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_plcnmegen"); contents = await response.Content.ReadAsStringAsync();
-                List<const_plcnmegen> DeserializedObjList15 = (List<const_plcnmegen>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_plcnmegen>));
-                var db1Result27 = await this.DeleteAll("const_plcnmegen");
-                var db1Result28 = await this.AddItems<const_plcnmegen>("const_plcnmegen", DeserializedObjList15);
+                //response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_plc"); contents = await response.Content.ReadAsStringAsync();
+                //List<const_plc> DeserializedObjList14 = (List<const_plc>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_plc>));
+                //var db1Result25 = await this.DeleteAll("const_plc");
+                //var db1Result26 = await this.AddItems<const_plc>("const_plc", DeserializedObjList14);
+                //response = await httpClient.GetAsync("https://www.psutrobon.com/gis_bssm/index.php?table=const_plcnmegen"); contents = await response.Content.ReadAsStringAsync();
+                //List<const_plcnmegen> DeserializedObjList15 = (List<const_plcnmegen>)Newtonsoft.Json.JsonConvert.DeserializeObject(contents, typeof(List<const_plcnmegen>));
+                //var db1Result27 = await this.DeleteAll("const_plcnmegen");
+                //var db1Result28 = await this.AddItems<const_plcnmegen>("const_plcnmegen", DeserializedObjList15);
               
 
 
