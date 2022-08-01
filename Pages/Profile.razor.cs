@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using Darnton.Blazor.DeviceInterop.Geolocation;
 using FirstBlazorApp.Models;
 using FirstBlazorApp.Pages;
 using MatBlazor;
@@ -89,6 +90,27 @@ namespace FirstBlazorApp.Pages
         [Parameter]
         public string HC { get; set; }
         //EmployeeContext DBContext;
+
+
+        [Inject] public IGeolocationService GeolocationService { get; set; }
+        protected GeolocationResult CurrentPositionResult { get; set; }
+        protected string CurrentLatitude => CurrentPositionResult?.Position?.Coords?.Latitude.ToString("F2");
+        protected string CurrentLongitude => CurrentPositionResult?.Position?.Coords?.Longitude.ToString("F2");
+        private bool isWatching => WatchHandlerId.HasValue;
+        protected long? WatchHandlerId { get; set; }
+        protected GeolocationResult LastWatchPositionResult { get; set; }
+        protected string LastWatchLatitude => LastWatchPositionResult?.Position?.Coords?.Latitude.ToString("F2");
+        protected string LastWatchLongitude => LastWatchPositionResult?.Position?.Coords?.Longitude.ToString("F2");
+        protected string LastWatchTimestamp => LastWatchPositionResult?.Position?.DateTimeOffset.ToString();
+        protected string ToggleWatchCommand => isWatching ? "Stop watching" : "Start watching";
+        public async void ShowCurrentPosition()
+        {
+
+
+            CurrentPositionResult = await GeolocationService.GetCurrentPosition();
+
+            StateHasChanged();
+        }
         public static class configSurvey
         {
             public static string survey_year = "2563";

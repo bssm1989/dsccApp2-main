@@ -10,26 +10,31 @@
 @using Syncfusion.Blazor.Spinner
 @using Syncfusion.Blazor.Buttons
 
-@using AspNetMonsters.Blazor.Geolocation
-@inject LocationService  LocationService
-@*<h3>You are here</h3>
-    <div>
-        Lat: @location?.Latitude <br />
-        Long: @location?.Longitude <br />
-        Accuracy: @location?.Accuracy <br />
-    </div>
-    <SfButton @onclick="@ClickHandler">Show/Hide Spinner</SfButton>*@
-@code
-{
-    Location location;
-    private async Task ClickHandler()
+@using Darnton.Blazor.DeviceInterop.Geolocation
+
+
+
+<div class="my-3">
+    <h3>Current Position</h3>
+    <p class="my-0">
+        <span class="font-weight-bold">Position </span>
+        @if (CurrentPositionResult?.Position is null)
+        {
+            <span>[unknown]</span>
+        }
+        else
+        {
+            <span>Lat: @CurrentLatitude °, Long: @CurrentLongitude °</span>
+        }
+    </p>
+    <button class="btn btn-primary my-3" @onclick="ShowCurrentPosition">Current Location</button>
+    @if (CurrentPositionResult?.Error != null)
     {
-        location = await LocationService.GetLocationAsync();
+        <p class="bg-light text-danger">Error: @CurrentPositionResult.Error.Message</p>
     }
 
-}
+</div>
 <div>
-
     <div id="container">
         <SfSpinner @bind-Visible="@VisibleProperty">
         </SfSpinner>
