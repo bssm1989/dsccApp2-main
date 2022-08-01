@@ -263,7 +263,6 @@ namespace FirstBlazorApp.Pages
         {
             this.VisibleProperty = true;
             
-            //CurrentPositionResult = await GeolocationService.GetCurrentPosition();
             await DBContext.OpenIndexedDb();
             provinces1 = await DBContext.GetAll<province>("province");
             districts1 = await DBContext.GetAll<district>("district");
